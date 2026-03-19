@@ -1,577 +1,740 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isabel Bettinger — Product Manager</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-primary: #FAF9F6;
-            --bg-secondary: #F0EDE6;
-            --bg-card: #FFFFFF;
-            --text-primary: #1A1A1A;
-            --text-secondary: #545454;
-            --text-muted: #888888;
-            --accent-primary: #1E40AF;
-            --accent-secondary: #4A5568;
-            --border: #E2E0DB;
-            --border-hover: #C9C7C2;
-            --font-display: 'Plus Jakarta Sans', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-            --container-width: 1100px;
-            --section-spacing: 80px;
-            --card-padding: 24px;
-            --gap: 20px;
-            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-            --duration-fast: 0.2s;
-            --duration-normal: 0.35s;
-        }
-        
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 40px; }
-        
-        body {
-            font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.55;
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; }
-        
-        .text-giant { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.025em; }
-        .text-h1 { font-size: clamp(1.75rem, 3vw, 2.5rem); }
-        .text-h2 { font-size: clamp(1.375rem, 2vw, 1.625rem); }
-        .text-h3 { font-size: 1.0625rem; }
-        .text-secondary { color: var(--text-secondary); }
-        a { color: inherit; text-decoration: none; }
-        
-        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2rem); }
-        section { padding: var(--section-spacing) 0; }
-        
-        .nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 1.125rem 0;
-            background: rgba(250, 249, 246, 0.98);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo { font-family: var(--font-display); font-weight: 600; font-size: 0.9375rem; }
-        
-        .nav-links { display: flex; gap: 2rem; list-style: none; position: relative; }
-        .nav-item { position: relative; }
-        .nav-item > a { font-size: 0.875rem; color: var(--text-secondary); transition: color var(--duration-fast); display: flex; align-items: center; gap: 0.375rem; }
-        .nav-item > a:hover { color: var(--text-primary); }
-        
-        .dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            margin-top: 12px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 0.5rem 0;
-            min-width: 160px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all var(--duration-fast);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
-        .dropdown a {
-            display: block;
-            padding: 0.625rem 1rem;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            transition: all var(--duration-fast);
-        }
-        .dropdown a:hover { color: var(--accent-primary); background: var(--bg-secondary); }
-        
-        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
-        .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--border); }
-        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; width: 100%; }
-        .hero-content { position: relative; padding-left: 24px; }
-        .hero-content::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 3px; background: var(--accent-primary); border-radius: 2px; }
-        .hero-image { display: flex; align-items: center; justify-content: center; }
-        .hero-image-placeholder { width: 100%; max-width: 350px; aspect-ratio: 3/4; border-radius: 8px; overflow: hidden; }
-        .hero-image-placeholder img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .page-header { padding-top: 100px; padding-bottom: 40px; }
-        .section-label { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-primary); margin-bottom: 0.625rem; display: block; border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; width: fit-content; }
-        
-        .timeline { position: relative; padding-left: 2rem; }
-        .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: var(--border); }
-        .timeline-item { position: relative; padding-bottom: 2.5rem; }
-        .timeline-item::before { content: ''; position: absolute; left: -2rem; top: 6px; width: 10px; height: 10px; background: var(--bg-primary); border: 2px solid var(--accent-primary); border-radius: 50%; transform: translateX(-4px); }
-        .timeline-item:hover::before { background: var(--accent-primary); }
-        
-        
-        .timeline-date { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-bottom: 0.375rem; }
-        .timeline-title { font-size: 1.125rem; margin-bottom: 0.25rem; }
-        .timeline-company { font-size: 0.9375rem; color: var(--accent-secondary); margin-bottom: 0.625rem; font-weight: 500; }
-        .timeline-description { color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.65; }
-        
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--gap); }
-        
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: var(--card-padding); }
-        .card h3 { margin-bottom: 0.625rem; font-size: 1.125rem; }
-        .card p { color: var(--text-secondary); line-height: 1.65; font-size: 0.9375rem; }
-        
-        .card-icon { font-size: 1.5rem; color: var(--accent-primary); margin-bottom: 1rem; }
-        
-        .accordion-trigger { 
-            font-family: var(--font-body);
-            outline: none;
-        }
-        .accordion-trigger:hover .accordion-label,
-        .accordion-trigger:focus .accordion-label {
-            color: var(--accent-primary) !important;
-        }
-        .accordion-item.active .accordion-trigger .accordion-label {
-            color: var(--accent-primary);
-            font-weight: 600;
-        }
-        
-        .accordion-content { 
-            max-height: 0; 
-            overflow: hidden; 
-            transition: max-height 0.3s ease;
-        }
-        .accordion-item.active .accordion-icon {
-            transform: rotate(180deg);
-        }
-        
-        .skills-section { margin-bottom: 2.5rem; }
-        .skills-section h2 { font-size: 1.25rem; margin-bottom: 1.25rem; color: var(--text-primary); }
-        
-        .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.skill-tag { padding: 0.625rem 1rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); }
-        
-        .level-bar { display: flex; gap: 2rem; flex-wrap: wrap; }
-        .level-item { flex: 1; min-width: 200px; }
-        .level-label { display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.5rem; }
-        .level-label span:first-child { font-weight: 500; }
-        .level-label span:last-child { color: var(--text-muted); }
-        .level-track { height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden; }
-        .level-fill { height: 100%; background: var(--accent-primary); border-radius: 3px; transition: width 0.6s var(--ease-out); }
-        
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--gap); }
-        
-        .project-card { background: var(--bg-card); border: 1px solid #E2E8F0; border-radius: 12px; padding: 0; overflow: hidden; cursor: pointer; display: block; color: inherit; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-        .project-card:hover { border-color: #9CA3AF; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        
-        .project-image { width: 100%; height: 140px; background: linear-gradient(135deg, var(--accent-primary) 0%, var(--bg-secondary) 100%); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-        .project-initial { font-family: var(--font-display); font-size: 3rem; font-weight: 700; color: white; opacity: 0.9; }
-        
-        .project-content { padding: var(--card-padding); }
-        .project-card h3 { font-size: 1.1875rem; margin-bottom: 0.375rem; }
-        .project-card p { color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 0.75rem; line-height: 1.55; }
-        
-        .project-link { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.8125rem; font-weight: 600; color: var(--accent-secondary); }
-        
-        .project-tags { display: flex; gap: 0.375rem; flex-wrap: wrap; margin-top: 0.75rem; }
-        .project-tag { font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.25rem 0.5rem; background: var(--bg-secondary); border-radius: 3px; color: var(--text-muted); }
-        
-        #projects { width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; }
-        
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--gap); margin-top: 1.5rem; }
-        
-        .contact-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem 1.25rem; text-align: center; transition: all var(--duration-normal) var(--ease-out); }
-        .contact-card:hover { border-color: var(--accent-primary); transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06); }
-        .contact-card i { font-size: 1.375rem; color: var(--accent-secondary); margin-bottom: 0.75rem; }
-        .contact-card:hover i { color: var(--accent-primary); }
-        .contact-card h3 { font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; margin-bottom: 0.125rem; }
-        .contact-card p { font-size: 0.75rem; color: var(--text-muted); }
-        
-        footer { padding: 2rem 0; border-top: 1px solid var(--border); text-align: center; }
-        footer p { font-size: 0.75rem; color: var(--text-muted); }
-        
-        @media (max-width: 768px) {
-            :root { --section-spacing: 48px; --card-padding: 20px; --gap: 16px; }
-            .nav-links { display: none; }
-            .hero { padding-top: 60px; }
-            .hero-inner { grid-template-columns: 1fr; text-align: left; }
-            .hero-image { display: none; }
-            .projects-grid { grid-template-columns: 1fr; }
-            .contact-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isabel Bettinger — Product Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --bg: #F7F4EF;
+  --bg2: #EDE9E2;
+  --bg3: #E2DDD5;
+  --card: #FFFFFF;
+  --text: #1C1917;
+  --muted: #78716C;
+  --hint: #A8A29E;
+  --accent: #1D4ED8;
+  --accent-light: #DBEAFE;
+  --border: rgba(28,25,23,0.10);
+  --border-hover: rgba(28,25,23,0.22);
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-h: 64px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); font-size: 16px; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 2.5rem); }
+
+/* ─── NAV ─── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--nav-h);
+  background: rgba(247,244,239,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.nav-logo { font-family: var(--font-display); font-size: 1.125rem; letter-spacing: -0.01em; }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+.nav-links a {
+  font-size: 0.875rem; font-weight: 500; color: var(--muted);
+  padding: 0.375rem 0.75rem; border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover { color: var(--text); background: var(--bg2); }
+.nav-links .nav-cta {
+  background: var(--text); color: var(--bg); border-radius: 6px;
+  padding: 0.375rem 1rem; font-size: 0.875rem; font-weight: 500;
+  transition: opacity 0.2s;
+}
+.nav-links .nav-cta:hover { opacity: 0.8; background: var(--text); color: var(--bg); }
+
+/* Mobile hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-nav {
+  display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 199;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem 1.5rem; flex-direction: column; gap: 0.25rem;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a { font-size: 1rem; font-weight: 500; color: var(--muted); padding: 0.625rem 0; border-bottom: 1px solid var(--border); }
+.mobile-nav a:last-child { border-bottom: none; }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: grid;
+  place-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(219,234,254,0.45) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: center;
+  padding: 5rem 0;
+}
+.hero-eyebrow {
+  font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent);
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 2px;
+  background: var(--accent); border-radius: 1px;
+}
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+.hero-name em { font-style: italic; color: var(--muted); }
+.hero-tagline {
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.hero-philosophy {
+  display: inline-block;
+  background: var(--bg2);
+  border-left: 3px solid var(--accent);
+  padding: 0.875rem 1.25rem;
+  border-radius: 0 6px 6px 0;
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+}
+.hero-philosophy blockquote {
+  font-size: 0.9375rem;
+  color: var(--text);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+.hero-philosophy figcaption {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-style: normal;
+}
+.hero-philosophy figcaption span {
+  color: var(--hint);
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.375rem; border-radius: 8px;
+  font-weight: 500; font-size: 0.9375rem; cursor: pointer;
+  transition: all 0.2s var(--ease);
+  border: 1.5px solid transparent;
+}
+.btn-primary { background: var(--text); color: var(--bg); }
+.btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--text); border-color: var(--border-hover); }
+.btn-secondary:hover { background: var(--bg2); transform: translateY(-1px); }
+.hero-photo {
+  width: 280px; height: 340px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.scroll-hint {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: var(--hint); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  animation: bounce 2.5s ease-in-out infinite;
+}
+.scroll-hint i { font-size: 1rem; }
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+/* ─── SECTION SHELL ─── */
+section { padding: 6rem 0; }
+.section-label {
+  display: inline-flex; align-items: center; gap: 0.625rem;
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+}
+.section-label::before { content: ''; display: block; width: 20px; height: 2px; background: var(--accent); border-radius: 1px; }
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+.section-sub { color: var(--muted); font-size: 1.0625rem; max-width: 560px; line-height: 1.65; margin-bottom: 3rem; }
+
+/* ─── DIVIDER ─── */
+.divider { height: 1px; background: var(--border); margin: 0; }
+
+/* ─── ABOUT / TABS ─── */
+.about-bg { background: var(--bg); }
+.tab-bar {
+  display: flex; gap: 0; border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem; overflow-x: auto;
+}
+.tab-btn {
+  font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
+  color: var(--muted); background: none; border: none;
+  padding: 0.875rem 1.5rem; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
+.tab-btn:hover:not(.active) { color: var(--text); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Timeline */
+.timeline { padding-left: 1.75rem; border-left: 2px solid var(--border); }
+.tl-item { position: relative; padding-bottom: 2.75rem; }
+.tl-item::before {
+  content: ''; position: absolute;
+  left: calc(-1.75rem - 5px);
+  top: 6px; width: 10px; height: 10px;
+  border-radius: 50%; background: var(--bg);
+  border: 2px solid var(--border);
+  transition: border-color 0.2s, background 0.2s;
+}
+.tl-item:hover::before { border-color: var(--accent); background: var(--accent); }
+.tl-date { font-size: 0.75rem; font-weight: 600; color: var(--hint); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.375rem; }
+.tl-title { font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.125rem; }
+.tl-company { font-size: 0.9375rem; color: var(--accent); font-weight: 500; margin-bottom: 0.875rem; }
+.tl-list { list-style: none; padding: 0; }
+.tl-list li { position: relative; padding-left: 1.25rem; font-size: 0.9375rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.25rem; }
+.tl-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; top: 2px; }
+
+/* Edu cards */
+.edu-grid { display: grid; gap: 1rem; }
+.edu-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.5rem;
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.edu-card:hover { border-color: var(--border-hover); box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+.edu-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+.edu-inst { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.75rem; }
+.edu-list { list-style: none; padding: 0; }
+.edu-list li { font-size: 0.875rem; color: var(--muted); padding-left: 1rem; position: relative; margin-bottom: 0.2rem; }
+.edu-list li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+.edu-year { font-size: 0.8125rem; font-weight: 600; color: var(--hint); white-space: nowrap; }
+
+/* Skills grid */
+.skills-outer { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem 3rem; }
+.skill-group-title { font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text); margin-bottom: 0.875rem; }
+.skill-list { list-style: none; padding: 0; }
+.skill-list li { font-size: 0.9375rem; color: var(--muted); line-height: 1.8; padding-left: 1.125rem; position: relative; }
+.skill-list li::before { content: '·'; position: absolute; left: 0; color: var(--accent); font-weight: 700; font-size: 1.125rem; line-height: 1.4; }
+.lang-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.lang-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 0.375rem 0.875rem; font-size: 0.875rem; font-weight: 500; }
+.lang-badge span { font-size: 0.75rem; color: var(--muted); }
+
+/* Personal accordion */
+.accordion { max-width: 640px; }
+.ac-item { border-bottom: 1px solid var(--border); }
+.ac-trigger {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 1.25rem 0; background: none; border: none; cursor: pointer; text-align: left;
+  font-family: var(--font-body);
+}
+.ac-label { display: flex; align-items: center; gap: 0.875rem; font-size: 0.9375rem; font-weight: 500; color: var(--text); }
+.ac-label i { width: 20px; text-align: center; color: var(--accent); font-size: 0.9rem; }
+.ac-icon { color: var(--hint); font-size: 0.75rem; transition: transform 0.3s; }
+.ac-item.open .ac-icon { transform: rotate(180deg); }
+.ac-item.open .ac-label { color: var(--accent); }
+.ac-body { max-height: 0; overflow: hidden; transition: max-height 0.35s var(--ease); }
+.ac-body p { color: var(--muted); font-size: 0.9375rem; line-height: 1.75; padding-bottom: 1.25rem; }
+
+/* ─── PROJECTS ─── */
+.projects-bg { background: var(--bg2); }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+.proj-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: block;
+  color: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.proj-card:hover { border-color: var(--border-hover); box-shadow: 0 8px 30px rgba(0,0,0,0.09); transform: translateY(-3px); }
+.proj-img { height: 160px; overflow: hidden; background: var(--bg3); }
+.proj-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s var(--ease); }
+.proj-card:hover .proj-img img { transform: scale(1.04); }
+.proj-body { padding: 1.375rem; }
+.proj-tags { display: flex; gap: 0.375rem; flex-wrap: wrap; margin-bottom: 0.875rem; }
+.proj-tag {
+  font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 0.25rem 0.625rem; background: var(--accent-light); color: var(--accent);
+  border-radius: 4px;
+}
+.proj-title { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+.proj-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+.proj-link { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.875rem; font-weight: 600; color: var(--accent); }
+.proj-link i { transition: transform 0.2s; font-size: 0.75rem; }
+.proj-card:hover .proj-link i { transform: translateX(3px); }
+
+/* ─── CONTACT ─── */
+.contact-bg { background: var(--bg); }
+.contact-box {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: clamp(2rem, 5vw, 3.5rem); max-width: 640px;
+}
+.contact-methods { display: flex; flex-direction: column; gap: 0.875rem; margin-top: 2rem; }
+.contact-link {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.25rem; background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; font-size: 0.9375rem; font-weight: 500;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.contact-link:hover { border-color: var(--border-hover); background: var(--bg2); transform: translateX(4px); }
+.contact-link i { width: 20px; text-align: center; color: var(--accent); }
+.contact-link .cl-label { color: var(--muted); font-size: 0.8125rem; font-weight: 400; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 2rem 0; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+}
+footer p { font-size: 0.8125rem; color: var(--hint); }
+
+/* ─── FADE-IN ON SCROLL ─── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.55s var(--ease), transform 0.55s var(--ease); }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; padding: 3rem 0 2rem; }
+  .hero-photo { width: 100%; max-width: 320px; height: 260px; margin: 0 auto; }
+  .hero-name { font-size: clamp(2.5rem, 12vw, 3.5rem); }
+  .skills-outer { grid-template-columns: 1fr; }
+  section { padding: 4rem 0; }
+  .edu-card { flex-direction: column; gap: 0.5rem; }
+  .contact-box { border-radius: 10px; }
+}
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; }
+  .btn { justify-content: center; }
+}
+</style>
 </head>
 <body>
 
-    <nav class="nav">
-        <div class="container nav-inner">
-            <a href="#" class="nav-logo">Isabel Bettinger</a>
-            <ul class="nav-links">
-                <li class="nav-item">
-                    <a href="#about">About me ▾</a>
-                    <div class="dropdown">
-                        <a href="#professional">Professional</a>
-                        <a href="#education">Education</a>
-                        <a href="#skills">Skills</a>
-                        <a href="#personal">Personal</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects">Projects ▾</a>
-                    <div class="dropdown">
-                        <a href="projekt-action-view.html">Action View 2.0</a>
-                        <a href="projekt-time-control.html">Time Control</a>
-                        <a href="projekt-headless-fusion.html">Headless Fusion</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#home" class="nav-logo">Isabel Bettinger</a>
+    <ul class="nav-links">
+      <li><a href="#professional">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" class="nav-cta"><i class="fab fa-linkedin" style="font-size:0.875rem"></i> Connect</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#professional" onclick="closeMenu()">Experience</a>
+  <a href="#education" onclick="closeMenu()">Education</a>
+  <a href="#skills" onclick="closeMenu()">Skills</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank">Connect on LinkedIn</a>
+</div>
 
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-inner">
-                <div class="hero-content">
-                    <h1 class="text-giant">Isabel Bettinger</h1>
-                    <p class="hero-intro" style="font-size: 1.125rem; color: var(--text-secondary); max-width: 480px; margin-top: 1.5rem; line-height: 1.65;">
-                        I build the backbone of B2B companies, turning complex challenges into elegant, user-centered products that deliver measurable business impact.<br><br>
-                        <em style="color: var(--text-primary); font-style: normal; font-weight: 500;">My philosophy: "A product is not perfect when you can't add anything. It's perfect when you can't remove anything."</em>
-                    </p>
-                </div>
-                <div class="hero-image">
-                    <div class="hero-image-placeholder">
-                        <img src="pict2020.JPG" alt="Isabel Bettinger">
-                    </div>
-                </div>
-            </div>
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Product Manager</div>
+        <h1 class="hero-name">Isabel<br><em>Bettinger</em></h1>
+        <p class="hero-tagline">I build the backbone of B2B companies — turning complex challenges into elegant, user-centered products that deliver measurable business impact.</p>
+        <figure class="hero-philosophy">
+          <blockquote>"A product is not perfect when you can't add anything. It's perfect when you can't remove anything."</blockquote>
+          <figcaption>— Antoine de Saint-Exupéry &nbsp;·&nbsp; <span>A principle I live by</span></figcaption>
+        </figure>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View Projects <i class="fas fa-arrow-right" style="font-size:0.8rem"></i></a>
+          <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" class="btn btn-secondary"><i class="fab fa-linkedin" style="font-size:0.875rem"></i> LinkedIn</a>
         </div>
-    </section>
-
-    <section id="about">
-        <div class="container">
-            <span class="section-label">About Me</span>
-            
-            <section id="professional" style="padding-top: 80px; margin-top: -80px;">
-                <h2 class="text-h2" style="margin-bottom: 2rem;">Professional Background</h2>
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025 — Present</div>
-                        <h3 class="timeline-title">Product Manager / Product Owner</h3>
-                        <div class="timeline-company">ethinking GmbH</div>
-                        <ul class="timeline-description" style="margin-top: 0.75rem; color: var(--text-secondary); line-height: 1.7;">
-                            <li>Aligned go-to-market strategy with engineering roadmaps, prioritizing technical capacity against business objectives</li>
-                            <li>Developed and validated product-market fit through a 4-month launch strategy across two major iterations</li>
-                            <li>Engineered a delivery framework that decoupled strategic planning from daily execution</li>
-                            <li>Cultivated an "Outcome over Output" philosophy across multidisciplinary teams</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date">2023 — 2025</div>
-                        <h3 class="timeline-title">Product Manager</h3>
-                        <div class="timeline-company">Trisolute Software GmbH</div>
-                        <ul class="timeline-description" style="margin-top: 0.75rem; color: var(--text-secondary); line-height: 1.7;">
-                            <li>Identified user needs through quantitative and qualitative research to uncover key pain points</li>
-                            <li>Translated insights into clear goals, concepts, and mockups that shaped the product vision</li>
-                            <li>Coordinated cross-functional teams using agile methods (sprint planning, testing, fast feedback loops)</li>
-                            <li>Developed and executed go-to-market and promotion strategies for strong product adoption</li>
-                            <li>Tracked success through customer satisfaction surveys and continuous user feedback</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date">2021 — 2023</div>
-                        <h3 class="timeline-title">Junior Product Manager</h3>
-                        <div class="timeline-company">Trisolute Software GmbH</div>
-                        <ul class="timeline-description" style="margin-top: 0.75rem; color: var(--text-secondary); line-height: 1.7;">
-                            <li>Expanded customer relationships through regular visits and personal engagement</li>
-                            <li>Conducted competition and market analysis to identify trends, threats, and opportunities</li>
-                            <li>Analyzed usage data and implemented churn prevention strategies to retain customers</li>
-                            <li>Designed UX/UI and interfaces to enhance user experience and satisfaction</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="timeline-item">
-                        <div class="timeline-date">2018 — 2021</div>
-                        <h3 class="timeline-title">Junior Outreach Manager</h3>
-                        <div class="timeline-company">Dept Agency</div>
-                        <ul class="timeline-description" style="margin-top: 0.75rem; color: var(--text-secondary); line-height: 1.7;">
-                            <li>Digital marketing and outreach operations in Berlin</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="education" style="padding-top: 80px; margin-top: -80px;">
-                <h2 class="text-h2" style="margin-bottom: 2rem;">Education & Certifications</h2>
-                
-                <div style="display: grid; gap: 1.5rem;">
-                    <div class="card" style="padding: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
-                            <h3 style="font-size: 1.0625rem;">Bachelor of Arts, Social Sciences</h3>
-                            <span style="font-size: 0.8125rem; color: var(--text-muted); font-weight: 500;">2013 — 2018</span>
-                        </div>
-                        <p style="color: var(--text-secondary); font-size: 0.9375rem;">Justus-Liebig-University, Gießen</p>
-                    </div>
-                    
-                    <div class="card" style="padding: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
-                            <h3 style="font-size: 1.0625rem;">Product Management Certificates</h3>
-                            <span style="font-size: 0.8125rem; color: var(--text-muted); font-weight: 500;">2023 — 2024</span>
-                        </div>
-                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 0.75rem;">University of Virginia, Remote</p>
-                        <ul style="padding-left: 1rem; color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6;">
-                            <li>Digital Product Management: Modern Fundamentals</li>
-                            <li>Agile meets Design Thinking</li>
-                            <li>Hypothesis Driven Development</li>
-                            <li>Product Analytics and AI</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="card" style="padding: 1.5rem;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
-                            <h3 style="font-size: 1.0625rem;">Workflow Specialist Certificate</h3>
-                            <span style="font-size: 0.8125rem; color: var(--text-muted); font-weight: 500;">Feb 2025 — Apr 2025</span>
-                        </div>
-                        <p style="color: var(--text-secondary); font-size: 0.9375rem; margin-bottom: 0.75rem;">Asana Academy, Remote</p>
-                        <ul style="padding-left: 1rem; color: var(--text-secondary); font-size: 0.875rem; line-height: 1.6;">
-                            <li>Creating effective workflows with cross-functional teams</li>
-                            <li>Collaboration, communication & teamwork</li>
-                            <li>Project management & workflow analytics</li>
-                        </ul>
-                    </div>
-                </div>
+      </div>
+      <div class="hero-photo">
+        <img src="pict2020.JPG" alt="Isabel Bettinger">
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
 </section>
-            
-            <section id="skills" style="padding-top: 80px; margin-top: -80px;">
-                <h2 class="text-h2" style="margin-bottom: 2rem;">Skills</h2>
-                
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem 3rem;">
-                    <div>
-                        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem;">Strategic Business & Growth</h3>
-                        <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.25rem;">
-                            <li>Product Strategy</li>
-                            <li>KPI Architecture</li>
-                            <li>Market & Competitive Intelligence</li>
-                            <li>Strategic Stakeholder Alignment</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem;">Product Discovery & User Experience</h3>
-                        <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.25rem;">
-                            <li>Product Discovery</li>
-                            <li>UX/UI Design</li>
-                            <li>Experience Strategy & Optimization</li>
-                            <li>Requirement Synthesis & Validation</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem;">Execution & Agile Governance</h3>
-                        <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.25rem;">
-                            <li>Roadmap & OKR Frameworks</li>
-                            <li>Agile Governance & Scalability</li>
-                            <li>Lifecycle Ownership & Value</li>
-                            <li>Data-Informed Decision Making</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem;">Tools</h3>
-                        <p style="color: var(--text-secondary); line-height: 1.8;">Jira, Miro, Figma, Adobe Xd, Asana, Matomo, Microsoft Office, Google Workspace</p>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 1.5rem;">
-                    <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem;">Languages</h3>
-                    <p style="color: var(--text-secondary);">German (Native), English (Fluent)</p>
-                </div>
-            </section>
-            
-            <section id="personal" style="padding-top: 100px; margin-top: -80px;">
-                <h2 class="text-h2" style="margin-bottom: 1.5rem;">Personal</h2>
-                <p class="text-secondary" style="max-width: 640px; margin-bottom: 2rem; font-size: 1.0625rem;">
-                    Behind every product is a person. Here's a small glimpse into my life outside of work.
-                </p>
-                
-                <div class="personal-accordion" style="max-width: 640px;">
-                    <div class="accordion-item" style="border-bottom: 1px solid var(--border);">
-                        <button class="accordion-trigger" onclick="toggleAccordion(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; background: none; border: none; cursor: pointer; text-align: left;">
-                            <span class="accordion-label" style="display: flex; align-items: center; gap: 1rem; font-size: 1rem; font-weight: 500; color: var(--text-primary); transition: color 0.2s ease;">
-                                <i class="fas fa-dumbbell" style="color: var(--accent-primary); width: 24px;"></i>
-                                Active Lifestyle
-                            </span>
-                            <i class="fas fa-chevron-down accordion-icon" style="color: var(--text-muted); font-size: 0.75rem; transition: transform 0.3s ease;"></i>
-                        </button>
-                        <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                            <p style="color: var(--text-secondary); padding-bottom: 1.25rem; line-height: 1.7;">I'm someone who genuinely enjoys being on the move. Most days, you'll find me at the gym doing heavy lifting and pushing my limits with a relaxing sauna session afterwards. I enjoy the contrast of a high-energy day at the gym or on a hike with the quiet of a completely unproductive afternoon. It's all about the balance for me.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="accordion-item" style="border-bottom: 1px solid var(--border);">
-                        <button class="accordion-trigger" onclick="toggleAccordion(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; background: none; border: none; cursor: pointer; text-align: left;">
-                            <span class="accordion-label" style="display: flex; align-items: center; gap: 1rem; font-size: 1rem; font-weight: 500; color: var(--text-primary); transition: color 0.2s ease;">
-                                <i class="fas fa-fish" style="color: var(--accent-primary); width: 24px;"></i>
-                                Diving & Snorkeling
-                            </span>
-                            <i class="fas fa-chevron-down accordion-icon" style="color: var(--text-muted); font-size: 0.75rem; transition: transform 0.3s ease;"></i>
-                        </button>
-                        <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                            <p style="color: var(--text-secondary); padding-bottom: 1.25rem; line-height: 1.7;">I love the underwater world. Diving and snorkeling aren't just about the quiet they're about the discovery of a completely different environment. There is something incredibly interesting about exploring the details of an ecosystem that most people never see, and it's the best way I've found to completely switch off and focus on the present.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="accordion-item" style="border-bottom: 1px solid var(--border);">
-                        <button class="accordion-trigger" onclick="toggleAccordion(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; background: none; border: none; cursor: pointer; text-align: left;">
-                            <span class="accordion-label" style="display: flex; align-items: center; gap: 1rem; font-size: 1rem; font-weight: 500; color: var(--text-primary); transition: color 0.2s ease;">
-                                <i class="fas fa-earth-americas" style="color: var(--accent-primary); width: 24px;"></i>
-                                Traveling
-                            </span>
-                            <i class="fas fa-chevron-down accordion-icon" style="color: var(--text-muted); font-size: 0.75rem; transition: transform 0.3s ease;"></i>
-                        </button>
-                        <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                            <p style="color: var(--text-secondary); padding-bottom: 1.25rem; line-height: 1.7;">I travel as often as I can, with Southeast Asia being my favorite region to revisit. I'm a big fan of the food and the atmosphere, but I mostly love the constant warmth. It's the one part of the world I never really get tired of exploring. There's always something new to see, and the energy of the region is truly inspiring.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="accordion-item" style="border-bottom: 1px solid var(--border);">
-                        <button class="accordion-trigger" onclick="toggleAccordion(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; background: none; border: none; cursor: pointer; text-align: left;">
-                            <span class="accordion-label" style="display: flex; align-items: center; gap: 1rem; font-size: 1rem; font-weight: 500; color: var(--text-primary); transition: color 0.2s ease;">
-                                <i class="fas fa-film" style="color: var(--accent-primary); width: 24px;"></i>
-                                Reading & Cinema
-                            </span>
-                            <i class="fas fa-chevron-down accordion-icon" style="color: var(--text-muted); font-size: 0.75rem; transition: transform 0.3s ease;"></i>
-                        </button>
-                        <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                            <p style="color: var(--text-secondary); padding-bottom: 1.25rem; line-height: 1.7;">My downtime is usually split between books and film. I tend to gravitate toward arthouse cinema and well-written fiction, but you can also find specialist literature in my bookshelf. I enjoy anything that's actually worth the time it takes to get through it.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="accordion-item" style="border-bottom: 1px solid var(--border);">
-                        <button class="accordion-trigger" onclick="toggleAccordion(this)" style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; background: none; border: none; cursor: pointer; text-align: left;">
-                            <span class="accordion-label" style="display: flex; align-items: center; gap: 1rem; font-size: 1rem; font-weight: 500; color: var(--text-primary); transition: color 0.2s ease;">
-                                <i class="fas fa-star" style="color: var(--accent-primary); width: 24px;"></i>
-                                Fun Fact
-                            </span>
-                            <i class="fas fa-chevron-down accordion-icon" style="color: var(--text-muted); font-size: 0.75rem; transition: transform 0.3s ease;"></i>
-                        </button>
-                        <div class="accordion-content" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
-                            <p style="color: var(--text-secondary); padding-bottom: 1.25rem; line-height: 1.7;">I'm very good at hula hooping. I don't do it often, but I taught myself the skill using YouTube videos a years ago, and it's stuck with me ever since.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <section id="projects" style="background: var(--bg-secondary);">
-                <div style="max-width: 1100px; margin: 0 auto; padding: 48px clamp(1.25rem, 4vw, 2rem);">
-                    <span class="section-label">Portfolio</span>
-                    <h2 class="text-h1" style="margin-bottom: 2rem;">Projects</h2>
-            
-            <div class="projects-grid">
-                <a href="projekt-action-view.html" class="project-card">
-                    <div class="project-image">
-                        <img src="project-action-view.png" alt="Action View" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="project-content">
-                        <h3>Action View 2.0</h3>
-                        <p>Comprehensive redesign of the platform's core analysis feature providing live Google SERP visibility data. Led end-to-end product lifecycle from discovery through go-to-market.</p>
-                        <span class="project-link">Learn more <i class="fas fa-arrow-right"></i></span>
-                        <div class="project-tags">
-                            <span class="project-tag">UX Redesign</span>
-                            <span class="project-tag">Growth</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="projekt-time-control.html" class="project-card">
-                    <div class="project-image">
-                        <img src="project-time-control.png" alt="Time Control" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="project-content">
-                        <h3>Time Control</h3>
-                        <p>Strategic leadership of a business-critical feature that transformed the platform's value proposition and became a primary driver for enterprise sales.</p>
-                        <span class="project-link">Learn more <i class="fas fa-arrow-right"></i></span>
-                        <div class="project-tags">
-                            <span class="project-tag">Strategy</span>
-                            <span class="project-tag">Enterprise</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="projekt-headless-fusion.html" class="project-card">
-                    <div class="project-image">
-                        <img src="project-headless-fusion.png" alt="Headless Fusion" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="project-content">
-                        <h3>Headless Fusion</h3>
-                        <p>Leading the development of a headless commerce solution that enabled seamless integration across multiple channels and platforms.</p>
-                        <span class="project-link">Learn more <i class="fas fa-arrow-right"></i></span>
-                        <div class="project-tags">
-                            <span class="project-tag">Architecture</span>
-                            <span class="project-tag">E-commerce</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-    </section>
 
-    <section id="contact">
-        <div class="container">
-            <span class="section-label">Contact</span>
-            <h2 class="text-h1">Let's Talk</h2>
-            <p class="text-secondary" style="max-width: 500px; margin-top: 1rem; margin-bottom: 2rem; font-size: 1.0625rem;">
-                I'd love to hear from you. Whether it's a job opportunity, project request, or just a chat - feel free to reach out on LinkedIn!
-            </p>
-            
-            <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" style="display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.875rem 1.5rem; background: #E5E2DB; color: var(--text-primary); border: 1.5px solid #BEBAB0; border-radius: 6px; font-weight: 600; font-size: 0.9375rem; transition: all 0.2s;" onmouseover="this.style.background='#D5D2CB';" onmouseout="this.style.background='#E5E2DB';">
-                <i class="fab fa-linkedin" style="font-size: 1.125rem;"></i>
-                Connect on LinkedIn
-            </a>
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about" class="about-bg">
+  <div class="container">
+    <div class="section-label">About Me</div>
+    <h2 class="section-heading">Background &amp; Skills</h2>
+
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('professional')">Experience</button>
+      <button class="tab-btn" onclick="switchTab('education')">Education</button>
+      <button class="tab-btn" onclick="switchTab('skills')">Skills</button>
+      <button class="tab-btn" onclick="switchTab('personal')">Personal</button>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <div id="tab-professional" class="tab-panel active reveal">
+      <div id="professional" class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">2025 — Present</div>
+          <div class="tl-title">Product Manager / Product Owner</div>
+          <div class="tl-company">ethinking GmbH</div>
+          <ul class="tl-list">
+            <li>Aligned go-to-market strategy with engineering roadmaps, prioritizing technical capacity against business objectives</li>
+            <li>Developed and validated product-market fit through a 4-month launch strategy across two major iterations</li>
+            <li>Engineered a delivery framework that decoupled strategic planning from daily execution</li>
+            <li>Cultivated an "Outcome over Output" philosophy across multidisciplinary teams</li>
+          </ul>
         </div>
-    </section>
-
-    <div style="height: 1px; background: var(--border);"></div>
-
-    <footer>
-        <div class="container">
-            <p>© 2026 Isabel Bettinger. Alle Rechte vorbehalten.</p>
+        <div class="tl-item">
+          <div class="tl-date">2023 — 2025</div>
+          <div class="tl-title">Product Manager</div>
+          <div class="tl-company">Trisolute Software GmbH</div>
+          <ul class="tl-list">
+            <li>Identified user needs through quantitative and qualitative research to uncover key pain points</li>
+            <li>Translated insights into clear goals, concepts, and mockups that shaped the product vision</li>
+            <li>Coordinated cross-functional teams using agile methods (sprint planning, testing, fast feedback loops)</li>
+            <li>Developed and executed go-to-market and promotion strategies for strong product adoption</li>
+            <li>Tracked success through customer satisfaction surveys and continuous user feedback</li>
+          </ul>
         </div>
-    </footer>
+        <div class="tl-item">
+          <div class="tl-date">2021 — 2023</div>
+          <div class="tl-title">Junior Product Manager</div>
+          <div class="tl-company">Trisolute Software GmbH</div>
+          <ul class="tl-list">
+            <li>Expanded customer relationships through regular visits and personal engagement</li>
+            <li>Conducted competition and market analysis to identify trends, threats, and opportunities</li>
+            <li>Analyzed usage data and implemented churn prevention strategies to retain customers</li>
+            <li>Designed UX/UI and interfaces to enhance user experience and satisfaction</li>
+          </ul>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">2018 — 2021</div>
+          <div class="tl-title">Junior Outreach Manager</div>
+          <div class="tl-company">Dept Agency</div>
+          <ul class="tl-list">
+            <li>Digital marketing and outreach operations in Berlin</li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-    <script>
-        function toggleAccordion(btn) {
-            const item = btn.closest('.accordion-item');
-            const content = item.querySelector('.accordion-content');
-            const icon = btn.querySelector('.accordion-icon');
-            
-            if (item.classList.contains('active')) {
-                item.classList.remove('active');
-                content.style.maxHeight = '';
-                icon.style.transform = '';
-            } else {
-                document.querySelectorAll('.accordion-item.active').forEach(i => {
-                    i.classList.remove('active');
-                    i.querySelector('.accordion-content').style.maxHeight = '';
-                    i.querySelector('.accordion-icon').style.transform = '';
-                });
-                item.classList.add('active');
-                content.style.maxHeight = content.scrollHeight + 'px';
-                icon.style.transform = 'rotate(180deg)';
-            }
-        }
-    </script>
+    <!-- EDUCATION -->
+    <div id="tab-education" class="tab-panel reveal">
+      <div id="education" class="edu-grid">
+        <div class="edu-card">
+          <div>
+            <div class="edu-title">Bachelor of Arts, Social Sciences</div>
+            <div class="edu-inst">Justus-Liebig-University, Gießen</div>
+          </div>
+          <div class="edu-year">2013 – 2018</div>
+        </div>
+        <div class="edu-card">
+          <div>
+            <div class="edu-title">Product Management Certificates</div>
+            <div class="edu-inst">University of Virginia, Remote</div>
+            <ul class="edu-list">
+              <li>Digital Product Management: Modern Fundamentals</li>
+              <li>Agile meets Design Thinking</li>
+              <li>Hypothesis Driven Development</li>
+              <li>Product Analytics and AI</li>
+            </ul>
+          </div>
+          <div class="edu-year">2023 – 2024</div>
+        </div>
+        <div class="edu-card">
+          <div>
+            <div class="edu-title">Workflow Specialist Certificate</div>
+            <div class="edu-inst">Asana Academy, Remote</div>
+            <ul class="edu-list">
+              <li>Creating effective workflows with cross-functional teams</li>
+              <li>Collaboration, communication &amp; teamwork</li>
+              <li>Project management &amp; workflow analytics</li>
+            </ul>
+          </div>
+          <div class="edu-year">Feb – Apr 2025</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div id="tab-skills" class="tab-panel reveal">
+      <div id="skills" class="skills-outer">
+        <div>
+          <div class="skill-group-title">Strategic Business &amp; Growth</div>
+          <ul class="skill-list">
+            <li>Product Strategy</li>
+            <li>KPI Architecture</li>
+            <li>Market &amp; Competitive Intelligence</li>
+            <li>Strategic Stakeholder Alignment</li>
+          </ul>
+        </div>
+        <div>
+          <div class="skill-group-title">Product Discovery &amp; UX</div>
+          <ul class="skill-list">
+            <li>Product Discovery</li>
+            <li>UX/UI Design</li>
+            <li>Experience Strategy &amp; Optimization</li>
+            <li>Requirement Synthesis &amp; Validation</li>
+          </ul>
+        </div>
+        <div>
+          <div class="skill-group-title">Execution &amp; Agile Governance</div>
+          <ul class="skill-list">
+            <li>Roadmap &amp; OKR Frameworks</li>
+            <li>Agile Governance &amp; Scalability</li>
+            <li>Lifecycle Ownership &amp; Value</li>
+            <li>Data-Informed Decision Making</li>
+          </ul>
+        </div>
+        <div>
+          <div class="skill-group-title">Tools</div>
+          <ul class="skill-list">
+            <li>Jira, Miro, Figma, Adobe XD</li>
+            <li>Asana, Matomo</li>
+            <li>Microsoft Office, Google Workspace</li>
+          </ul>
+        </div>
+      </div>
+      <div class="lang-row">
+        <div class="lang-badge">🇩🇪 German <span>Native</span></div>
+        <div class="lang-badge">🇬🇧 English <span>Fluent</span></div>
+      </div>
+    </div>
+
+    <!-- PERSONAL -->
+    <div id="tab-personal" class="tab-panel reveal">
+      <p style="color:var(--muted);font-size:1.0625rem;max-width:560px;margin-bottom:2rem;line-height:1.7;">Behind every product is a person. Here's a glimpse into my life outside of work.</p>
+      <div class="accordion" id="personal">
+        <div class="ac-item">
+          <button class="ac-trigger" onclick="toggleAc(this)">
+            <span class="ac-label"><i class="fas fa-dumbbell"></i> Active Lifestyle</span>
+            <i class="fas fa-chevron-down ac-icon"></i>
+          </button>
+          <div class="ac-body"><p>I'm someone who genuinely enjoys being on the move. Most days you'll find me at the gym doing heavy lifting and pushing my limits, with a relaxing sauna session to follow. I enjoy the contrast of a high-energy day with the quiet of a completely unproductive afternoon — it's all about balance.</p></div>
+        </div>
+        <div class="ac-item">
+          <button class="ac-trigger" onclick="toggleAc(this)">
+            <span class="ac-label"><i class="fas fa-fish"></i> Diving &amp; Snorkeling</span>
+            <i class="fas fa-chevron-down ac-icon"></i>
+          </button>
+          <div class="ac-body"><p>I love the underwater world. Diving and snorkeling aren't just about the quiet — they're about discovering a completely different environment. There's something incredibly interesting about exploring an ecosystem that most people never see. It's the best way I've found to fully switch off and stay present.</p></div>
+        </div>
+        <div class="ac-item">
+          <button class="ac-trigger" onclick="toggleAc(this)">
+            <span class="ac-label"><i class="fas fa-earth-americas"></i> Traveling</span>
+            <i class="fas fa-chevron-down ac-icon"></i>
+          </button>
+          <div class="ac-body"><p>I travel as often as I can, with Southeast Asia being my favorite region to revisit. I'm a big fan of the food, the atmosphere, and the constant warmth. It's the one part of the world I never really get tired of — there's always something new to discover.</p></div>
+        </div>
+        <div class="ac-item">
+          <button class="ac-trigger" onclick="toggleAc(this)">
+            <span class="ac-label"><i class="fas fa-film"></i> Reading &amp; Cinema</span>
+            <i class="fas fa-chevron-down ac-icon"></i>
+          </button>
+          <div class="ac-body"><p>My downtime is usually split between books and film. I tend to gravitate toward arthouse cinema and well-written fiction, but specialist literature has its place on my shelf too. I enjoy anything that's actually worth the time it takes to get through it.</p></div>
+        </div>
+        <div class="ac-item">
+          <button class="ac-trigger" onclick="toggleAc(this)">
+            <span class="ac-label"><i class="fas fa-star"></i> Fun Fact</span>
+            <i class="fas fa-chevron-down ac-icon"></i>
+          </button>
+          <div class="ac-body"><p>I'm very good at hula hooping. I don't do it often, but I taught myself via YouTube videos years ago and the skill has stuck with me ever since.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects" class="projects-bg">
+  <div class="container">
+    <div class="section-label">Portfolio</div>
+    <h2 class="section-heading">Featured Projects</h2>
+    <p class="section-sub">A selection of products I've shaped from discovery through launch.</p>
+    <div class="projects-grid">
+      <a href="projekt-action-view.html" class="proj-card reveal">
+        <div class="proj-img">
+          <img src="project-action-view.png" alt="Action View 2.0">
+        </div>
+        <div class="proj-body">
+          <div class="proj-tags">
+            <span class="proj-tag">UX Redesign</span>
+            <span class="proj-tag">Growth</span>
+          </div>
+          <div class="proj-title">Action View 2.0</div>
+          <p class="proj-desc">Comprehensive redesign of the platform's core analysis feature providing live Google SERP visibility data. Led end-to-end product lifecycle from discovery through go-to-market.</p>
+          <span class="proj-link">Read case study <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a href="projekt-time-control.html" class="proj-card reveal">
+        <div class="proj-img">
+          <img src="project-time-control.png" alt="Time Control">
+        </div>
+        <div class="proj-body">
+          <div class="proj-tags">
+            <span class="proj-tag">Strategy</span>
+            <span class="proj-tag">Enterprise</span>
+          </div>
+          <div class="proj-title">Time Control</div>
+          <p class="proj-desc">Strategic leadership of a business-critical feature that transformed the platform's value proposition and became a primary driver for enterprise sales.</p>
+          <span class="proj-link">Read case study <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+      <a href="projekt-headless-fusion.html" class="proj-card reveal">
+        <div class="proj-img">
+          <img src="project-headless-fusion.png" alt="Headless Fusion">
+        </div>
+        <div class="proj-body">
+          <div class="proj-tags">
+            <span class="proj-tag">Architecture</span>
+            <span class="proj-tag">E-commerce</span>
+          </div>
+          <div class="proj-title">Headless Fusion</div>
+          <p class="proj-desc">Leading the development of a headless commerce solution that enabled seamless integration across multiple channels and platforms.</p>
+          <span class="proj-link">Read case study <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-bg">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2 class="section-heading">Let's Talk</h2>
+    <div class="contact-box reveal">
+      <p style="color:var(--muted);font-size:1.0625rem;line-height:1.7;margin-bottom:0.5rem;">
+        Whether it's a job opportunity, a project, or just a good conversation about product — I'd love to hear from you.
+      </p>
+      <div class="contact-methods">
+        <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" class="contact-link">
+          <i class="fab fa-linkedin"></i>
+          <div>
+            <div>Connect on LinkedIn</div>
+            <div class="cl-label">linkedin.com/in/isabel-bettinger</div>
+          </div>
+          <i class="fas fa-arrow-right" style="margin-left:auto;font-size:0.75rem;color:var(--hint)"></i>
+        </a>
+        <a href="https://github.com/IsabelBettinger/portfolio" target="_blank" class="contact-link">
+          <i class="fab fa-github"></i>
+          <div>
+            <div>View on GitHub</div>
+            <div class="cl-label">github.com/IsabelBettinger/portfolio</div>
+          </div>
+          <i class="fas fa-arrow-right" style="margin-left:auto;font-size:0.75rem;color:var(--hint)"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>© 2026 Isabel Bettinger. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+function toggleMenu() {
+  const hb = document.getElementById('hamburger');
+  const mn = document.getElementById('mobile-nav');
+  hb.classList.toggle('open');
+  mn.classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+
+// Tab switching
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Accordion
+function toggleAc(btn) {
+  const item = btn.closest('.ac-item');
+  const body = item.querySelector('.ac-body');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.ac-item.open').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.ac-body').style.maxHeight = '';
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+  }
+}
+
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>

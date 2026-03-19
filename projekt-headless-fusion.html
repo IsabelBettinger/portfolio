@@ -1,216 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Headless Fusion — Isabel Bettinger</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-primary: #FAF9F6;
-            --bg-secondary: #F0EDE6;
-            --bg-card: #FFFFFF;
-            --text-primary: #1A1A1A;
-            --text-secondary: #545454;
-            --text-muted: #888888;
-            --accent-primary: #1E40AF;
-            --accent-secondary: #4A5568;
-            --border: #E2E0DB;
-            --border-hover: #C9C7C2;
-            --font-display: 'Plus Jakarta Sans', sans-serif;
-            --font-body: 'Plus Jakarta Sans', sans-serif;
-            --container-width: 1100px;
-            --section-spacing: 64px;
-            --duration-fast: 0.2s;
-            --duration-normal: 0.35s;
-            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        
-        body {
-            font-family: var(--font-body);
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-        }
-        
-        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; }
-        
-        .text-h1 { font-size: clamp(1.75rem, 3vw, 2.5rem); }
-        .text-h2 { font-size: clamp(1.375rem, 2vw, 1.625rem); }
-        .text-secondary { color: var(--text-secondary); }
-        a { color: inherit; text-decoration: none; }
-        
-        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2rem); }
-        section { padding: var(--section-spacing) 0; }
-        
-        .nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 1.125rem 0;
-            background: rgba(250, 249, 246, 0.98);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
-        .nav-logo { font-family: var(--font-display); font-weight: 600; font-size: 0.9375rem; }
-        
-        .nav-links { display: flex; gap: 2rem; list-style: none; position: relative; }
-        .nav-item { position: relative; }
-        .nav-item > a { font-size: 0.875rem; color: var(--text-secondary); transition: color var(--duration-fast); display: flex; align-items: center; gap: 0.375rem; }
-        .nav-item > a:hover { color: var(--text-primary); }
-        
-        .dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 0.5rem 0;
-            min-width: 160px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all var(--duration-fast);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        .nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
-        .dropdown a {
-            display: block;
-            padding: 0.625rem 1rem;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            transition: all var(--duration-fast);
-        }
-        .dropdown a:hover { color: var(--accent-primary); background: var(--bg-secondary); }
-        
-        .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem; transition: color var(--duration-fast); }
-        .back-link:hover { color: var(--accent-primary); }
-        
-        .project-header { margin-bottom: 3rem; }
-        .project-header .tag { display: inline-block; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.375rem 0.75rem; background: var(--bg-secondary); border-radius: 4px; color: var(--text-muted); margin-bottom: 1rem; }
-        .project-header h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
-        .project-header .subtitle { font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; }
-        
-        .project-content { display: grid; grid-template-columns: 2fr 1fr; gap: 3rem; }
-        
-        .content-block { margin-bottom: 2.5rem; }
-        .content-block h2 { font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary); }
-        .content-block p { color: var(--text-secondary); margin-bottom: 1rem; }
-        
-        .project-meta { background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; height: fit-content; }
-        .project-meta h3 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 1rem; }
-        .meta-item { margin-bottom: 1.25rem; }
-        .meta-item:last-child { margin-bottom: 0; }
-        .meta-label { font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 0.25rem; }
-        .meta-value { font-size: 0.9375rem; font-weight: 500; }
-        
-        footer { padding: 2rem 0; border-top: 1px solid var(--border); text-align: center; }
-        footer p { font-size: 0.75rem; color: var(--text-muted); }
-        
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .project-content { grid-template-columns: 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zero to Demo — Isabel Bettinger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --bg: #F7F4EF;
+  --bg2: #EDE9E2;
+  --bg3: #E2DDD5;
+  --card: #FFFFFF;
+  --text: #1C1917;
+  --muted: #78716C;
+  --hint: #A8A29E;
+  --accent: #1D4ED8;
+  --accent-light: #DBEAFE;
+  --border: rgba(28,25,23,0.10);
+  --border-hover: rgba(28,25,23,0.22);
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-h: 64px;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+.container { max-width: 1080px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 2.5rem); }
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: var(--nav-h);
+  background: rgba(247,244,239,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.nav-logo { font-family: var(--font-display); font-size: 1.125rem; font-weight: 600; letter-spacing: -0.01em; }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--muted); padding: 0.375rem 0.75rem; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+.nav-links a:hover { color: var(--text); background: var(--bg2); }
+.nav-links .nav-cta { background: var(--text); color: var(--bg); border-radius: 6px; padding: 0.375rem 1rem; font-size: 0.875rem; font-weight: 500; transition: opacity 0.2s; }
+.nav-links .nav-cta:hover { opacity: 0.8; }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+.hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-nav { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 199; background: var(--bg); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem 1.5rem; flex-direction: column; gap: 0.25rem; }
+.mobile-nav.open { display: flex; }
+.mobile-nav a { font-size: 1rem; font-weight: 500; color: var(--muted); padding: 0.625rem 0; border-bottom: 1px solid var(--border); }
+.mobile-nav a:last-child { border-bottom: none; }
+
+/* PAGE HERO */
+.page-hero { padding-top: calc(var(--nav-h) + 3.5rem); padding-bottom: 3.5rem; border-bottom: 1px solid var(--border); }
+.back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--muted); margin-bottom: 2rem; transition: color 0.2s, gap 0.2s; }
+.back-link:hover { color: var(--accent); gap: 0.75rem; }
+.back-link i { font-size: 0.75rem; }
+.proj-eyebrow { display: inline-flex; align-items: center; gap: 0.625rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+.proj-eyebrow::before { content: ''; display: block; width: 20px; height: 2px; background: var(--accent); border-radius: 1px; }
+.proj-title { font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 1.25rem; }
+.proj-subtitle { font-size: 1.125rem; color: var(--muted); max-width: 600px; line-height: 1.7; margin-bottom: 2.5rem; }
+.hero-image { width: 100%; max-width: 860px; aspect-ratio: 16/7; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); margin-top: 1rem; background: var(--bg3); }
+.hero-image img { width: 100%; height: 100%; object-fit: cover; }
+
+/* CONTENT LAYOUT */
+.content-wrap { display: grid; grid-template-columns: 1fr 300px; gap: 4rem; padding: 4rem 0; align-items: start; }
+
+/* MAIN CONTENT */
+.section-label { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.625rem; }
+.section-label::before { content: ''; display: block; width: 16px; height: 2px; background: var(--accent); border-radius: 1px; }
+.content-block { margin-bottom: 3rem; }
+.content-block h2 { font-size: 1.375rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; margin-top: 0.25rem; }
+.content-block p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 0.875rem; }
+.content-block p:last-child { margin-bottom: 0; }
+
+.callout { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; padding: 1.125rem 1.375rem; margin: 1.5rem 0; }
+.callout p { color: var(--text) !important; font-weight: 500; margin: 0 !important; }
+
+/* Process steps */
+.process-steps { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+.process-step { display: flex; gap: 1.125rem; align-items: flex-start; padding: 1.125rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+.step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-light); color: var(--accent); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.step-body h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.25rem; }
+.step-body p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; margin: 0; }
+
+/* Value pillars */
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+.pillar { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
+.pillar-icon { font-size: 1.125rem; color: var(--accent); margin-bottom: 0.75rem; }
+.pillar h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.375rem; }
+.pillar p { font-size: 0.8125rem; color: var(--muted); line-height: 1.6; margin: 0; }
+
+/* Context badge */
+.context-badge {
+  display: inline-flex; align-items: center; gap: 0.625rem;
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.625rem 1rem;
+  font-size: 0.875rem; color: var(--muted); margin-bottom: 1.5rem;
+}
+.context-badge i { color: var(--accent); font-size: 0.875rem; }
+.context-badge a { color: var(--accent); font-weight: 500; }
+.context-badge a:hover { text-decoration: underline; }
+
+/* SIDEBAR */
+.sidebar { position: sticky; top: calc(var(--nav-h) + 2rem); display: flex; flex-direction: column; gap: 1rem; }
+.meta-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.375rem; }
+.meta-heading { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hint); margin-bottom: 1.25rem; }
+.meta-item { margin-bottom: 1.125rem; }
+.meta-item:last-child { margin-bottom: 0; }
+.meta-label { font-size: 0.75rem; color: var(--hint); margin-bottom: 0.25rem; display: block; }
+.meta-value { font-size: 0.9375rem; font-weight: 600; color: var(--text); line-height: 1.5; }
+.meta-divider { height: 1px; background: var(--border); margin: 1rem 0; }
+.tag-list { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.tag { font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.25rem 0.625rem; background: var(--accent-light); color: var(--accent); border-radius: 4px; }
+
+.prev-project { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.125rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.2s, background 0.2s; }
+.prev-project:hover { background: var(--bg3); border-color: var(--border-hover); }
+.prev-label { font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--hint); }
+.prev-title { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
+.prev-sub { font-size: 0.75rem; color: var(--accent); margin-top: 0.125rem; }
+
+/* FOOTER */
+.divider { height: 1px; background: var(--border); }
+footer { padding: 2rem 0; text-align: center; }
+footer p { font-size: 0.8125rem; color: var(--hint); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s var(--ease), transform 0.5s var(--ease); }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .content-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+  .sidebar { position: static; }
+  .pillars { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
 
-    <nav class="nav">
-        <div class="container nav-inner">
-            <a href="index.html" class="nav-logo">Isabel Bettinger</a>
-            <ul class="nav-links">
-                <li class="nav-item">
-                    <a href="index.html#about">About me ▾</a>
-                    <div class="dropdown">
-                        <a href="index.html#professional">Professional</a>
-                        <a href="index.html#personal">Personal</a>
-                        <a href="index.html#skills">Skills</a>
-                        <a href="index.html#education">Education</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="index.html#projects">Projects ▾</a>
-                    <div class="dropdown">
-                        <a href="projekt-action-view.html">Action View 2.0</a>
-                        <a href="projekt-time-control.html">Time Control</a>
-                        <a href="projekt-headless-fusion.html">Headless Fusion</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="index.html#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+<!-- NAV -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo">Isabel Bettinger</a>
+    <ul class="nav-links">
+      <li><a href="index.html#professional">Experience</a></li>
+      <li><a href="index.html#education">Education</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" class="nav-cta"><i class="fab fa-linkedin" style="font-size:0.875rem"></i> Connect</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html#professional" onclick="closeMenu()">Experience</a>
+  <a href="index.html#education" onclick="closeMenu()">Education</a>
+  <a href="index.html#skills" onclick="closeMenu()">Skills</a>
+  <a href="index.html#projects" onclick="closeMenu()">Projects</a>
+  <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank">Connect on LinkedIn</a>
+</div>
 
-    <section style="padding-top: 100px;">
-        <div class="container">
-            <a href="index.html#projects" class="back-link"><i class="fas fa-arrow-left"></i> Back to Projects</a>
-            
-            <div class="project-header">
-                <span class="tag">Architecture / E-commerce</span>
-                <h1>Headless Fusion</h1>
-                <p class="subtitle">Leading the development of a headless commerce solution that enabled seamless integration across multiple channels and platforms.</p>
-            </div>
-            
-            <div class="project-content">
-                <div class="main-content">
-                    <div class="content-block">
-                        <h2>The Challenge</h2>
-                        <p>The existing monolithic e-commerce platform was limiting the company's ability to innovate and scale. Multiple teams struggled with slow release cycles and tight coupling between frontend and backend systems.</p>
-                    </div>
-                    
-                    <div class="content-block">
-                        <h2>My Approach</h2>
-                        <p>I led the transformation to a headless architecture, decoupling the frontend from the backend using APIs. This enabled teams to work independently and deploy changes without waiting for full platform releases.</p>
-                        <p>We implemented a microservices approach, created a unified API layer, and established a component-based frontend using modern frameworks.</p>
-                    </div>
-                    
-                    <div class="content-block">
-                        <h2>Result</h2>
-                        <p>Development velocity increased by 65%. Time-to-market for new features reduced from weeks to days. The platform now supports seamless integration with 50+ third-party tools and services.</p>
-                    </div>
-                </div>
-                
-                <aside class="project-meta">
-                    <h3>Project Details</h3>
-                    <div class="meta-item">
-                        <span class="meta-label">Role</span>
-                        <span class="meta-value">Technical Product Manager</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Timeline</span>
-                        <span class="meta-value">18 months</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Team</span>
-                        <span class="meta-value">8 Developers, 3 Designers, 2 API Engineers</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">Methods</span>
-                        <span class="meta-value">Microservices, API-First, Agile</span>
-                    </div>
-                </aside>
-            </div>
-        </div>
-    </section>
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="container">
+    <a href="index.html#projects" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Projects
+    </a>
+    <div class="proj-eyebrow">Partner Project · CMS Integration</div>
+    <h1 class="proj-title">Zero to Demo</h1>
+    <p class="proj-subtitle">In four weeks, I led the delivery of two fully functional demo frontends for a CMS partner, built on top of our XP layer and presented at CUE Days 2025 to an audience of international media and publishing professionals.</p>
+    <div class="hero-image reveal">
+      <img src="project-headless-fusion.png" alt="Zero to Demo Project">
+    </div>
+  </div>
+</div>
 
-    <footer>
-        <div class="container">
-            <p>© 2026 Isabel Bettinger. All rights reserved.</p>
+<!-- MAIN CONTENT -->
+<div class="container">
+  <div class="content-wrap">
+
+    <main>
+
+      <div class="content-block reveal">
+        <div class="section-label">Context</div>
+        <h2>An XP layer for headless CMS</h2>
+        <p>The product at the core of this project is an XP layer that sits between a headless CMS and the channels it delivers content to. It allows teams to manage and distribute content across multiple channels at once, while giving non-technical editors the ability to build and adjust pages without writing a single line of code.</p>
+        <p>This matters because most headless CMS setups require developer involvement for even minor layout changes. Our layer removes that dependency, putting page control back in the hands of the editorial team.</p>
+        <div class="callout">
+          <p>The goal of this project was to make that value tangible for a CMS partner, by building two complete demo frontends they could use to show prospective clients exactly what becomes possible.</p>
         </div>
-    </footer>
+      </div>
+
+      <div class="content-block reveal">
+        <div class="section-label">The Challenge</div>
+        <h2>Two production-ready demos, four weeks</h2>
+        <p>Our CMS partner needed working demo pages to support their sales conversations. The demos had to showcase the full flexibility of our XP layer in combination with their system, be visually polished enough to present to enterprise prospects, and be ready in time for CUE Days 2025.</p>
+        <p>Four weeks is a very tight timeline for two complete frontends. The challenge was not just technical, it required clear prioritization, tight coordination with a small team across multiple roles, and fast decision-making to keep delivery on track without sacrificing quality.</p>
+      </div>
+
+      <div class="content-block reveal">
+        <div class="section-label">My Approach</div>
+        <h2>Focused delivery under a hard deadline</h2>
+
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Scope Definition with the Partner</h4>
+              <p>Worked closely with the CMS partner to define what the demos needed to show, which use cases mattered most for their sales conversations, and what "good enough to present" looked like within the time constraint.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Frontend Architecture &amp; Design</h4>
+              <p>Coordinated with the external designer and development team to establish the visual direction and component structure for both frontends, ensuring they worked seamlessly with our XP layer from the start.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Rapid Iteration &amp; Integration</h4>
+              <p>Led the team through an intensive build phase with short feedback cycles, continuously validating that the frontends reflected the product's capabilities accurately and that both demos were integration-ready in time for the event.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>Presentation at CUE Days 2025</h4>
+              <p>The finished demos were presented at CUE Days 2025, the annual global conference for the CUE community of media and publishing professionals, organized by Stibo DX.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-block reveal">
+        <div class="section-label">Impact</div>
+        <h2>Two enterprise leads generated at the event</h2>
+        <p>The demos landed well at CUE Days 2025. Two enterprise prospects reached out directly following the presentation, having seen the demos in action. The project demonstrated not just what the product could do, but what was possible when partner integrations were built with clarity and intention.</p>
+
+        <div class="context-badge">
+          <i class="fas fa-calendar-days"></i>
+          Presented at <a href="https://www.cuedays.com" target="_blank">CUE Days 2025</a>, 17 &amp; 18 November 2025, organized by Stibo DX
+        </div>
+
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-rocket"></i></div>
+            <h4>Delivered in 4 weeks</h4>
+            <p>Two complete, production-ready frontends built and integrated within a tight, non-negotiable deadline.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-handshake"></i></div>
+            <h4>Partner enablement</h4>
+            <p>Gave the CMS partner compelling, reusable demo assets to support their own enterprise sales conversations.</p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon"><i class="fas fa-building"></i></div>
+            <h4>Enterprise interest</h4>
+            <p>Two enterprise prospects reached out following the presentation at CUE Days 2025.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="meta-card reveal">
+        <div class="meta-heading">Project Details</div>
+        <div class="meta-item">
+          <span class="meta-label">Role</span>
+          <span class="meta-value">Product Manager</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <span class="meta-label">Timeline</span>
+          <span class="meta-value">4 weeks</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <span class="meta-label">Team</span>
+          <span class="meta-value">3 Developers · CTO · CEO · CSO · 1 External Designer</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <span class="meta-label">Methods</span>
+          <span class="meta-value">Agile · Rapid Prototyping · Partner Co-development</span>
+        </div>
+        <div class="meta-divider"></div>
+        <div class="meta-item">
+          <span class="meta-label">Tags</span>
+          <div class="tag-list" style="margin-top:0.375rem;">
+            <span class="tag">CMS</span>
+            <span class="tag">Headless</span>
+            <span class="tag">Partner Project</span>
+            <span class="tag">B2B</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="projekt-time-control.html" class="prev-project reveal">
+        <span class="prev-label">Previous Project</span>
+        <span class="prev-title">← Time Control</span>
+        <span class="prev-sub">Strategy · Enterprise</span>
+      </a>
+    </aside>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+<footer>
+  <div class="container">
+    <p>© 2026 Isabel Bettinger. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobile-nav').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
