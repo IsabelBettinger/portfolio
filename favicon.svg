@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" rx="12" fill="#E2DDD5"/>
+  <text
+    x="100"
+    y="138"
+    text-anchor="middle"
+    font-family="Georgia, serif"
+    font-weight="700"
+    font-style="italic"
+    font-size="118"
+    fill="#1D4ED8"
+  >IB</text>
+</svg>
