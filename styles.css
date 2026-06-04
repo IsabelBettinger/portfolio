@@ -176,6 +176,9 @@ section { padding: 6rem 0; }
   position: relative;
   overflow: hidden;
 }
+.hero .container {
+  width: 100%;
+}
 .hero-content {
   max-width: 580px;
   padding: 3rem 0;
