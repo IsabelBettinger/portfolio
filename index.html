@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Isabel Bettinger — Product Manager</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -56,6 +57,26 @@ a { color: inherit; text-decoration: none; }
   transition: opacity 0.2s;
 }
 .nav-links .nav-cta:hover { opacity: 0.8; background: var(--text); color: var(--bg); }
+.nav-item { position: relative; }
+.nav-item > a { display: flex; align-items: center; gap: 0.375rem; }
+.dropdown {
+  position: absolute; top: calc(100% + 8px); left: 0;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.375rem 0;
+  min-width: 170px; opacity: 0; visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  z-index: 300;
+}
+.nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+.dropdown a {
+  display: block; padding: 0.5rem 1rem;
+  font-size: 0.875rem; color: var(--muted);
+  border-radius: 0; background: none;
+  transition: color 0.15s, background 0.15s;
+}
+.dropdown a:hover { color: var(--accent); background: var(--bg2); }
 
 /* Mobile hamburger */
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
@@ -81,15 +102,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   overflow: hidden;
 }
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -20%; right: -10%;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(219,234,254,0.45) 0%, transparent 70%);
-  pointer-events: none;
-}
+
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -167,15 +180,7 @@ a { color: inherit; text-decoration: none; }
   box-shadow: 0 20px 60px rgba(0,0,0,0.08);
 }
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-.scroll-hint {
-  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  color: var(--hint); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em;
-  text-transform: uppercase;
-  animation: bounce 2.5s ease-in-out infinite;
-}
-.scroll-hint i { font-size: 1rem; }
-@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
 
 /* ─── SECTION SHELL ─── */
 section { padding: 6rem 0; }
@@ -201,7 +206,7 @@ section { padding: 6rem 0; }
 .about-bg { background: var(--bg); }
 .tab-bar {
   display: flex; gap: 0; border-bottom: 1px solid var(--border);
-  margin-bottom: 3rem; overflow-x: auto;
+  margin-bottom: 3rem;
 }
 .tab-btn {
   font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
@@ -311,16 +316,16 @@ section { padding: 6rem 0; }
 .contact-bg { background: var(--bg); }
 .contact-box {
   background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-  padding: clamp(2rem, 5vw, 3.5rem); max-width: 640px;
+  padding: clamp(2rem, 5vw, 3.5rem);
 }
-.contact-methods { display: flex; flex-direction: column; gap: 0.875rem; margin-top: 2rem; }
+.contact-methods { display: flex; flex-direction: column; gap: 0.875rem; margin-top: 2rem; max-width: 640px; }
 .contact-link {
   display: flex; align-items: center; gap: 1rem;
-  padding: 1rem 1.25rem; background: var(--bg); border: 1px solid var(--border);
-  border-radius: 8px; font-size: 0.9375rem; font-weight: 500;
+  padding: 1rem 1.25rem; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; font-size: 0.875rem; font-weight: 500;
   transition: border-color 0.2s, background 0.2s, transform 0.2s;
 }
-.contact-link:hover { border-color: var(--border-hover); background: var(--bg2); transform: translateX(4px); }
+.contact-link:hover { border-color: var(--border-hover); background: var(--bg3); transform: translateX(4px); }
 .contact-link i { width: 20px; text-align: center; color: var(--accent); }
 .contact-link .cl-label { color: var(--muted); font-size: 0.8125rem; font-weight: 400; }
 
@@ -360,11 +365,16 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
   <div class="container nav-inner">
     <a href="#home" class="nav-logo">Isabel Bettinger</a>
     <ul class="nav-links">
-      <li><a href="#professional">Experience</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" class="nav-cta"><i class="fab fa-linkedin" style="font-size:0.875rem"></i> Connect</a></li>
+      <li><a href="#about">About me</a></li>
+      <li class="nav-item">
+        <a href="#projects">Projects <i class="fas fa-chevron-down" style="font-size:0.6rem"></i></a>
+        <div class="dropdown">
+          <a href="projekt-action-view.html">Action View 2.0</a>
+          <a href="projekt-time-control.html">Time Control</a>
+          <a href="projekt-zero-to-demo.html">Zero to Demo</a>
+        </div>
+      </li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="toggleMenu()">
       <span></span><span></span><span></span>
@@ -372,11 +382,11 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
   </div>
 </nav>
 <div class="mobile-nav" id="mobile-nav">
-  <a href="#professional" onclick="closeMenu()">Experience</a>
-  <a href="#education" onclick="closeMenu()">Education</a>
-  <a href="#skills" onclick="closeMenu()">Skills</a>
-  <a href="#projects" onclick="closeMenu()">Projects</a>
-  <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank">Connect on LinkedIn</a>
+  <a href="#about" onclick="closeMenu()">About me</a>
+  <a href="projekt-action-view.html" onclick="closeMenu()">Action View 2.0</a>
+  <a href="projekt-time-control.html" onclick="closeMenu()">Time Control</a>
+  <a href="projekt-zero-to-demo.html" onclick="closeMenu()">Zero to Demo</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
 </div>
 
 <!-- HERO -->
@@ -384,9 +394,10 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
   <div class="container">
     <div class="hero-grid">
       <div class="hero-content">
+
         <div class="hero-eyebrow">Product Manager</div>
         <h1 class="hero-name">Isabel<br><em>Bettinger</em></h1>
-        <p class="hero-tagline">I build the backbone of B2B companies — turning complex challenges into elegant, user-centered products that deliver measurable business impact.</p>
+        <p class="hero-tagline">I build the backbone of B2B companies, turning complex challenges into elegant, user-centered products that deliver measurable business impact.</p>
         <figure class="hero-philosophy">
           <blockquote>"A product is not perfect when you can't add anything. It's perfect when you can't remove anything."</blockquote>
           <figcaption>— Antoine de Saint-Exupéry &nbsp;·&nbsp; <span>A principle I live by</span></figcaption>
@@ -401,10 +412,7 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
       </div>
     </div>
   </div>
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <i class="fas fa-chevron-down"></i>
-  </div>
+
 </section>
 
 <div class="divider"></div>
@@ -461,10 +469,13 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
         </div>
         <div class="tl-item">
           <div class="tl-date">2018 — 2021</div>
-          <div class="tl-title">Junior Outreach Manager</div>
+          <div class="tl-title">Outreach Specialist</div>
           <div class="tl-company">Dept Agency</div>
           <ul class="tl-list">
-            <li>Digital marketing and outreach operations in Berlin</li>
+            <li>Developed data-driven strategies through competitor backlink analysis and domain authority research</li>
+            <li>Executed link audits to identify toxic profiles, lost equity, and reclamation opportunities</li>
+            <li>Aligned on-page and off-page SEO to strengthen topical authority across client portfolios</li>
+            <li>Managed client-facing outreach, organic visibility, and referral traffic</li>
           </ul>
         </div>
       </div>
@@ -604,7 +615,7 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
 <section id="projects" class="projects-bg">
   <div class="container">
     <div class="section-label">Portfolio</div>
-    <h2 class="section-heading">Featured Projects</h2>
+    <h2 class="section-heading">Projects</h2>
     <p class="section-sub">A selection of products I've shaped from discovery through launch.</p>
     <div class="projects-grid">
       <a href="projekt-action-view.html" class="proj-card reveal">
@@ -618,7 +629,7 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
           </div>
           <div class="proj-title">Action View 2.0</div>
           <p class="proj-desc">Comprehensive redesign of the platform's core analysis feature providing live Google SERP visibility data. Led end-to-end product lifecycle from discovery through go-to-market.</p>
-          <span class="proj-link">Read case study <i class="fas fa-arrow-right"></i></span>
+          <span class="proj-link">Learn more <i class="fas fa-arrow-right"></i></span>
         </div>
       </a>
       <a href="projekt-time-control.html" class="proj-card reveal">
@@ -632,21 +643,21 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
           </div>
           <div class="proj-title">Time Control</div>
           <p class="proj-desc">Strategic leadership of a business-critical feature that transformed the platform's value proposition and became a primary driver for enterprise sales.</p>
-          <span class="proj-link">Read case study <i class="fas fa-arrow-right"></i></span>
+          <span class="proj-link">Learn more <i class="fas fa-arrow-right"></i></span>
         </div>
       </a>
-      <a href="projekt-headless-fusion.html" class="proj-card reveal">
+      <a href="projekt-zero-to-demo.html" class="proj-card reveal">
         <div class="proj-img">
-          <img src="project-headless-fusion.png" alt="Headless Fusion">
+          <img src="project-zero-to-demo.png" alt="Zero to Demo">
         </div>
         <div class="proj-body">
           <div class="proj-tags">
-            <span class="proj-tag">Architecture</span>
-            <span class="proj-tag">E-commerce</span>
+            <span class="proj-tag">Partner Project</span>
+            <span class="proj-tag">CMS Integration</span>
           </div>
-          <div class="proj-title">Headless Fusion</div>
-          <p class="proj-desc">Leading the development of a headless commerce solution that enabled seamless integration across multiple channels and platforms.</p>
-          <span class="proj-link">Read case study <i class="fas fa-arrow-right"></i></span>
+          <div class="proj-title">Zero to Demo</div>
+          <p class="proj-desc">Led the delivery of two fully functional demo frontends for a CMS partner, built on top of an XP layer and presented at CUE Days 2025.</p>
+          <span class="proj-link">Learn more <i class="fas fa-arrow-right"></i></span>
         </div>
       </a>
     </div>
@@ -660,28 +671,18 @@ footer p { font-size: 0.8125rem; color: var(--hint); }
   <div class="container">
     <div class="section-label">Contact</div>
     <h2 class="section-heading">Let's Talk</h2>
-    <div class="contact-box reveal">
-      <p style="color:var(--muted);font-size:1.0625rem;line-height:1.7;margin-bottom:0.5rem;">
-        Whether it's a job opportunity, a project, or just a good conversation about product — I'd love to hear from you.
-      </p>
-      <div class="contact-methods">
-        <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" class="contact-link">
-          <i class="fab fa-linkedin"></i>
-          <div>
-            <div>Connect on LinkedIn</div>
-            <div class="cl-label">linkedin.com/in/isabel-bettinger</div>
-          </div>
-          <i class="fas fa-arrow-right" style="margin-left:auto;font-size:0.75rem;color:var(--hint)"></i>
-        </a>
-        <a href="https://github.com/IsabelBettinger/portfolio" target="_blank" class="contact-link">
-          <i class="fab fa-github"></i>
-          <div>
-            <div>View on GitHub</div>
-            <div class="cl-label">github.com/IsabelBettinger/portfolio</div>
-          </div>
-          <i class="fas fa-arrow-right" style="margin-left:auto;font-size:0.75rem;color:var(--hint)"></i>
-        </a>
-      </div>
+    <p style="color:var(--muted);font-size:1.0625rem;max-width:560px;line-height:1.7;margin-bottom:2rem;">
+      Whether it's a job opportunity, a project, or just a good conversation about product, I'd love to hear from you.
+    </p>
+    <div class="contact-methods">
+      <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" class="contact-link">
+        <i class="fab fa-linkedin"></i>
+        <div>
+          <div>Connect on LinkedIn</div>
+          <div class="cl-label">linkedin.com/in/isabel-bettinger</div>
+        </div>
+        <i class="fas fa-arrow-right" style="margin-left:auto;font-size:0.75rem;color:var(--hint)"></i>
+      </a>
     </div>
   </div>
 </section>
