@@ -182,19 +182,10 @@ section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
 .hero-portrait{position:relative;justify-self:end;width:100%;max-width:440px;}
 .hero-portrait .frame{
-  position:relative;
   background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
   box-shadow:var(--shadow-card);padding:1.25rem;
 }
 .hero-portrait img{width:100%;height:auto;border-radius:var(--radius);}
-/* Label als Text über dem Bild — so bleibt es immer scharf */
-.portrait-label{
-  position:absolute;left:50%;bottom:.75rem;transform:translateX(-50%);
-  background:var(--surface-dark);color:#fff;
-  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.09em;text-transform:uppercase;
-  padding:.35rem .7rem;border-radius:var(--radius);border:1px solid var(--border-dark);
-  white-space:nowrap;
-}
 
 /* ═══ ZITAT-BAND ═══ */
 .quote-band{
@@ -468,7 +459,6 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
       <div class="hero-portrait corner-ticks">
         <div class="frame">
           <img src="portrait-illustration.png" alt="Illustriertes Porträt von Isabel Bettinger" width="512" height="458">
-          <span class="portrait-label">[ Berlin, DE // Est. 2018 ]</span>
         </div>
       </div>
     </div>
