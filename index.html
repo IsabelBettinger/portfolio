@@ -11,16 +11,15 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-/* ═══ TOKENS (aus dem Stitch-Entwurf "Greptile Design") ═══ */
+/* ═══ TOKENS (aus dem Stitch-Entwurf "Modern Slate Tech") ═══ */
 :root{
-  --surface:#f4f1ea;
-  --surface-paper:#fbfaf7;
+  --surface:#f8fafc;
+  --surface-paper:#f1f5f9;
   --surface-card:#ffffff;
-  --surface-dark:#0f1219;
-  --surface-dark-card:#141923;
-  --chip:#eae6dc;
-  --border-tech:#d5d0c7;
-  --border-dark:#262f40;
+  --surface-dark:#0f172a;
+  --surface-dark-card:#1e293b;
+  --border-tech:#e2e8f0;
+  --border-dark:#334155;
   --charcoal:#0f172a;
   --text-dim:#64748b;
   --text-muted:#94a3b8;
@@ -31,8 +30,8 @@
   --mint-dark:#008f53;
   --shadow-tactile:3px 3px 0 #475569;
   --shadow-tactile-hover:4px 4px 0 #334155;
-  --radius:3px;
-  --radius-sm:2px;
+  --shadow-card:0 1px 2px rgba(15,23,42,.06);
+  --radius:2px;
   --font-sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --font-mono:'Space Mono','SF Mono',ui-monospace,monospace;
   --nav-h:72px;
@@ -43,7 +42,9 @@
 html{scroll-behavior:smooth;}
 body{
   font-family:var(--font-sans);
-  background:var(--surface);
+  background-color:var(--surface);
+  background-image:radial-gradient(rgba(100,116,139,.12) 1px,transparent 1px);
+  background-size:24px 24px;
   color:var(--charcoal);
   line-height:1.65;
   -webkit-font-smoothing:antialiased;
@@ -52,11 +53,7 @@ img{max-width:100%;display:block;}
 a{color:inherit;text-decoration:none;}
 ul{list-style:none;}
 
-.container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.25rem,4vw,1.5rem);}
-
-/* Punktraster wie im Entwurf */
-.grid-dots{background-image:radial-gradient(rgba(17,24,39,.08) 1px,transparent 1px);background-size:24px 24px;}
-.grid-dots-dark{background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);background-size:20px 20px;}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
 
 /* +-Ecken an Karten */
 .corner-ticks{position:relative;}
@@ -67,35 +64,31 @@ ul{list-style:none;}
 .corner-ticks::before{content:'+';top:-9px;left:-7px;}
 .corner-ticks::after{content:'+';bottom:-9px;right:-7px;}
 
-/* Mono-Label (Kicker, Chips, Metazeilen) */
-.mono{
-  font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--text-dim);
-}
+/* Mono-Elemente */
 .kicker{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.75rem;
   letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
 .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--portrait-blue);flex-shrink:0;}
 .kicker-plain{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--text-dim);display:block;margin-bottom:1.25rem;}
 .kicker-plain strong{color:var(--charcoal);font-weight:400;}
-
 .tag{
   display:inline-block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.08em;
-  text-transform:uppercase;background:var(--chip);color:var(--accent);
-  padding:.2rem .5rem;border-radius:var(--radius-sm);
+  text-transform:uppercase;background:var(--surface-paper);border:1px solid var(--border-tech);
+  color:var(--accent);padding:.2rem .5rem;border-radius:var(--radius);
 }
-.tag-dark{background:var(--surface-dark);color:#fff;}
+.tag-dark{background:var(--surface-dark);border-color:var(--surface-dark);color:#fff;}
 .date-chip{
-  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.06em;background:var(--chip);
-  color:var(--text-dim);padding:.25rem .55rem;border-radius:var(--radius-sm);white-space:nowrap;
+  font-family:var(--font-mono);font-size:.75rem;background:var(--surface-paper);
+  border:1px solid var(--border-tech);color:var(--charcoal);padding:.25rem .75rem;
+  border-radius:var(--radius);white-space:nowrap;
 }
 
 /* Typografie */
 h1,h2,h3{font-weight:700;letter-spacing:-.02em;color:var(--charcoal);}
 h1{font-size:clamp(2.25rem,6vw,3.75rem);line-height:1.08;letter-spacing:-.03em;}
 h2{font-size:clamp(1.625rem,3.4vw,2.25rem);line-height:1.18;}
-h3{font-size:1.125rem;line-height:1.35;}
-.section-sub{color:var(--text-dim);max-width:62ch;margin-top:.85rem;font-size:1rem;}
+h3{font-size:1.25rem;line-height:1.3;}
+.section-sub{color:var(--text-dim);max-width:62ch;margin-top:.75rem;font-size:1rem;}
 
 /* Buttons: taktiler Versatz-Schatten */
 .btn{
@@ -113,7 +106,7 @@ h3{font-size:1.125rem;line-height:1.35;}
 
 .icon-btn{
   width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;
-  background:var(--chip);border:1.5px solid var(--charcoal);border-radius:var(--radius-sm);
+  background:var(--surface-paper);border:1.5px solid var(--charcoal);border-radius:var(--radius);
   box-shadow:2px 2px 0 #475569;color:var(--charcoal);flex-shrink:0;
   transition:transform .15s var(--ease),background .15s var(--ease);
 }
@@ -122,18 +115,18 @@ h3{font-size:1.125rem;line-height:1.35;}
 /* ═══ NAVIGATION ═══ */
 .nav{
   position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:400;
-  background:rgba(244,241,234,.92);backdrop-filter:blur(10px);
+  background:rgba(248,250,252,.92);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border-tech);
 }
 .nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:1rem;}
 .nav-logo{font-weight:700;font-size:1.05rem;letter-spacing:-.02em;}
 .nav-links{
   display:flex;align-items:center;gap:.25rem;padding:.25rem;
-  border:1px solid var(--border-tech);border-radius:999px;background:rgba(255,255,255,.5);
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
 }
 .nav-links a{
-  font-family:var(--font-mono);font-size:.75rem;letter-spacing:.04em;color:var(--text-dim);
-  padding:.35rem .8rem;border-radius:999px;border:1px solid transparent;transition:all .15s var(--ease);
+  font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);
+  padding:.35rem .8rem;border-radius:var(--radius);border:1px solid transparent;transition:all .15s var(--ease);
 }
 .nav-links a:hover{color:var(--charcoal);}
 .nav-links a.active{background:var(--surface-card);border-color:var(--border-tech);color:var(--charcoal);}
@@ -156,31 +149,49 @@ h3{font-size:1.125rem;line-height:1.35;}
 .mobile-nav a{font-size:1rem;font-weight:500;color:var(--text-dim);padding:.7rem 0;border-bottom:1px solid var(--border-tech);}
 .mobile-nav a:last-child{border-bottom:none;}
 
+/* ═══ SEKTIONEN ═══ */
+section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech);}
+.card{
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:clamp(1.5rem,3vw,2.25rem);
+}
+.card h3{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;font-size:1.125rem;}
+.card p{color:var(--text-dim);max-width:80ch;}
+.card-foot{
+  font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);
+  border-top:1px solid var(--border-tech);margin-top:1.75rem;padding-top:1.25rem;
+}
+
 /* ═══ HERO ═══ */
-.hero{padding:calc(var(--nav-h) + clamp(3rem,7vw,5.5rem)) 0 clamp(3rem,6vw,4.5rem);}
+.hero{padding:calc(var(--nav-h) + clamp(3rem,6vw,4.5rem)) 0 clamp(3rem,6vw,5rem);}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center;}
 .hero h1{margin:1.25rem 0 1.5rem;}
 .hero-tagline{color:var(--text-dim);font-size:1.0625rem;max-width:56ch;line-height:1.7;margin-bottom:2rem;}
 .hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
 .hero-portrait{position:relative;justify-self:end;width:100%;max-width:440px;}
 .hero-portrait .frame{
-  background:var(--surface-card);border:1px solid var(--border-tech);
-  border-radius:var(--radius);padding:1.25rem;
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:1.25rem;
 }
-.hero-portrait img{width:100%;height:auto;border-radius:var(--radius-sm);}
+.hero-portrait img{width:100%;height:auto;border-radius:var(--radius);}
 .hero-portrait .chip{
   position:absolute;left:-6px;bottom:1.5rem;background:var(--surface-dark);color:#fff;
   font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.09em;text-transform:uppercase;
-  padding:.35rem .6rem;border-radius:var(--radius-sm);border:1px solid var(--border-dark);
+  padding:.35rem .6rem;border-radius:var(--radius);border:1px solid var(--border-dark);
 }
 
 /* ═══ ZITAT-BAND ═══ */
-.quote-band{background:var(--surface-dark);color:#fff;text-align:center;padding:clamp(3.5rem,7vw,6rem) 0;}
+.quote-band{
+  background-color:var(--surface-dark);
+  background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);
+  background-size:20px 20px;
+  color:#fff;text-align:center;padding:clamp(3.5rem,7vw,6rem) 0;
+}
 .quote-band .chip{
   display:inline-block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.09em;
   text-transform:uppercase;color:var(--accent-bright);
   border:1px solid var(--border-dark);background:var(--surface-dark-card);
-  padding:.3rem .7rem;border-radius:var(--radius-sm);margin-bottom:2rem;
+  padding:.3rem .7rem;border-radius:var(--radius);margin-bottom:2rem;
 }
 .quote-band blockquote{
   font-size:clamp(1.25rem,2.6vw,2rem);font-weight:700;letter-spacing:-.02em;line-height:1.35;
@@ -189,157 +200,153 @@ h3{font-size:1.125rem;line-height:1.35;}
 .quote-band .caption{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;
   text-transform:uppercase;color:var(--text-muted);}
 
-/* ═══ SEKTIONEN ═══ */
-section{padding:clamp(3.5rem,7vw,6rem) 0;}
-.section-ruled{position:relative;}
-.section-ruled::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:100vw;max-width:100%;height:1px;background:var(--border-tech);}
-.card{
-  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
-  padding:clamp(1.5rem,3vw,2.25rem);
-}
-.card h3{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;}
-.card p{color:var(--text-dim);max-width:80ch;}
-.card-foot{
-  font-family:var(--font-mono);font-size:.75rem;letter-spacing:.06em;color:var(--text-dim);
-  border-top:1px solid var(--border-tech);margin-top:1.75rem;padding-top:1.25rem;
-}
-
-/* Projektkarten */
+/* ═══ PROJEKTE ═══ */
 .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
 .proj-card{
   display:flex;flex-direction:column;background:var(--surface-card);
-  border:1px solid var(--border-tech);border-radius:var(--radius);padding:1.25rem;
+  border:1px solid var(--border-tech);border-radius:var(--radius);box-shadow:var(--shadow-card);
+  padding:1.25rem;transition:border-color .2s var(--ease);
 }
+.proj-card:hover{border-color:var(--charcoal);}
 .proj-card .badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
 .proj-image{
-  border:1px solid var(--border-tech);border-radius:var(--radius-sm);background:var(--surface-paper);
+  border:1px solid var(--border-tech);border-radius:var(--radius);background:var(--surface);
   padding:1.25rem;margin-bottom:1.25rem;
 }
 .proj-image img{width:100%;height:auto;}
-.proj-card h3{margin-bottom:.6rem;}
+.proj-card h3{margin-bottom:.6rem;font-size:1.125rem;}
 .proj-card p{color:var(--text-dim);font-size:.9375rem;flex:1;}
 .proj-foot{
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
   border-top:1px solid var(--border-tech);margin-top:1.5rem;padding-top:1rem;
 }
-.proj-foot span{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.06em;color:var(--text-dim);}
+.proj-foot span{font-family:var(--font-mono);font-size:.6875rem;color:var(--text-dim);}
 
-/* Accordions (Experience, Personal) */
+/* ═══ ACCORDIONS (Experience, Personal) — native <details> ═══ */
 .ac-group{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem;}
-.ac-item{background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);}
-.ac-head{
-  width:100%;display:flex;align-items:center;gap:1rem;background:none;border:none;cursor:pointer;
-  padding:1rem 1.25rem;text-align:left;font-family:inherit;
+.ac-item{
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);transition:border-color .2s var(--ease);overflow:hidden;
 }
-.role-badge{
-  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.06em;color:var(--accent);
-  background:var(--chip);border:1px solid var(--border-tech);border-radius:var(--radius-sm);
-  padding:.25rem .5rem;flex-shrink:0;
+.ac-item:hover,.ac-item[open]{border-color:var(--charcoal);}
+.ac-item.special{border:1.5px solid rgba(74,111,165,.6);}
+.ac-item.special:hover,.ac-item.special[open]{border-color:var(--portrait-blue);}
+summary.ac-head{
+  display:flex;align-items:center;gap:1rem;padding:1.5rem;cursor:pointer;
+  list-style:none;transition:background .15s var(--ease);
 }
-.ac-title{flex:1;min-width:0;font-weight:700;font-size:1rem;line-height:1.3;}
-.ac-title .sub{display:block;font-weight:400;font-size:.875rem;color:var(--text-muted);
-  letter-spacing:0;font-family:var(--font-sans);margin-top:.15rem;}
+summary.ac-head::-webkit-details-marker{display:none;}
+summary.ac-head:hover{background:var(--surface);}
+.summary-copy{flex:1;min-width:0;}
+.summary-copy h3{font-size:1.25rem;font-weight:700;letter-spacing:-.02em;}
+.summary-copy .sub{display:block;font-family:var(--font-mono);font-size:.8125rem;font-weight:400;
+  color:var(--text-dim);margin-top:.15rem;}
 .ac-meta{display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
-.ac-chev{
+.chev{
   width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  background:var(--chip);border:1px solid var(--border-tech);border-radius:var(--radius-sm);
-  color:var(--charcoal);font-size:.7rem;transition:transform .25s var(--ease);
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
+  color:var(--charcoal);font-size:.7rem;transition:transform .2s var(--ease);
 }
-.ac-item.open .ac-chev{transform:rotate(180deg);}
-.ac-body{display:none;padding:0 1.25rem 1.25rem 1.25rem;}
-.ac-item.open .ac-body{display:block;}
-.ac-body ul{display:flex;flex-direction:column;gap:.5rem;}
-.ac-body li{position:relative;padding-left:1.1rem;color:var(--text-dim);font-size:.9375rem;}
-.ac-body li::before{content:'→';position:absolute;left:0;color:var(--accent);font-size:.75rem;top:.15rem;}
-.ac-head:focus-visible{outline:2px solid var(--accent-bright);outline-offset:-2px;}
+.ac-item[open] .chev{transform:rotate(180deg);}
+.ac-body{
+  padding:1rem 1.5rem 1.5rem;border-top:1px solid var(--border-tech);background:var(--surface-paper);
+}
+.ac-body ul{display:flex;flex-direction:column;gap:.75rem;}
+.ac-body li{display:flex;align-items:flex-start;gap:.75rem;color:var(--text-dim);font-size:.875rem;}
+.ac-body li::before{
+  content:'>';font-family:var(--font-mono);font-size:.75rem;font-weight:700;
+  color:var(--accent);flex-shrink:0;margin-top:1px;
+}
+.ac-body p{color:var(--text-dim);font-size:.9375rem;}
 
-/* Personal-Accordions */
-.personal-list{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem;max-width:760px;}
-.personal-list .ac-head{align-items:center;}
+/* Personal-Listen */
+.personal-list{max-width:64rem;}
 .personal-icon{
-  width:38px;height:38px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  background:var(--chip);border:1px solid var(--border-tech);border-radius:var(--radius-sm);
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
   color:var(--charcoal);
 }
-.personal-copy{flex:1;min-width:0;}
-.personal-copy strong{display:flex;align-items:center;gap:.5rem;font-size:1rem;}
+.personal-copy strong{display:flex;align-items:center;gap:.5rem;font-size:1.125rem;font-weight:700;}
 .personal-copy .sub{display:block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.08em;
   text-transform:uppercase;color:var(--text-muted);margin-top:.2rem;}
 
-/* Competencies */
+/* ═══ COMPETENCIES ═══ */
 .comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
-.comp-card{background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);padding:1.5rem;}
+.comp-card{
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:1.5rem;transition:border-color .2s var(--ease);
+}
+.comp-card:hover{border-color:var(--charcoal);}
 .comp-icon{
-  width:38px;height:38px;display:flex;align-items:center;justify-content:center;
-  background:var(--chip);border:1px solid var(--border-tech);border-radius:var(--radius-sm);
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
   color:var(--charcoal);margin-bottom:1.25rem;
 }
-.comp-card h3{margin-bottom:1rem;}
-.comp-card li{position:relative;padding-left:1rem;color:var(--text-dim);font-size:.9375rem;margin-bottom:.45rem;}
+.comp-card h3{margin-bottom:1rem;font-size:1.125rem;}
+.comp-card li{position:relative;padding-left:1rem;color:var(--text-dim);font-size:.9375rem;margin-bottom:.5rem;}
 .comp-card li::before{content:'·';position:absolute;left:0;color:var(--accent);font-weight:700;}
 .chips{display:flex;flex-wrap:wrap;gap:.4rem;}
 .lang-row{
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  background:var(--chip);border:1px solid var(--border-tech);border-radius:var(--radius-sm);
-  padding:.5rem .7rem;margin-bottom:.5rem;font-size:.9375rem;
+  display:flex;align-items:center;gap:1rem;background:var(--surface-paper);
+  border:1px solid var(--border-tech);border-radius:var(--radius);
+  padding:.5rem .75rem;margin-bottom:.5rem;font-size:.9375rem;
 }
-.lang-row .flag{width:20px;text-align:center;flex-shrink:0;}
+.lang-row .flag{flex-shrink:0;}
 .lang-row .name{flex:1;}
-.lang-row .level{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.06em;
-  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius-sm);
+.lang-row .level{font-family:var(--font-mono);font-size:.6875rem;
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
   padding:.15rem .45rem;color:var(--text-dim);}
-.comp-wide{grid-column:span 1;}
 
-/* Education */
+/* ═══ EDUCATION ═══ */
 .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
 .edu-card{display:flex;flex-direction:column;background:var(--surface-card);
-  border:1px solid var(--border-tech);border-radius:var(--radius);padding:1.5rem;}
+  border:1px solid var(--border-tech);border-radius:var(--radius);box-shadow:var(--shadow-card);
+  padding:1.5rem;transition:border-color .2s var(--ease);}
+.edu-card:hover{border-color:var(--charcoal);}
 .edu-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;}
 .edu-card h3{margin-bottom:.35rem;font-size:1.0625rem;}
-.edu-org{color:var(--text-muted);font-size:.9375rem;margin-bottom:1rem;}
-.edu-card li{position:relative;padding-left:1.1rem;color:var(--text-dim);font-size:.875rem;margin-bottom:.45rem;}
+.edu-org{font-family:var(--font-mono);color:var(--text-dim);font-size:.8125rem;margin-bottom:1rem;}
+.edu-card li{position:relative;padding-left:1.1rem;color:var(--text-dim);font-size:.875rem;margin-bottom:.5rem;}
 .edu-card li::before{content:'>';position:absolute;left:0;font-family:var(--font-mono);font-size:.7rem;
   color:var(--accent);top:.1rem;}
 .edu-card p{color:var(--text-dim);font-size:.9375rem;flex:1;}
 .edu-foot{
   display:flex;align-items:center;gap:.5rem;border-top:1px solid var(--border-tech);
   margin-top:1.5rem;padding-top:1rem;font-family:var(--font-mono);font-size:.6875rem;
-  letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);
+  text-transform:uppercase;color:var(--text-dim);
 }
 .edu-foot i{color:var(--mint-dark);}
 
-/* Kontakt */
+/* ═══ KONTAKT ═══ */
 .contact-wrap{max-width:820px;margin:0 auto;text-align:center;}
 .contact-card{background:var(--surface-card);border:1px solid var(--border-tech);
-  border-radius:var(--radius);padding:clamp(2rem,5vw,3.5rem);}
+  border-radius:var(--radius);box-shadow:var(--shadow-card);padding:clamp(2rem,5vw,3.5rem);}
 .contact-card .kicker-plain{text-align:center;}
 .contact-card p{color:var(--text-dim);max-width:52ch;margin:1rem auto 2rem;}
 .contact-actions{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
-.contact-direct{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.04em;color:var(--text-dim);
-  margin-top:2rem;}
-.contact-direct a{border:1px solid var(--border-tech);border-radius:var(--radius-sm);
-  padding:.2rem .45rem;background:var(--chip);}
-.contact-direct a:hover{background:var(--surface-paper);}
+.contact-direct{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);margin-top:2rem;}
+.contact-direct a{border:1px solid var(--border-tech);border-radius:var(--radius);
+  padding:.2rem .45rem;background:var(--surface-paper);}
+.contact-direct a:hover{background:var(--surface-card);}
 
-/* Footer */
-footer{background:var(--chip);border-top:1px solid var(--border-tech);
-  padding:clamp(2.5rem,5vw,3.5rem) 0 1.5rem;margin-top:clamp(3.5rem,7vw,6rem);}
+/* ═══ FOOTER ═══ */
+footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
+  padding:clamp(2.5rem,5vw,3.5rem) 0 1.5rem;}
 .footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
 .footer-brand strong{display:block;font-weight:700;font-size:1.05rem;letter-spacing:-.02em;}
 .footer-brand span{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);}
 .footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
-.footer-links a{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.04em;color:var(--text-dim);}
+.footer-links a{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);}
 .footer-links a:hover{color:var(--charcoal);}
 .footer-links a.hl{color:var(--accent);text-decoration:underline;}
 .footer-bottom{
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
   border-top:1px solid var(--border-tech);margin-top:2rem;padding-top:1.25rem;
-  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.04em;color:var(--text-muted);
+  font-family:var(--font-mono);font-size:.6875rem;color:var(--text-muted);
 }
 
 /* Einblenden beim Scrollen */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
 .reveal.visible{opacity:1;transform:none;}
 @media (prefers-reduced-motion:reduce){
   .reveal{opacity:1;transform:none;transition:none;}
@@ -357,15 +364,16 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
   .hero-grid{grid-template-columns:1fr;gap:2.5rem;}
   .hero-portrait{justify-self:center;max-width:380px;}
   .proj-grid,.comp-grid,.edu-grid{grid-template-columns:1fr;}
-  .ac-head{flex-wrap:wrap;row-gap:.75rem;}
-  .ac-title{flex-basis:100%;order:2;}
+  summary.ac-head{flex-wrap:wrap;row-gap:.75rem;padding:1.25rem;}
+  .summary-copy{flex-basis:100%;order:2;}
   .ac-meta{margin-left:auto;}
+  .ac-body{padding:1rem 1.25rem 1.25rem;}
   .footer-bottom{flex-direction:column;}
 }
 @media (max-width:480px){
   .hero-actions,.contact-actions{flex-direction:column;align-items:stretch;}
   .btn{justify-content:center;}
-  .contact-card .kicker-plain{text-align:left;}
+  .date-chip{font-size:.6875rem;padding:.2rem .5rem;}
 }
 </style>
 </head>
@@ -400,7 +408,7 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
 </div>
 
 <!-- ═══ HERO ═══ -->
-<section id="home" class="hero grid-dots">
+<section id="home" class="hero">
   <div class="container">
     <div class="hero-grid">
       <div class="hero-content">
@@ -423,7 +431,7 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
 </section>
 
 <!-- ═══ ZITAT ═══ -->
-<section class="quote-band grid-dots-dark">
+<section class="quote-band">
   <div class="container">
     <span class="chip">&#10022; Core Principle</span>
     <blockquote>&ldquo;A product is not perfect when you can&rsquo;t add anything. It&rsquo;s perfect when you can&rsquo;t remove anything.&rdquo;</blockquote>
@@ -431,8 +439,8 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
   </div>
 </section>
 
-<!-- ═══ WHO I AM / SUMMARY ═══ -->
-<section id="about" class="section-ruled">
+<!-- ═══ WHO I AM ═══ -->
+<section id="about">
   <div class="container reveal">
     <span class="kicker-plain">[ Summary Matrix ]</span>
     <h2>Delivering clarity and value across the full&nbsp;product lifecycle</h2>
@@ -444,8 +452,8 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
   </div>
 </section>
 
-<!-- ═══ PROJEKTE ══��� -->
-<section id="projects" class="section-ruled">
+<!-- ═══ PROJEKTE ═══ -->
+<section id="projects">
   <div class="container reveal">
     <span class="kicker-plain">[ 01 // Case Studies ] <strong>/ Core Product Work</strong></span>
     <h2>Featured Projects</h2>
@@ -495,19 +503,24 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
 </section>
 
 <!-- ═══ EXPERIENCE ═══ -->
-<section id="experience" class="section-ruled">
+<section id="experience">
   <div class="container reveal">
     <span class="kicker-plain">[ 02 // Career Record ] <strong>/ Track Record</strong></span>
     <h2>Professional Experience</h2>
     <p class="section-sub">Comprehensive career history leading B2B product strategy, roadmap execution, and cross-functional teams.</p>
 
     <div class="ac-group">
-      <div class="ac-item">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
-          <span class="role-badge">ROLE_01</span>
-          <span class="ac-title">Product Manager / Product Owner <span class="sub">ethinking GmbH</span></span>
-          <span class="ac-meta"><span class="date-chip">2025 — Present</span><span class="ac-chev"><i class="fas fa-chevron-down"></i></span></span>
-        </button>
+      <details class="ac-item" open>
+        <summary class="ac-head">
+          <span class="summary-copy">
+            <h3>Product Manager / Product Owner</h3>
+            <span class="sub">ethinking GmbH</span>
+          </span>
+          <span class="ac-meta">
+            <span class="date-chip">2025 — Present</span>
+            <span class="chev"><i class="fas fa-chevron-down"></i></span>
+          </span>
+        </summary>
         <div class="ac-body">
           <ul>
             <li>Aligned go-to-market strategy with engineering roadmaps, prioritizing technical capacity against business objectives</li>
@@ -516,14 +529,19 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
             <li>Cultivated an &ldquo;Outcome over Output&rdquo; philosophy across multidisciplinary teams</li>
           </ul>
         </div>
-      </div>
+      </details>
 
-      <div class="ac-item">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
-          <span class="role-badge">ROLE_02</span>
-          <span class="ac-title">Product Manager <span class="sub">Trisolute Software GmbH</span></span>
-          <span class="ac-meta"><span class="date-chip">2023 — 2025</span><span class="ac-chev"><i class="fas fa-chevron-down"></i></span></span>
-        </button>
+      <details class="ac-item" open>
+        <summary class="ac-head">
+          <span class="summary-copy">
+            <h3>Product Manager</h3>
+            <span class="sub">Trisolute Software GmbH</span>
+          </span>
+          <span class="ac-meta">
+            <span class="date-chip">2023 — 2025</span>
+            <span class="chev"><i class="fas fa-chevron-down"></i></span>
+          </span>
+        </summary>
         <div class="ac-body">
           <ul>
             <li>Identified user needs through quantitative and qualitative research to uncover key pain points</li>
@@ -533,14 +551,19 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
             <li>Tracked success through customer satisfaction surveys and continuous user feedback</li>
           </ul>
         </div>
-      </div>
+      </details>
 
-      <div class="ac-item">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
-          <span class="role-badge">ROLE_03</span>
-          <span class="ac-title">Junior Product Manager <span class="sub">Trisolute Software GmbH</span></span>
-          <span class="ac-meta"><span class="date-chip">2021 — 2023</span><span class="ac-chev"><i class="fas fa-chevron-down"></i></span></span>
-        </button>
+      <details class="ac-item" open>
+        <summary class="ac-head">
+          <span class="summary-copy">
+            <h3>Junior Product Manager</h3>
+            <span class="sub">Trisolute Software GmbH</span>
+          </span>
+          <span class="ac-meta">
+            <span class="date-chip">2021 — 2023</span>
+            <span class="chev"><i class="fas fa-chevron-down"></i></span>
+          </span>
+        </summary>
         <div class="ac-body">
           <ul>
             <li>Expanded customer relationships through regular visits and personal engagement</li>
@@ -549,14 +572,19 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
             <li>Designed UX/UI and interfaces to enhance user experience and satisfaction</li>
           </ul>
         </div>
-      </div>
+      </details>
 
-      <div class="ac-item">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
-          <span class="role-badge">ROLE_04</span>
-          <span class="ac-title">Outreach Specialist <span class="sub">Dept Agency</span></span>
-          <span class="ac-meta"><span class="date-chip">2018 — 2021</span><span class="ac-chev"><i class="fas fa-chevron-down"></i></span></span>
-        </button>
+      <details class="ac-item" open>
+        <summary class="ac-head">
+          <span class="summary-copy">
+            <h3>Outreach Specialist</h3>
+            <span class="sub">Dept Agency</span>
+          </span>
+          <span class="ac-meta">
+            <span class="date-chip">2018 — 2021</span>
+            <span class="chev"><i class="fas fa-chevron-down"></i></span>
+          </span>
+        </summary>
         <div class="ac-body">
           <ul>
             <li>Developed data-driven strategies through competitor backlink analysis and domain authority research</li>
@@ -565,13 +593,13 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
             <li>Managed client-facing outreach, organic visibility, and referral traffic</li>
           </ul>
         </div>
-      </div>
+      </details>
     </div>
   </div>
 </section>
 
 <!-- ═══ COMPETENCIES ═══ -->
-<section id="competencies" class="section-ruled">
+<section id="competencies">
   <div class="container reveal">
     <span class="kicker-plain">[ 03 // Competencies ] <strong>/ Skills &amp; Tooling</strong></span>
     <h2>Competencies &amp; Pillars</h2>
@@ -601,7 +629,7 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
       </div>
 
       <div class="comp-card">
-        <div class="comp-icon"><i class="fas fa-screwdriver-wrench"></i></div>
+        <div class="comp-icon"><i class="fas fa-gauge-high"></i></div>
         <h3>Execution &amp; Agile Governance</h3>
         <ul>
           <li>Roadmap &amp; OKR Frameworks</li>
@@ -612,7 +640,7 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
       </div>
 
       <div class="comp-card">
-        <div class="comp-icon"><i class="fas fa-gauge-high"></i></div>
+        <div class="comp-icon"><i class="fas fa-screwdriver-wrench"></i></div>
         <h3>Tools &amp; Stack</h3>
         <div class="chips">
           <span class="tag">Jira</span><span class="tag">Miro</span><span class="tag">Figma</span>
@@ -632,7 +660,7 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
 </section>
 
 <!-- ═══ EDUCATION ═══ -->
-<section id="education" class="section-ruled">
+<section id="education">
   <div class="container reveal">
     <span class="kicker-plain">[ 04 // Education ] <strong>/ Continuous Learning</strong></span>
     <h2>Education &amp; Credentials</h2>
@@ -685,63 +713,63 @@ footer{background:var(--chip);border-top:1px solid var(--border-tech);
 </section>
 
 <!-- ═══ PERSONAL ═══ -->
-<section id="personal" class="section-ruled">
+<section id="personal">
   <div class="container reveal">
     <span class="kicker-plain">[ 05 // Personal ] <strong>/ Behind the Product</strong></span>
     <h2>Personal Elements</h2>
     <p class="section-sub">Behind every professional is a person. Here's a glimpse into my life outside of work.</p>
 
     <div class="ac-group personal-list">
-      <div class="ac-item">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
+      <details class="ac-item">
+        <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-dumbbell"></i></span>
           <span class="personal-copy"><strong>Active Lifestyle</strong><span class="sub">Click to reveal</span></span>
-          <span class="ac-chev"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="ac-body"><p style="color:var(--text-dim)">I'm someone who genuinely enjoys being on the move. Most days you'll find me at the gym doing heavy lifting and pushing my limits, with a relaxing sauna session to follow. I enjoy the contrast of a high-energy day with the quiet of a completely unproductive afternoon — it's all about balance.</p></div>
-      </div>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>I'm someone who genuinely enjoys being on the move. Most days you'll find me at the gym doing heavy lifting and pushing my limits, with a relaxing sauna session to follow. I enjoy the contrast of a high-energy day with the quiet of a completely unproductive afternoon — it's all about balance.</p></div>
+      </details>
 
-      <div class="ac-item">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
+      <details class="ac-item">
+        <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-water"></i></span>
           <span class="personal-copy"><strong>Diving &amp; Snorkeling</strong><span class="sub">Click to reveal</span></span>
-          <span class="ac-chev"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="ac-body"><p style="color:var(--text-dim)">I love the underwater world. Diving and snorkeling aren't just about the quiet — they're about discovering a completely different environment. There's something incredibly interesting about exploring an ecosystem that most people never see. It's the best way I've found to fully switch off and stay present.</p></div>
-      </div>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>I love the underwater world. Diving and snorkeling aren't just about the quiet — they're about discovering a completely different environment. There's something incredibly interesting about exploring an ecosystem that most people never see. It's the best way I've found to fully switch off and stay present.</p></div>
+      </details>
 
-      <div class="ac-item">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
+      <details class="ac-item">
+        <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-plane-departure"></i></span>
           <span class="personal-copy"><strong>Traveling</strong><span class="sub">Click to reveal</span></span>
-          <span class="ac-chev"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="ac-body"><p style="color:var(--text-dim)">I travel as often as I can, with Southeast Asia being my favorite region to revisit. I'm a big fan of the food, the atmosphere, and the constant warmth. It's the one part of the world I never really get tired of — there's always something new to discover.</p></div>
-      </div>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>I travel as often as I can, with Southeast Asia being my favorite region to revisit. I'm a big fan of the food, the atmosphere, and the constant warmth. It's the one part of the world I never really get tired of — there's always something new to discover.</p></div>
+      </details>
 
-      <div class="ac-item">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
+      <details class="ac-item">
+        <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-film"></i></span>
           <span class="personal-copy"><strong>Reading &amp; Cinema</strong><span class="sub">Click to reveal</span></span>
-          <span class="ac-chev"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="ac-body"><p style="color:var(--text-dim)">My downtime is usually split between books and film. I tend to gravitate toward arthouse cinema and well-written fiction, but specialist literature has its place on my shelf too. I enjoy anything that's actually worth the time it takes to get through it.</p></div>
-      </div>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>My downtime is usually split between books and film. I tend to gravitate toward arthouse cinema and well-written fiction, but specialist literature has its place on my shelf too. I enjoy anything that's actually worth the time it takes to get through it.</p></div>
+      </details>
 
-      <div class="ac-item" style="border-color:var(--accent)">
-        <button class="ac-head" onclick="toggleAc(this)" aria-expanded="false">
+      <details class="ac-item special">
+        <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-star"></i></span>
           <span class="personal-copy"><strong>Fun Fact <span class="tag tag-dark">Special</span></strong><span class="sub">Interactive highlight</span></span>
-          <span class="ac-chev"><i class="fas fa-chevron-down"></i></span>
-        </button>
-        <div class="ac-body"><p style="color:var(--text-dim)">I'm very good at hula hooping. I don't do it often, but I taught myself via YouTube videos years ago and the skill has stuck with me ever since.</p></div>
-      </div>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>I'm very good at hula hooping. I don't do it often, but I taught myself via YouTube videos years ago and the skill has stuck with me ever since.</p></div>
+      </details>
     </div>
   </div>
 </section>
 
 <!-- ═══ KONTAKT ═══ -->
-<section id="contact" class="section-ruled">
+<section id="contact">
   <div class="container contact-wrap reveal">
     <div class="contact-card corner-ticks">
       <span class="kicker-plain">[ 06 // Connect ]</span>
@@ -794,17 +822,17 @@ function closeMenu(){
   document.getElementById('hamburger').setAttribute('aria-expanded','false');
 }
 
-/* Accordions: nur innerhalb der eigenen Gruppe offen */
-function toggleAc(btn){
-  const item = btn.closest('.ac-item');
-  const group = btn.closest('.ac-group');
-  const isOpen = item.classList.contains('open');
-  group.querySelectorAll('.ac-item.open').forEach(i => {
-    if (i !== item) { i.classList.remove('open'); i.querySelector('.ac-head').setAttribute('aria-expanded','false'); }
+/* Accordions sind native <details> — kein JavaScript nötig.
+   Optional: in einer Gruppe immer nur eines offen halten. */
+document.querySelectorAll('.ac-group').forEach(group => {
+  group.querySelectorAll('details.ac-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+      if (!item.open) return;
+      if (!group.classList.contains('exclusive')) return;
+      group.querySelectorAll('details[open]').forEach(o => { if (o !== item) o.open = false; });
+    });
   });
-  item.classList.toggle('open', !isOpen);
-  btn.setAttribute('aria-expanded', String(!isOpen));
-}
+});
 
 /* Einblenden beim Scrollen */
 const observer = new IntersectionObserver((entries) => {
