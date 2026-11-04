@@ -167,11 +167,13 @@ section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech
 }
 .card h3{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;font-size:1.125rem;}
 .card p{color:var(--text-dim);max-width:80ch;font-size:1.0625rem;line-height:1.7;}
-.card-foot{
-  display:flex;align-items:center;gap:.5rem;
-  font-family:var(--font-mono);font-size:.75rem;color:var(--charcoal);
+.card .card-foot{
+  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
+  max-width:none;
+  font-family:var(--font-mono);font-size:.6875rem;line-height:1.6;color:var(--text-muted);
   border-top:1px solid var(--border-tech);margin-top:2rem;padding-top:1.5rem;
 }
+.card .card-foot span{white-space:nowrap;}
 .card-foot .m{color:var(--accent);font-weight:700;}
 
 /* ═══ HERO ═══ */
@@ -485,7 +487,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
     <div class="card">
       <h3>Who I am</h3>
       <p>Making the digital world work better and creating value isn't just my job title; it's a mandate. I'm a Product Manager with 5+ years of experience who champions user-centered design to deliver unapologetic value from day one. Highly motivated, curious and a natural leader. Whether it's defining strategy, streamlining operations, or perfecting the user experience, my goal is simple: build what matters, and leave the rest on the cutting room floor.</p>
-      <p class="card-foot"><span class="m">&gt;</span> ALIGNED_EXECUTION // CONTINUOUS_DISCOVERY</p>
+      <p class="card-foot"><span>#CROSS-FUNCTIONAL LEADER //</span> <span>#STRATEGIC THINKER //</span> <span>#ANALYTICAL EMPATH //</span> <span>#CURIOUS PROBLEM SOLVER</span></p>
     </div>
   </div>
 </section>
