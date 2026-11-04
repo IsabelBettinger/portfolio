@@ -1,0 +1,5 @@
+# Artefakte aus Tool-/Agent-Sessions (z. B. Vergleichs-Screenshots)
+.openchamber/
+
+# macOS
+.DS_Store
