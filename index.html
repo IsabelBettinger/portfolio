@@ -10,8 +10,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>document.documentElement.classList.add('js');</script>
 <style>
-/* ═══ TOKENS (aus dem Stitch-Entwurf "Modern Slate Tech") ═══ */
+/* ═══ TOKENS (Stitch-Entwurf "Modern Slate Tech", Stand im Duplikat-Projekt) ═══ */
 :root{
   --surface:#f8fafc;
   --surface-paper:#f1f5f9;
@@ -24,9 +25,10 @@
   --text-dim:#64748b;
   --text-muted:#94a3b8;
   --accent:#2c5282;
+  --accent-soft-bg:#edf4fc;
+  --accent-soft-border:#b9d5f3;
   --accent-bright:#38bdf8;
   --portrait-blue:#4a6fa5;
-  --mint:#00dc82;
   --mint-dark:#008f53;
   --shadow-tactile:3px 3px 0 #475569;
   --shadow-tactile-hover:4px 4px 0 #334155;
@@ -34,7 +36,7 @@
   --radius:2px;
   --font-sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --font-mono:'Space Mono','SF Mono',ui-monospace,monospace;
-  --nav-h:72px;
+  --nav-h:64px;
   --ease:cubic-bezier(.4,0,.2,1);
   --maxw:1240px;
 }
@@ -54,8 +56,6 @@ a{color:inherit;text-decoration:none;}
 ul{list-style:none;}
 
 .container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
-
-/* +-Ecken an Karten */
 .corner-ticks{position:relative;}
 .corner-ticks::before,.corner-ticks::after{
   font-family:var(--font-mono);font-size:12px;line-height:1;color:var(--text-muted);
@@ -64,19 +64,23 @@ ul{list-style:none;}
 .corner-ticks::before{content:'+';top:-9px;left:-7px;}
 .corner-ticks::after{content:'+';bottom:-9px;right:-7px;}
 
-/* Mono-Elemente */
+/* Mono-Bausteine */
 .kicker{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.75rem;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;}
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
 .kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--portrait-blue);flex-shrink:0;}
-.kicker-plain{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--text-dim);display:block;margin-bottom:1.25rem;}
-.kicker-plain strong{color:var(--charcoal);font-weight:400;}
+.kicker-plain{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);display:block;margin-bottom:1rem;}
 .tag{
   display:inline-block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.08em;
   text-transform:uppercase;background:var(--surface-paper);border:1px solid var(--border-tech);
   color:var(--accent);padding:.2rem .5rem;border-radius:var(--radius);
 }
 .tag-dark{background:var(--surface-dark);border-color:var(--surface-dark);color:#fff;}
+.badge-code{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--surface-paper);border:1px solid var(--border-tech);color:var(--text-dim);
+  padding:.15rem .5rem;border-radius:var(--radius);white-space:nowrap;
+}
 .date-chip{
   font-family:var(--font-mono);font-size:.75rem;background:var(--surface-paper);
   border:1px solid var(--border-tech);color:var(--charcoal);padding:.25rem .75rem;
@@ -88,53 +92,60 @@ h1,h2,h3{font-weight:700;letter-spacing:-.02em;color:var(--charcoal);}
 h1{font-size:clamp(2.25rem,6vw,3.75rem);line-height:1.08;letter-spacing:-.03em;}
 h2{font-size:clamp(1.625rem,3.4vw,2.25rem);line-height:1.18;}
 h3{font-size:1.25rem;line-height:1.3;}
-.section-sub{color:var(--text-dim);max-width:62ch;margin-top:.75rem;font-size:1rem;}
+.section-head{max-width:42rem;margin-bottom:3rem;}
+.section-head.wide{max-width:34rem;}
+.section-sub{color:var(--text-dim);margin-top:.75rem;font-size:1rem;}
 
-/* Buttons: taktiler Versatz-Schatten */
+/* Buttons */
 .btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  font-family:var(--font-mono);font-size:.75rem;letter-spacing:.07em;text-transform:uppercase;
-  padding:.7rem 1.15rem;border-radius:var(--radius);border:1.5px solid var(--charcoal);
-  box-shadow:var(--shadow-tactile);cursor:pointer;font-weight:400;
-  transition:transform .15s var(--ease),box-shadow .15s var(--ease),background .15s var(--ease);
+  display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
+  font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:1rem 2rem;border-radius:var(--radius);border:1px solid var(--charcoal);
+  box-shadow:var(--shadow-tactile);cursor:pointer;
+  transition:transform .15s var(--ease),box-shadow .15s var(--ease),background .15s var(--ease),border-color .15s var(--ease);
 }
 .btn-primary{background:var(--charcoal);color:#fff;}
+.btn-primary:hover{background:#1a2234;border-color:var(--portrait-blue);transform:translate(-1px,-1px);box-shadow:var(--shadow-tactile-hover);}
 .btn-secondary{background:var(--surface-card);color:var(--charcoal);}
-.btn:hover{transform:translate(-1px,-1px);box-shadow:var(--shadow-tactile-hover);}
+.btn-secondary:hover{border-color:var(--portrait-blue);transform:translate(-1px,-1px);box-shadow:var(--shadow-tactile-hover);}
 .btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #475569;}
 .btn:focus-visible{outline:2px solid var(--accent-bright);outline-offset:2px;}
-
 .icon-btn{
   width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;
-  background:var(--surface-paper);border:1.5px solid var(--charcoal);border-radius:var(--radius);
+  background:var(--surface-paper);border:1px solid var(--charcoal);border-radius:var(--radius);
   box-shadow:2px 2px 0 #475569;color:var(--charcoal);flex-shrink:0;
   transition:transform .15s var(--ease),background .15s var(--ease);
 }
 .icon-btn:hover{background:var(--surface-card);transform:translate(-1px,-1px);}
 
-/* ═══ NAVIGATION ═══ */
+/* ═══ HEADER ═══ */
 .nav{
   position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:400;
-  background:rgba(248,250,252,.92);backdrop-filter:blur(10px);
+  background:rgba(248,250,252,.9);backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border-tech);
 }
-.nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:1rem;}
-.nav-logo{font-weight:700;font-size:1.05rem;letter-spacing:-.02em;}
-.nav-links{
-  display:flex;align-items:center;gap:.25rem;padding:.25rem;
-  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
-}
+.nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.nav-logo{font-weight:700;font-size:1rem;letter-spacing:-.02em;}
+.nav-links{display:flex;align-items:center;gap:2rem;}
 .nav-links a{
   font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);
-  padding:.35rem .8rem;border-radius:var(--radius);border:1px solid transparent;transition:all .15s var(--ease);
+  padding:.25rem 0;border-bottom:2px solid transparent;
+  transition:color .15s var(--ease),border-color .15s var(--ease);
 }
 .nav-links a:hover{color:var(--charcoal);}
-.nav-links a.active{background:var(--surface-card);border-color:var(--border-tech);color:var(--charcoal);}
-.nav-cta{display:inline-flex;align-items:center;gap:.45rem;font-family:var(--font-mono);font-size:.6875rem;
-  letter-spacing:.07em;text-transform:uppercase;background:var(--charcoal);color:#fff;
-  border:1.5px solid var(--charcoal);border-radius:var(--radius);padding:.55rem .9rem;
-  box-shadow:var(--shadow-tactile);transition:transform .15s var(--ease),box-shadow .15s var(--ease);}
-.nav-cta:hover{transform:translate(-1px,-1px);box-shadow:var(--shadow-tactile-hover);}
+.nav-links a.active{color:var(--charcoal);font-weight:700;border-bottom-color:var(--charcoal);}
+.nav-right{display:flex;align-items:center;gap:.75rem;}
+.lang-switch{
+  display:inline-flex;align-items:center;padding:2px;background:var(--surface-paper);
+  border:1px solid var(--border-tech);border-radius:var(--radius);
+  font-family:var(--font-mono);font-size:.75rem;
+}
+.lang-switch button{
+  font:inherit;border:none;background:none;cursor:pointer;padding:.25rem .5rem;
+  border-radius:var(--radius);color:var(--text-dim);transition:all .15s var(--ease);
+}
+.lang-switch button:hover{color:var(--charcoal);background:var(--surface-card);}
+.lang-switch button[aria-pressed="true"]{background:var(--charcoal);color:#fff;font-weight:700;}
 .hamburger{display:none;background:none;border:none;cursor:pointer;padding:.5rem;flex-direction:column;gap:5px;}
 .hamburger span{display:block;width:22px;height:2px;background:var(--charcoal);transition:all .25s var(--ease);}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
@@ -150,24 +161,27 @@ h3{font-size:1.25rem;line-height:1.3;}
 .mobile-nav a:last-child{border-bottom:none;}
 
 /* ═══ SEKTIONEN ═══ */
+main{padding-top:var(--nav-h);}
 section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech);}
 .card{
   background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
-  box-shadow:var(--shadow-card);padding:clamp(1.5rem,3vw,2.25rem);
+  box-shadow:var(--shadow-card);padding:clamp(1.75rem,3vw,2.25rem);
 }
 .card h3{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;font-size:1.125rem;}
-.card p{color:var(--text-dim);max-width:80ch;}
+.card p{color:var(--text-dim);max-width:80ch;font-size:1.0625rem;line-height:1.7;}
 .card-foot{
-  font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);
-  border-top:1px solid var(--border-tech);margin-top:1.75rem;padding-top:1.25rem;
+  display:flex;align-items:center;gap:.5rem;
+  font-family:var(--font-mono);font-size:.75rem;color:var(--charcoal);
+  border-top:1px solid var(--border-tech);margin-top:2rem;padding-top:1.5rem;
 }
+.card-foot .m{color:var(--accent);font-weight:700;}
 
 /* ═══ HERO ═══ */
-.hero{padding:calc(var(--nav-h) + clamp(3rem,6vw,4.5rem)) 0 clamp(3rem,6vw,5rem);}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center;}
+.hero{padding:clamp(3rem,6vw,4.5rem) 0 clamp(3rem,6vw,5rem);}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(2rem,4vw,2.5rem);align-items:center;}
 .hero h1{margin:1.25rem 0 1.5rem;}
-.hero-tagline{color:var(--text-dim);font-size:1.0625rem;max-width:56ch;line-height:1.7;margin-bottom:2rem;}
-.hero-actions{display:flex;gap:.85rem;flex-wrap:wrap;}
+.hero-tagline{color:var(--text-dim);font-size:1.0625rem;max-width:56ch;line-height:1.7;margin-bottom:2.5rem;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
 .hero-portrait{position:relative;justify-self:end;width:100%;max-width:440px;}
 .hero-portrait .frame{
   background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
@@ -201,19 +215,18 @@ section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech
   text-transform:uppercase;color:var(--text-muted);}
 
 /* ═══ PROJEKTE ═══ */
-.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
 .proj-card{
   display:flex;flex-direction:column;background:var(--surface-card);
   border:1px solid var(--border-tech);border-radius:var(--radius);box-shadow:var(--shadow-card);
   padding:1.25rem;transition:border-color .2s var(--ease);
 }
-.proj-card:hover{border-color:var(--charcoal);}
+.proj-card:hover{border-color:var(--portrait-blue);}
 .proj-card .badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
 .proj-image{
   border:1px solid var(--border-tech);border-radius:var(--radius);background:var(--surface);
   padding:1.25rem;margin-bottom:1.25rem;
 }
-.proj-image img{width:100%;height:auto;}
 .proj-card h3{margin-bottom:.6rem;font-size:1.125rem;}
 .proj-card p{color:var(--text-dim);font-size:.9375rem;flex:1;}
 .proj-foot{
@@ -222,8 +235,8 @@ section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech
 }
 .proj-foot span{font-family:var(--font-mono);font-size:.6875rem;color:var(--text-dim);}
 
-/* ═══ ACCORDIONS (Experience, Personal) — native <details> ═══ */
-.ac-group{display:flex;flex-direction:column;gap:1rem;margin-top:2.5rem;}
+/* ═══ ACCORDIONS (native <details>) ═══ */
+.ac-group{display:flex;flex-direction:column;gap:1rem;}
 .ac-item{
   background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
   box-shadow:var(--shadow-card);transition:border-color .2s var(--ease);overflow:hidden;
@@ -248,9 +261,7 @@ summary.ac-head:hover{background:var(--surface);}
   color:var(--charcoal);font-size:.7rem;transition:transform .2s var(--ease);
 }
 .ac-item[open] .chev{transform:rotate(180deg);}
-.ac-body{
-  padding:1rem 1.5rem 1.5rem;border-top:1px solid var(--border-tech);background:var(--surface-paper);
-}
+.ac-body{padding:1rem 1.5rem 1.5rem;border-top:1px solid var(--border-tech);background:var(--surface-paper);}
 .ac-body ul{display:flex;flex-direction:column;gap:.75rem;}
 .ac-body li{display:flex;align-items:flex-start;gap:.75rem;color:var(--text-dim);font-size:.875rem;}
 .ac-body li::before{
@@ -259,7 +270,7 @@ summary.ac-head:hover{background:var(--surface);}
 }
 .ac-body p{color:var(--text-dim);font-size:.9375rem;}
 
-/* Personal-Listen */
+/* Personal */
 .personal-list{max-width:64rem;}
 .personal-icon{
   width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
@@ -270,35 +281,57 @@ summary.ac-head:hover{background:var(--surface);}
 .personal-copy .sub{display:block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.08em;
   text-transform:uppercase;color:var(--text-muted);margin-top:.2rem;}
 
-/* ═══ COMPETENCIES ═══ */
-.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
-.comp-card{
+/* ═══ SKILLS & TOOLING ═══ */
+.skills-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;}
+.skill-card{
+  display:flex;flex-direction:column;justify-content:space-between;
   background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
-  box-shadow:var(--shadow-card);padding:1.5rem;transition:border-color .2s var(--ease);
+  box-shadow:var(--shadow-card);padding:1.75rem;transition:border-color .2s var(--ease);
 }
-.comp-card:hover{border-color:var(--charcoal);}
+.skill-card:hover{border-color:var(--portrait-blue);}
+.span-4{grid-column:span 4;}
+.span-6{grid-column:span 6;}
+.skill-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;}
 .comp-icon{
-  width:40px;height:40px;display:flex;align-items:center;justify-content:center;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
   background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
-  color:var(--charcoal);margin-bottom:1.25rem;
+  color:var(--accent);
 }
-.comp-card h3{margin-bottom:1rem;font-size:1.125rem;}
-.comp-card li{position:relative;padding-left:1rem;color:var(--text-dim);font-size:.9375rem;margin-bottom:.5rem;}
-.comp-card li::before{content:'·';position:absolute;left:0;color:var(--accent);font-weight:700;}
-.chips{display:flex;flex-wrap:wrap;gap:.4rem;}
+.comp-icon.sm{width:36px;height:36px;}
+.inline-icon{display:flex;align-items:center;gap:.75rem;}
+.skill-card h3{margin-bottom:1rem;font-size:1.125rem;}
+.skill-card li{position:relative;padding-left:1rem;color:var(--text-dim);font-size:.875rem;margin-bottom:.5rem;}
+.skill-card li::before{content:'•';position:absolute;left:0;color:var(--accent);font-weight:700;}
+.skill-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  border-top:1px solid var(--border-tech);margin-top:2rem;padding-top:1rem;
+  font-family:var(--font-mono);font-size:.6875rem;color:var(--text-muted);
+}
+.skill-foot .star{color:var(--accent);}
+.skill-foot .m{color:var(--accent);font-weight:700;}
+.tool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;}
+.tool{
+  display:flex;align-items:center;gap:.5rem;background:var(--surface-paper);
+  border:1px solid var(--border-tech);border-radius:var(--radius);padding:.5rem .75rem;
+  font-family:var(--font-mono);font-size:.75rem;color:var(--charcoal);
+  transition:background .15s var(--ease);
+}
+.tool:hover{background:var(--surface-card);}
+.tool .p{width:6px;height:6px;border-radius:50%;background:var(--portrait-blue);flex-shrink:0;}
 .lang-row{
-  display:flex;align-items:center;gap:1rem;background:var(--surface-paper);
-  border:1px solid var(--border-tech);border-radius:var(--radius);
-  padding:.5rem .75rem;margin-bottom:.5rem;font-size:.9375rem;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
+  padding:.75rem 1rem;margin-bottom:.75rem;
 }
-.lang-row .flag{flex-shrink:0;}
-.lang-row .name{flex:1;}
-.lang-row .level{font-family:var(--font-mono);font-size:.6875rem;
-  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
-  padding:.15rem .45rem;color:var(--text-dim);}
+.lang-row .who{display:flex;align-items:center;gap:.75rem;font-weight:500;font-size:.875rem;}
+.lang-row .level{
+  font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--accent);
+  background:var(--accent-soft-bg);border:1px solid var(--accent-soft-border);
+  border-radius:var(--radius);padding:.15rem .6rem;
+}
 
 /* ═══ EDUCATION ═══ */
-.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem;}
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
 .edu-card{display:flex;flex-direction:column;background:var(--surface-card);
   border:1px solid var(--border-tech);border-radius:var(--radius);box-shadow:var(--shadow-card);
   padding:1.5rem;transition:border-color .2s var(--ease);}
@@ -321,9 +354,9 @@ summary.ac-head:hover{background:var(--surface);}
 .contact-wrap{max-width:820px;margin:0 auto;text-align:center;}
 .contact-card{background:var(--surface-card);border:1px solid var(--border-tech);
   border-radius:var(--radius);box-shadow:var(--shadow-card);padding:clamp(2rem,5vw,3.5rem);}
-.contact-card .kicker-plain{text-align:center;}
-.contact-card p{color:var(--text-dim);max-width:52ch;margin:1rem auto 2rem;}
-.contact-actions{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;}
+.contact-card .kicker-plain{display:inline-block;}
+.contact-card p{color:var(--text-dim);max-width:36rem;margin:1rem auto 2.5rem;font-size:1.0625rem;line-height:1.7;}
+.contact-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
 .contact-direct{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);margin-top:2rem;}
 .contact-direct a{border:1px solid var(--border-tech);border-radius:var(--radius);
   padding:.2rem .45rem;background:var(--surface-paper);}
@@ -331,43 +364,46 @@ summary.ac-head:hover{background:var(--surface);}
 
 /* ═══ FOOTER ═══ */
 footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
-  padding:clamp(2.5rem,5vw,3.5rem) 0 1.5rem;}
-.footer-inner{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
-.footer-brand strong{display:block;font-weight:700;font-size:1.05rem;letter-spacing:-.02em;}
+  padding:clamp(2.5rem,5vw,4rem) 0 1.5rem;}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.footer-brand strong{display:block;font-weight:700;font-size:1.25rem;letter-spacing:-.02em;}
 .footer-brand span{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);}
-.footer-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.footer-links{display:flex;gap:1rem;flex-wrap:wrap;}
 .footer-links a{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);}
 .footer-links a:hover{color:var(--charcoal);}
-.footer-links a.hl{color:var(--accent);text-decoration:underline;}
+.footer-links a.hl{color:var(--charcoal);text-decoration:underline;}
 .footer-bottom{
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  border-top:1px solid var(--border-tech);margin-top:2rem;padding-top:1.25rem;
+  border-top:1px solid var(--border-tech);padding-top:1.25rem;
   font-family:var(--font-mono);font-size:.6875rem;color:var(--text-muted);
 }
 
-/* Einblenden beim Scrollen */
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
-.reveal.visible{opacity:1;transform:none;}
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
+.js .reveal.visible{opacity:1;transform:none;}
 @media (prefers-reduced-motion:reduce){
-  .reveal{opacity:1;transform:none;transition:none;}
+  .js .reveal{opacity:1;transform:none;transition:none;}
   html{scroll-behavior:auto;}
 }
 
 /* ═══ RESPONSIVE ═══ */
 @media (max-width:1024px){
-  .proj-grid,.comp-grid,.edu-grid{grid-template-columns:repeat(2,1fr);}
+  .proj-grid,.edu-grid{grid-template-columns:repeat(2,1fr);}
+  .skills-grid{grid-template-columns:repeat(2,1fr);}
+  .span-4,.span-6{grid-column:span 1;}
+  .tool-grid{grid-template-columns:repeat(2,1fr);}
   .nav-links{display:none;}
   .hamburger{display:flex;}
-  .nav-cta{display:none;}
 }
 @media (max-width:768px){
   .hero-grid{grid-template-columns:1fr;gap:2.5rem;}
   .hero-portrait{justify-self:center;max-width:380px;}
-  .proj-grid,.comp-grid,.edu-grid{grid-template-columns:1fr;}
+  .proj-grid,.edu-grid,.skills-grid{grid-template-columns:1fr;}
+  .tool-grid{grid-template-columns:repeat(2,1fr);}
   summary.ac-head{flex-wrap:wrap;row-gap:.75rem;padding:1.25rem;}
   .summary-copy{flex-basis:100%;order:2;}
   .ac-meta{margin-left:auto;}
   .ac-body{padding:1rem 1.25rem 1.25rem;}
+  .footer-inner{align-items:flex-start;flex-direction:column;}
   .footer-bottom{flex-direction:column;}
 }
 @media (max-width:480px){
@@ -379,24 +415,29 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 </head>
 <body>
 
-<!-- ═══ NAV ═══ -->
-<nav class="nav">
+<!-- ═══ HEADER ═══ -->
+<header class="nav">
   <div class="container nav-inner">
     <a href="#home" class="nav-logo">Isabel Bettinger</a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#home" class="active">Home</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#competencies">Competencies</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#about">About Me</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta"><i class="fas fa-envelope"></i> Get in Touch</a>
-    <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+    <nav class="nav-links" id="nav-links">
+      <a href="#home" class="active">Home</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#competencies">Competencies</a>
+      <a href="#education">Education</a>
+      <a href="#about">About Me</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language Selector">
+        <button type="button" aria-pressed="true" onclick="setLang(this,'en')">EN</button>
+        <button type="button" aria-pressed="false" onclick="setLang(this,'de')">DE</button>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
-</nav>
+</header>
 <div class="mobile-nav" id="mobile-nav">
   <a href="#home" onclick="closeMenu()">Home</a>
   <a href="#projects" onclick="closeMenu()">Projects</a>
@@ -404,8 +445,9 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
   <a href="#competencies" onclick="closeMenu()">Competencies</a>
   <a href="#education" onclick="closeMenu()">Education</a>
   <a href="#about" onclick="closeMenu()">About Me</a>
-  <a href="#contact" onclick="closeMenu()">Get in Touch</a>
 </div>
+
+<main>
 
 <!-- ═══ HERO ═══ -->
 <section id="home" class="hero">
@@ -442,12 +484,14 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <!-- ═══ WHO I AM ═══ -->
 <section id="about">
   <div class="container reveal">
-    <span class="kicker-plain">[ Summary Matrix ]</span>
-    <h2>Delivering clarity and value across the full&nbsp;product lifecycle</h2>
-    <div class="card" style="margin-top:2.5rem">
-      <h3>Who I am <span class="tag">Perspective</span></h3>
-      <p>With a background bridging Social Sciences and analytical growth marketing, I view software through both deeply human and rigorous commercial lenses. I facilitate high-trust alignment across engineering teams, corporate stakeholders, and global enterprise partners to remove roadblocks and ship fast.</p>
-      <p class="card-foot">&gt; ALIGNED_EXECUTION // CONTINUOUS_DISCOVERY</p>
+    <div class="section-head wide">
+      <span class="kicker-plain">[ Summary Matrix ]</span>
+      <h2>Delivering clarity and value across the full&nbsp;product lifecycle</h2>
+    </div>
+    <div class="card">
+      <h3>Who I am</h3>
+      <p>Making the digital world work better and creating value isn't just my job title; it's a mandate. I'm a Product Manager with 5+ years of experience who champions user-centered design to deliver unapologetic value from day one. Highly motivated, curious and a natural leader. Whether it's defining strategy, streamlining operations, or perfecting the user experience, my goal is simple: build what matters, and leave the rest on the cutting room floor.</p>
+      <p class="card-foot"><span class="m">&gt;</span> ALIGNED_EXECUTION // CONTINUOUS_DISCOVERY</p>
     </div>
   </div>
 </section>
@@ -455,9 +499,11 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <!-- ═══ PROJEKTE ═══ -->
 <section id="projects">
   <div class="container reveal">
-    <span class="kicker-plain">[ 01 // Case Studies ] <strong>/ Core Product Work</strong></span>
-    <h2>Featured Projects</h2>
-    <p class="section-sub">A selection of high-impact enterprise B2B products I have shaped from strategic discovery through go-to-market.</p>
+    <div class="section-head">
+      <span class="kicker-plain">[ 01 // Case Studies ]</span>
+      <h2>Featured Projects</h2>
+      <p class="section-sub">A selection of high-impact enterprise B2B products I have shaped from strategic discovery through go-to-market.</p>
+    </div>
 
     <div class="proj-grid">
       <article class="proj-card corner-ticks">
@@ -505,9 +551,11 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <!-- ═══ EXPERIENCE ═══ -->
 <section id="experience">
   <div class="container reveal">
-    <span class="kicker-plain">[ 02 // Career Record ] <strong>/ Track Record</strong></span>
-    <h2>Professional Experience</h2>
-    <p class="section-sub">Comprehensive career history leading B2B product strategy, roadmap execution, and cross-functional teams.</p>
+    <div class="section-head">
+      <span class="kicker-plain">[ 02 // Career Record ]</span>
+      <h2>Professional Experience</h2>
+      <p class="section-sub">Comprehensive career history leading B2B product strategy, roadmap execution, and cross-functional teams.</p>
+    </div>
 
     <div class="ac-group">
       <details class="ac-item" open>
@@ -598,62 +646,109 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
   </div>
 </section>
 
-<!-- ═══ COMPETENCIES ═══ -->
+<!-- ═══ SKILLS & TOOLING ═══ -->
 <section id="competencies">
   <div class="container reveal">
-    <span class="kicker-plain">[ 03 // Competencies ] <strong>/ Skills &amp; Tooling</strong></span>
-    <h2>Competencies &amp; Pillars</h2>
-    <p class="section-sub">Strategic domain mastery, tooling, and communication excellence.</p>
+    <div class="section-head">
+      <span class="kicker-plain">[ 03 // Competencies ]</span>
+      <h2>Skills &amp; Tooling</h2>
+      <p class="section-sub">Strategic domain mastery, tooling, and communication excellence.</p>
+    </div>
 
-    <div class="comp-grid">
-      <div class="comp-card">
-        <div class="comp-icon"><i class="fas fa-arrow-trend-up"></i></div>
-        <h3>Strategic Business &amp; Growth</h3>
-        <ul>
-          <li>Product Strategy</li>
-          <li>KPI Architecture</li>
-          <li>Market &amp; Competitive Intelligence</li>
-          <li>Strategic Stakeholder Alignment</li>
-        </ul>
-      </div>
-
-      <div class="comp-card">
-        <div class="comp-icon"><i class="fas fa-pen-ruler"></i></div>
-        <h3>Product Discovery &amp; UX</h3>
-        <ul>
-          <li>Product Discovery</li>
-          <li>UX/UI Design</li>
-          <li>Experience Strategy &amp; Optimization</li>
-          <li>Requirement Synthesis &amp; Validation</li>
-        </ul>
-      </div>
-
-      <div class="comp-card">
-        <div class="comp-icon"><i class="fas fa-gauge-high"></i></div>
-        <h3>Execution &amp; Agile Governance</h3>
-        <ul>
-          <li>Roadmap &amp; OKR Frameworks</li>
-          <li>Agile Governance &amp; Scalability</li>
-          <li>Lifecycle Ownership &amp; Value</li>
-          <li>Data-Informed Decision Making</li>
-        </ul>
-      </div>
-
-      <div class="comp-card">
-        <div class="comp-icon"><i class="fas fa-screwdriver-wrench"></i></div>
-        <h3>Tools &amp; Stack</h3>
-        <div class="chips">
-          <span class="tag">Jira</span><span class="tag">Miro</span><span class="tag">Figma</span>
-          <span class="tag">Adobe XD</span><span class="tag">Asana</span><span class="tag">Notion</span>
-          <span class="tag">Microsoft Office</span><span class="tag">Google Workspace</span>
+    <div class="skills-grid">
+      <div class="skill-card span-4">
+        <div>
+          <div class="skill-top">
+            <div class="comp-icon"><i class="fas fa-arrow-trend-up"></i></div>
+            <span class="badge-code">DOM_01</span>
+          </div>
+          <h3>Strategic Business &amp; Growth</h3>
+          <ul>
+            <li>Product Strategy</li>
+            <li>KPI Architecture</li>
+            <li>Market &amp; Competitive Intelligence</li>
+            <li>Strategic Stakeholder Alignment</li>
+          </ul>
         </div>
+        <div class="skill-foot"><span>Impact Strategy</span><span class="star">&#10022;</span></div>
       </div>
 
-      <div class="comp-card">
-        <div class="comp-icon"><i class="fas fa-language"></i></div>
-        <h3>Languages &amp; Fluency</h3>
-        <div class="lang-row"><span class="flag">&#127465;&#127466;</span><span class="name">German</span><span class="level">Native</span></div>
-        <div class="lang-row"><span class="flag">&#127468;&#127463;</span><span class="name">English</span><span class="level">Fluent</span></div>
+      <div class="skill-card span-4">
+        <div>
+          <div class="skill-top">
+            <div class="comp-icon"><i class="fas fa-pen-ruler"></i></div>
+            <span class="badge-code">DOM_02</span>
+          </div>
+          <h3>Product Discovery &amp; UX</h3>
+          <ul>
+            <li>Product Discovery</li>
+            <li>UX/UI Design</li>
+            <li>Experience Strategy &amp; Optimization</li>
+            <li>Requirement Synthesis &amp; Validation</li>
+          </ul>
+        </div>
+        <div class="skill-foot"><span>User Centric</span><span class="star">&#10022;</span></div>
+      </div>
+
+      <div class="skill-card span-4">
+        <div>
+          <div class="skill-top">
+            <div class="comp-icon"><i class="fas fa-gauge-high"></i></div>
+            <span class="badge-code">DOM_03</span>
+          </div>
+          <h3>Execution &amp; Agile Governance</h3>
+          <ul>
+            <li>Roadmap &amp; OKR Frameworks</li>
+            <li>Agile Governance &amp; Scalability</li>
+            <li>Lifecycle Ownership &amp; Value</li>
+            <li>Data-Informed Decision Making</li>
+          </ul>
+        </div>
+        <div class="skill-foot"><span>Agile Delivery</span><span class="star">&#10022;</span></div>
+      </div>
+
+      <div class="skill-card span-6">
+        <div>
+          <div class="skill-top">
+            <div class="inline-icon">
+              <div class="comp-icon sm"><i class="fas fa-screwdriver-wrench"></i></div>
+              <h3 style="margin:0">Tools &amp; Stack</h3>
+            </div>
+            <span class="badge-code">8 Systems</span>
+          </div>
+          <div class="tool-grid">
+            <span class="tool"><span class="p"></span>Jira</span>
+            <span class="tool"><span class="p"></span>Miro</span>
+            <span class="tool"><span class="p"></span>Figma</span>
+            <span class="tool"><span class="p"></span>Adobe XD</span>
+            <span class="tool"><span class="p"></span>Asana</span>
+            <span class="tool"><span class="p"></span>Notion</span>
+            <span class="tool"><span class="p"></span>Microsoft Office</span>
+            <span class="tool"><span class="p"></span>Google Workspace</span>
+          </div>
+        </div>
+        <div class="skill-foot"><span><span class="m">&gt;</span> Production &amp; Collaboration Environment</span></div>
+      </div>
+
+      <div class="skill-card span-6">
+        <div>
+          <div class="skill-top">
+            <div class="inline-icon">
+              <div class="comp-icon sm"><i class="fas fa-language"></i></div>
+              <h3 style="margin:0">Languages &amp; Fluency</h3>
+            </div>
+            <span class="badge-code">Bilingual</span>
+          </div>
+          <div class="lang-row">
+            <span class="who">&#127465;&#127466; German</span>
+            <span class="level">Native</span>
+          </div>
+          <div class="lang-row">
+            <span class="who">&#127468;&#127463; English</span>
+            <span class="level">Fluent</span>
+          </div>
+        </div>
+        <div class="skill-foot"><span><span class="m">&gt;</span> International Cross-Functional Collaboration</span></div>
       </div>
     </div>
   </div>
@@ -662,9 +757,11 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <!-- ═══ EDUCATION ═══ -->
 <section id="education">
   <div class="container reveal">
-    <span class="kicker-plain">[ 04 // Education ] <strong>/ Continuous Learning</strong></span>
-    <h2>Education &amp; Credentials</h2>
-    <p class="section-sub">Academic grounding in social sciences paired with specialized product management certifications.</p>
+    <div class="section-head">
+      <span class="kicker-plain">[ 04 // Education ]</span>
+      <h2>Education &amp; Credentials</h2>
+      <p class="section-sub">Academic grounding in social sciences paired with specialized product management certifications.</p>
+    </div>
 
     <div class="edu-grid">
       <article class="edu-card corner-ticks">
@@ -715,12 +812,14 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <!-- ═══ PERSONAL ═══ -->
 <section id="personal">
   <div class="container reveal">
-    <span class="kicker-plain">[ 05 // Personal ] <strong>/ Behind the Product</strong></span>
-    <h2>Personal Elements</h2>
-    <p class="section-sub">Behind every professional is a person. Here's a glimpse into my life outside of work.</p>
+    <div class="section-head">
+      <span class="kicker-plain">[ 05 // Personal ]</span>
+      <h2>Personal Elements</h2>
+      <p class="section-sub">Behind every professional is a person. Here's a glimpse into my life outside of work.</p>
+    </div>
 
     <div class="ac-group personal-list">
-      <details class="ac-item">
+      <details class="ac-item" open>
         <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-dumbbell"></i></span>
           <span class="personal-copy"><strong>Active Lifestyle</strong><span class="sub">Click to reveal</span></span>
@@ -729,7 +828,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
         <div class="ac-body"><p>I'm someone who genuinely enjoys being on the move. Most days you'll find me at the gym doing heavy lifting and pushing my limits, with a relaxing sauna session to follow. I enjoy the contrast of a high-energy day with the quiet of a completely unproductive afternoon — it's all about balance.</p></div>
       </details>
 
-      <details class="ac-item">
+      <details class="ac-item" open>
         <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-water"></i></span>
           <span class="personal-copy"><strong>Diving &amp; Snorkeling</strong><span class="sub">Click to reveal</span></span>
@@ -738,7 +837,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
         <div class="ac-body"><p>I love the underwater world. Diving and snorkeling aren't just about the quiet — they're about discovering a completely different environment. There's something incredibly interesting about exploring an ecosystem that most people never see. It's the best way I've found to fully switch off and stay present.</p></div>
       </details>
 
-      <details class="ac-item">
+      <details class="ac-item" open>
         <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-plane-departure"></i></span>
           <span class="personal-copy"><strong>Traveling</strong><span class="sub">Click to reveal</span></span>
@@ -747,7 +846,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
         <div class="ac-body"><p>I travel as often as I can, with Southeast Asia being my favorite region to revisit. I'm a big fan of the food, the atmosphere, and the constant warmth. It's the one part of the world I never really get tired of — there's always something new to discover.</p></div>
       </details>
 
-      <details class="ac-item">
+      <details class="ac-item" open>
         <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-film"></i></span>
           <span class="personal-copy"><strong>Reading &amp; Cinema</strong><span class="sub">Click to reveal</span></span>
@@ -756,7 +855,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
         <div class="ac-body"><p>My downtime is usually split between books and film. I tend to gravitate toward arthouse cinema and well-written fiction, but specialist literature has its place on my shelf too. I enjoy anything that's actually worth the time it takes to get through it.</p></div>
       </details>
 
-      <details class="ac-item special">
+      <details class="ac-item special" open>
         <summary class="ac-head">
           <span class="personal-icon"><i class="fas fa-star"></i></span>
           <span class="personal-copy"><strong>Fun Fact <span class="tag tag-dark">Special</span></strong><span class="sub">Interactive highlight</span></span>
@@ -783,6 +882,8 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
     </div>
   </div>
 </section>
+
+</main>
 
 <!-- ═══ FOOTER ═══ -->
 <footer>
@@ -822,25 +923,27 @@ function closeMenu(){
   document.getElementById('hamburger').setAttribute('aria-expanded','false');
 }
 
-/* Accordions sind native <details> — kein JavaScript nötig.
-   Optional: in einer Gruppe immer nur eines offen halten. */
+/* Sprachumschalter: setzt nur den Zustand — eine deutsche Fassung gibt es noch nicht */
+function setLang(btn, lang){
+  btn.parentElement.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+  document.documentElement.lang = lang;
+}
+
+/* Accordions sind native <details> — kein JS nötig. */
 document.querySelectorAll('.ac-group').forEach(group => {
   group.querySelectorAll('details.ac-item').forEach(item => {
     item.addEventListener('toggle', () => {
-      if (!item.open) return;
-      if (!group.classList.contains('exclusive')) return;
+      if (!item.open || !group.classList.contains('exclusive')) return;
       group.querySelectorAll('details[open]').forEach(o => { if (o !== item) o.open = false; });
     });
   });
 });
 
-/* Einblenden beim Scrollen */
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-/* Navigation: aktiven Abschnitt markieren */
 const navLinks = [...document.querySelectorAll('#nav-links a')];
 const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
 const spy = new IntersectionObserver((entries) => {
