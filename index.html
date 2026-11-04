@@ -210,10 +210,17 @@ section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech
 /* ═══ PROJEKTE ═══ */
 .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
 .proj-card{
+  position:relative;
   display:flex;flex-direction:column;background:var(--surface-card);
   border:1px solid var(--border-tech);border-radius:var(--radius);box-shadow:var(--shadow-card);
   padding:1.25rem;
+  transition:border-color .2s var(--ease),box-shadow .2s var(--ease);
 }
+.proj-card:hover{border-color:var(--portrait-blue);box-shadow:0 4px 14px rgba(15,23,42,.10);}
+.proj-card:has(.icon-btn:focus-visible){border-color:var(--portrait-blue);box-shadow:0 0 0 2px var(--accent-bright);}
+/* Der Pfeil-Link spannt sich unsichtbar über die ganze Karte,
+   dadurch ist die komplette Karte klickbar. */
+.proj-card .icon-btn::after{content:'';position:absolute;inset:0;}
 .proj-card .badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
 .proj-image{
   border:1px solid var(--border-tech);border-radius:var(--radius);background:var(--surface);
