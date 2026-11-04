@@ -364,6 +364,9 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 .footer-links a{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);}
 .footer-links a:hover{color:var(--charcoal);}
 .footer-links a.hl{color:var(--charcoal);text-decoration:underline;}
+.footer-links a .ext-arrow{font-size:.6rem;margin-left:.35em;opacity:.65;
+  transition:opacity .15s var(--ease),transform .15s var(--ease);}
+.footer-links a:hover .ext-arrow{opacity:1;transform:translate(1px,-1px);}
 .footer-bottom{
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
   border-top:1px solid var(--border-tech);padding-top:1.25rem;
@@ -889,7 +892,8 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
         <a href="#competencies">Competencies</a>
         <a href="#education">Education</a>
         <a href="#personal">Personal</a>
-        <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" rel="noopener" class="hl">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" rel="noopener" class="hl" title="LinkedIn — opens in a new tab">LinkedIn<i class="fas fa-arrow-up-right-from-square ext-arrow" aria-hidden="true"></i></a>
+        <a href="https://www.xing.com/profile/Isabel_Bettinger2" target="_blank" rel="noopener" class="hl" title="XING — opens in a new tab">XING<i class="fas fa-arrow-up-right-from-square ext-arrow" aria-hidden="true"></i></a>
       </nav>
     </div>
     <div class="footer-bottom">
