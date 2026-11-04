@@ -210,17 +210,13 @@ section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech
 /* ═══ PROJEKTE ═══ */
 .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
 .proj-card{
-  position:relative;
   display:flex;flex-direction:column;background:var(--surface-card);
   border:1px solid var(--border-tech);border-radius:var(--radius);box-shadow:var(--shadow-card);
   padding:1.25rem;
   transition:border-color .2s var(--ease),box-shadow .2s var(--ease);
 }
 .proj-card:hover{border-color:var(--portrait-blue);box-shadow:0 4px 14px rgba(15,23,42,.10);}
-.proj-card:has(.icon-btn:focus-visible){border-color:var(--portrait-blue);box-shadow:0 0 0 2px var(--accent-bright);}
-/* Der Pfeil-Link spannt sich unsichtbar über die ganze Karte,
-   dadurch ist die komplette Karte klickbar. */
-.proj-card .icon-btn::after{content:'';position:absolute;inset:0;}
+.proj-card:focus-visible{border-color:var(--portrait-blue);box-shadow:0 0 0 2px var(--accent-bright);outline:none;}
 .proj-card .badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
 .proj-image{
   border:1px solid var(--border-tech);border-radius:var(--radius);background:var(--surface);
@@ -504,7 +500,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
     </div>
 
     <div class="proj-grid">
-      <article class="proj-card corner-ticks">
+      <a class="proj-card corner-ticks" href="projekt-action-view.html" aria-label="Case Study: Action View 2.0">
         <div class="badges"><span class="tag">UX Redesign</span><span class="tag tag-dark">Growth</span></div>
         <div class="proj-image">
           <img src="project-action-view-illustration.png" alt="Illustration: Diagramme und Charts" width="512" height="311">
@@ -513,11 +509,11 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
         <p>Comprehensive redesign of the platform's core analysis feature providing live Google SERP visibility data. Led the end-to-end product lifecycle from discovery through go-to-market.</p>
         <div class="proj-foot">
           <span>[ Core Platform Feature ]</span>
-          <a href="projekt-action-view.html" class="icon-btn" aria-label="Action View 2.0 ansehen"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></a>
+          <span class="icon-btn" aria-hidden="true"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></span>
         </div>
-      </article>
+      </a>
 
-      <article class="proj-card corner-ticks">
+      <a class="proj-card corner-ticks" href="projekt-time-control.html" aria-label="Case Study: Time Control">
         <div class="badges"><span class="tag">Strategy</span><span class="tag tag-dark">Enterprise</span></div>
         <div class="proj-image">
           <img src="project-time-control-illustration.png" alt="Illustration: Person am Tisch mit Pie-Chart" width="512" height="311">
@@ -526,11 +522,11 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
         <p>Strategic leadership of a business-critical feature that transformed the platform's value proposition and became a primary driver for enterprise contract acquisitions and retention.</p>
         <div class="proj-foot">
           <span>[ Sales Enablement Driver ]</span>
-          <a href="projekt-time-control.html" class="icon-btn" aria-label="Time Control ansehen"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></a>
+          <span class="icon-btn" aria-hidden="true"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></span>
         </div>
-      </article>
+      </a>
 
-      <article class="proj-card corner-ticks">
+      <a class="proj-card corner-ticks" href="projekt-zero-to-demo.html" aria-label="Case Study: Zero to Demo">
         <div class="badges"><span class="tag">Partner Project</span><span class="tag tag-dark">CMS Integration</span></div>
         <div class="proj-image">
           <img src="project-zero-to-demo-illustration.png" alt="Illustration: Laptop und Smartphone" width="512" height="311">
@@ -539,9 +535,9 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
         <p>Led the rapid delivery of two fully functional demo frontends for a tier-one CMS partner, built on top of an XP layer and presented live at CUE Days 2025.</p>
         <div class="proj-foot">
           <span>[ CUE Days 2025 Showcase ]</span>
-          <a href="projekt-zero-to-demo.html" class="icon-btn" aria-label="Zero to Demo ansehen"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></a>
+          <span class="icon-btn" aria-hidden="true"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></span>
         </div>
-      </article>
+      </a>
     </div>
   </div>
 </section>
