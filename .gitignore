@@ -1,5 +1,8 @@
 # Artefakte aus Tool-/Agent-Sessions (z. B. Vergleichs-Screenshots)
 .openchamber/
 
+# Lokale Live-Backups (ZIP) – nicht versionieren
+portfolio-live-backup-*.zip
+
 # macOS
 .DS_Store
