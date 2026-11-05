@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isabel Bettinger · Senior Product Manager</title>
+<meta name="description" content="Isabel Bettinger, Senior Product Manager. Ich baue das digitale Rückgrat von B2B-Unternehmen und verwandle komplexe Herausforderungen in intuitive, nutzerzentrierte Produkte mit messbarem wirtschaftlichen Mehrwert.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,300..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* ═══ TOKENS (Stitch-Entwurf "Modern Slate Tech", Stand im Duplikat-Projekt) ═══ */
+:root{
+  --surface:#f8fafc;
+  --surface-paper:#f1f5f9;
+  --surface-card:#ffffff;
+  --surface-dark:#0f172a;
+  --surface-dark-card:#1e293b;
+  --border-tech:#e2e8f0;
+  --border-dark:#334155;
+  --charcoal:#0f172a;
+  --text-dim:#64748b;
+  --text-muted:#94a3b8;
+  --accent:#2c5282;
+  --accent-soft-bg:#edf4fc;
+  --accent-soft-border:#b9d5f3;
+  --accent-bright:#38bdf8;
+  --portrait-blue:#4a6fa5;
+  --mint-dark:#008f53;
+  --shadow-tactile:3px 3px 0 #475569;
+  --shadow-tactile-hover:4px 4px 0 #334155;
+  --shadow-card:0 1px 2px rgba(15,23,42,.06);
+  --radius:2px;
+  --font-sans:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'Space Mono','SF Mono',ui-monospace,monospace;
+  --nav-h:64px;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --maxw:1240px;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:var(--font-sans);
+  background-color:var(--surface);
+  color:var(--charcoal);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;height:auto;display:block;}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;}
+
+.container{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+.corner-ticks{position:relative;}
+.corner-ticks::before,.corner-ticks::after{
+  font-family:var(--font-mono);font-size:12px;line-height:1;color:var(--text-muted);
+  position:absolute;pointer-events:none;
+}
+.corner-ticks::before{content:'+';top:-9px;left:-7px;}
+.corner-ticks::after{content:'+';bottom:-9px;right:-7px;}
+
+/* Mono-Bausteine */
+.kicker{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.75rem;
+  font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;}
+.kicker .dot{width:6px;height:6px;border-radius:50%;background:var(--portrait-blue);flex-shrink:0;}
+.kicker-plain{font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--accent);display:block;margin-bottom:1rem;}
+.tag{
+  display:inline-block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.08em;
+  text-transform:uppercase;background:var(--surface-paper);border:1px solid var(--border-tech);
+  color:var(--accent);padding:.2rem .5rem;border-radius:var(--radius);
+}
+.tag-dark{background:var(--surface-dark);border-color:var(--surface-dark);color:#fff;}
+.badge-code{
+  font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--surface-paper);border:1px solid var(--border-tech);color:var(--text-dim);
+  padding:.15rem .5rem;border-radius:var(--radius);white-space:nowrap;
+}
+.date-chip{
+  font-family:var(--font-mono);font-size:.75rem;background:var(--surface-paper);
+  border:1px solid var(--border-tech);color:var(--charcoal);padding:.25rem .75rem;
+  border-radius:var(--radius);white-space:nowrap;
+}
+
+/* Typografie */
+h1,h2,h3{font-weight:700;letter-spacing:-.02em;color:var(--charcoal);}
+h1{font-size:clamp(2.25rem,6vw,3.75rem);line-height:1.08;letter-spacing:-.03em;}
+h2{font-size:clamp(1.625rem,3.4vw,2.25rem);line-height:1.18;}
+h3{font-size:1.25rem;line-height:1.3;}
+.section-head{max-width:42rem;margin-bottom:3rem;}
+.section-head.wide{max-width:34rem;}
+.section-sub{color:var(--text-dim);margin-top:.75rem;font-size:1rem;}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.75rem;
+  font-family:var(--font-mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:1rem 2rem;border-radius:var(--radius);border:1px solid var(--charcoal);
+  box-shadow:var(--shadow-tactile);cursor:pointer;
+  transition:transform .15s var(--ease),box-shadow .15s var(--ease),background .15s var(--ease),border-color .15s var(--ease);
+}
+.btn-primary{background:var(--charcoal);color:#fff;}
+.btn-primary:hover{background:#1a2234;border-color:var(--portrait-blue);transform:translate(-1px,-1px);box-shadow:var(--shadow-tactile-hover);}
+.btn-secondary{background:var(--surface-card);color:var(--charcoal);}
+.btn-secondary:hover{border-color:var(--portrait-blue);transform:translate(-1px,-1px);box-shadow:var(--shadow-tactile-hover);}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #475569;}
+.btn:focus-visible{outline:2px solid var(--accent-bright);outline-offset:2px;}
+.icon-btn{
+  width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--surface-paper);border:1px solid var(--charcoal);border-radius:var(--radius);
+  box-shadow:2px 2px 0 #475569;color:var(--charcoal);flex-shrink:0;
+  transition:transform .15s var(--ease),background .15s var(--ease);
+}
+.icon-btn:hover{background:var(--surface-card);transform:translate(-1px,-1px);}
+
+/* ═══ HEADER ═══ */
+.nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:400;
+  background:rgba(248,250,252,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border-tech);
+}
+.nav-inner{height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:1.5rem;}
+.nav-logo{font-weight:700;font-size:1rem;letter-spacing:-.02em;}
+.nav-links{display:flex;align-items:center;gap:2rem;}
+.nav-links a{
+  font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);
+  padding:.25rem 0;border-bottom:2px solid transparent;
+  transition:color .15s var(--ease),border-color .15s var(--ease);
+}
+.nav-links a:hover{color:var(--charcoal);}
+.nav-links a.active{color:var(--charcoal);font-weight:700;border-bottom-color:var(--charcoal);}
+.nav-right{display:flex;align-items:center;gap:.75rem;}
+.lang-switch{
+  display:inline-flex;align-items:center;padding:2px;background:var(--surface-paper);
+  border:1px solid var(--border-tech);border-radius:var(--radius);
+  font-family:var(--font-mono);font-size:.75rem;
+}
+.lang-switch button,.lang-switch a{
+  font:inherit;border:none;background:none;cursor:pointer;padding:.25rem .5rem;
+  border-radius:var(--radius);color:var(--text-dim);transition:all .15s var(--ease);
+  text-decoration:none;line-height:1;display:inline-block;
+}
+.lang-switch button:hover,.lang-switch a:hover{color:var(--charcoal);background:var(--surface-card);}
+.lang-switch button[aria-pressed="true"],.lang-switch a.active{background:var(--charcoal);color:#fff;font-weight:700;}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:.5rem;flex-direction:column;gap:5px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--charcoal);transition:all .25s var(--ease);}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-nav{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;z-index:390;
+  background:var(--surface-card);border-bottom:1px solid var(--border-tech);
+  padding:1rem 1.5rem 1.5rem;flex-direction:column;gap:.25rem;
+}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{font-size:1rem;font-weight:500;color:var(--text-dim);padding:.7rem 0;border-bottom:1px solid var(--border-tech);}
+.mobile-nav a:last-child{border-bottom:none;}
+
+/* ═══ SEKTIONEN ═══ */
+main{padding-top:var(--nav-h);}
+section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech);}
+.card{
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:clamp(1.75rem,3vw,2.25rem);
+}
+.card h3{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;font-size:1.125rem;}
+.card p{color:var(--text-dim);max-width:80ch;font-size:1.0625rem;line-height:1.7;}
+.card .card-foot{
+  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;
+  max-width:none;
+  font-family:var(--font-mono);font-size:.6875rem;line-height:1.6;color:var(--text-muted);
+  border-top:1px solid var(--border-tech);margin-top:2rem;padding-top:1.5rem;
+}
+.card .card-foot span{white-space:nowrap;}
+.card-foot .m{color:var(--accent);font-weight:700;}
+
+/* ═══ HERO ═══ */
+.hero{padding:clamp(3rem,6vw,4.5rem) 0 clamp(3rem,6vw,5rem);}
+.hero-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(2rem,4vw,2.5rem);align-items:center;}
+.hero h1{margin:1.25rem 0 1.5rem;}
+.hero-tagline{color:var(--text-dim);font-size:1.0625rem;max-width:56ch;line-height:1.7;margin-bottom:2.5rem;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-portrait{position:relative;justify-self:end;width:100%;max-width:440px;}
+.hero-portrait .frame{
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:1.25rem;
+}
+.hero-portrait img{width:100%;height:auto;border-radius:var(--radius);}
+
+/* ═══ ZITAT-BAND ═══ */
+.quote-band{
+  background-color:var(--surface-dark);
+  background-image:radial-gradient(rgba(255,255,255,.09) 1px,transparent 1px);
+  background-size:20px 20px;
+  color:#fff;text-align:center;padding:clamp(3.5rem,7vw,6rem) 0;
+}
+.quote-band .chip{
+  display:inline-block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--accent-bright);
+  border:1px solid var(--border-dark);background:var(--surface-dark-card);
+  padding:.3rem .7rem;border-radius:var(--radius);margin-bottom:2rem;
+}
+.quote-band blockquote{
+  font-size:clamp(1.25rem,2.6vw,2rem);font-weight:700;letter-spacing:-.02em;line-height:1.35;
+  max-width:900px;margin:0 auto 1.75rem;
+}
+.quote-band .caption{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-muted);}
+
+/* ═══ PROJEKTE ═══ */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.proj-card{
+  display:flex;flex-direction:column;background:var(--surface-card);
+  border:1px solid var(--border-tech);border-radius:var(--radius);box-shadow:var(--shadow-card);
+  padding:1.25rem;
+  transition:border-color .2s var(--ease),box-shadow .2s var(--ease);
+}
+.proj-card:hover{border-color:var(--portrait-blue);box-shadow:0 4px 14px rgba(15,23,42,.10);}
+.proj-card:focus-visible{border-color:var(--portrait-blue);box-shadow:0 0 0 2px var(--accent-bright);outline:none;}
+.proj-card .badges{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;}
+.proj-image{
+  border:1px solid var(--border-tech);border-radius:var(--radius);background:var(--surface);
+  padding:1.25rem;margin-bottom:1.25rem;
+}
+.proj-image img{width:100%;height:auto;}
+.proj-card h3{margin-bottom:.6rem;font-size:1.125rem;}
+.proj-card p{color:var(--text-dim);font-size:.9375rem;flex:1;}
+.proj-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  border-top:1px solid var(--border-tech);margin-top:1.5rem;padding-top:1rem;
+}
+.proj-foot span{font-family:var(--font-mono);font-size:.6875rem;color:var(--text-dim);}
+
+/* ═══ ACCORDIONS (native <details>) ═══ */
+.ac-group{display:flex;flex-direction:column;gap:1rem;}
+.ac-item{
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);transition:border-color .15s var(--ease);overflow:hidden;
+}
+/* Hover-Rahmen nur, wenn der Zeiger über dem klickbaren Kopf steht */
+.ac-item:has(summary.ac-head:hover){border-color:var(--charcoal);}
+summary.ac-head{
+  display:flex;align-items:center;gap:1rem;padding:1.5rem;cursor:pointer;
+  list-style:none;user-select:none;
+}
+summary.ac-head::-webkit-details-marker{display:none;}
+.summary-copy{flex:1;min-width:0;}
+.summary-copy h3{font-size:1.25rem;font-weight:700;letter-spacing:-.02em;}
+.summary-copy .sub{display:block;font-family:var(--font-mono);font-size:.8125rem;font-weight:400;
+  color:var(--text-dim);margin-top:.15rem;}
+.ac-meta{display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
+.chev{
+  width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
+  color:var(--text-dim);font-size:.7rem;
+  transition:transform .2s var(--ease),background .15s var(--ease),color .15s var(--ease),border-color .15s var(--ease);
+}
+summary.ac-head:hover .chev{background:var(--charcoal);color:#fff;border-color:var(--charcoal);}
+details[open] .chev{transform:rotate(180deg);background:var(--charcoal);color:#fff;border-color:var(--charcoal);}
+.ac-body{padding:1rem 1.5rem 1.5rem;border-top:1px solid var(--border-tech);background:var(--surface-paper);}
+.ac-body ul{display:flex;flex-direction:column;gap:.75rem;}
+.ac-body li{display:flex;align-items:flex-start;gap:.75rem;color:var(--text-dim);font-size:.875rem;}
+.ac-body li::before{
+  content:'>';font-family:var(--font-mono);font-size:.75rem;font-weight:700;
+  color:var(--accent);flex-shrink:0;margin-top:1px;
+}
+.ac-body p{color:var(--text-dim);font-size:.9375rem;}
+
+/* Personal */
+.personal-list{max-width:64rem;}
+.personal-icon{
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
+  color:var(--charcoal);
+}
+.personal-copy{flex:1;min-width:0;}
+.personal-copy strong{display:flex;align-items:center;gap:.5rem;font-size:1.125rem;font-weight:700;}
+.personal-copy .sub{display:block;font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--text-muted);margin-top:.2rem;}
+
+/* ═══ SKILLS & TOOLING ═══ */
+.skills-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;}
+.skill-card{
+  display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--surface-card);border:1px solid var(--border-tech);border-radius:var(--radius);
+  box-shadow:var(--shadow-card);padding:1.75rem;
+}
+.span-4{grid-column:span 4;}
+.span-6{grid-column:span 6;}
+.skill-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.5rem;}
+.comp-icon{
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
+  color:var(--accent);
+}
+.comp-icon.sm{width:36px;height:36px;}
+.inline-icon{display:flex;align-items:center;gap:.75rem;}
+.skill-card h3{margin-bottom:1rem;font-size:1.125rem;}
+.skill-card li{position:relative;padding-left:1rem;color:var(--text-dim);font-size:.875rem;margin-bottom:.5rem;}
+.skill-card li::before{content:'•';position:absolute;left:0;color:var(--accent);font-weight:700;}
+.skill-foot{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  border-top:1px solid var(--border-tech);margin-top:2rem;padding-top:1rem;
+  font-family:var(--font-mono);font-size:.6875rem;color:var(--text-muted);
+}
+.skill-foot .star{color:var(--accent);}
+.skill-foot .m{color:var(--accent);font-weight:700;}
+.tool-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;}
+.tool{
+  display:flex;align-items:center;gap:.5rem;background:var(--surface-paper);
+  border:1px solid var(--border-tech);border-radius:var(--radius);padding:.5rem .75rem;
+  font-family:var(--font-mono);font-size:.75rem;color:var(--charcoal);
+}
+.tool .p{width:6px;height:6px;border-radius:50%;background:var(--portrait-blue);flex-shrink:0;}
+.lang-row{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  background:var(--surface-paper);border:1px solid var(--border-tech);border-radius:var(--radius);
+  padding:.75rem 1rem;margin-bottom:.75rem;
+}
+.lang-row .who{display:flex;align-items:center;gap:.75rem;font-weight:500;font-size:.875rem;}
+.lang-row .level{
+  font-family:var(--font-mono);font-size:.75rem;font-weight:700;color:var(--accent);
+  background:var(--accent-soft-bg);border:1px solid var(--accent-soft-border);
+  border-radius:var(--radius);padding:.15rem .6rem;
+}
+
+/* ═══ EDUCATION ═══ */
+.edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.edu-card{display:flex;flex-direction:column;background:var(--surface-card);
+  border:1px solid var(--border-tech);border-radius:var(--radius);box-shadow:var(--shadow-card);
+  padding:1.5rem;}
+.edu-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.25rem;}
+.edu-card h3{margin-bottom:.35rem;font-size:1.0625rem;}
+.edu-org{font-family:var(--font-mono);color:var(--text-dim);font-size:.8125rem;margin-bottom:1rem;}
+.edu-card li{position:relative;padding-left:1.1rem;color:var(--text-dim);font-size:.875rem;margin-bottom:.5rem;}
+.edu-card li::before{content:'>';position:absolute;left:0;font-family:var(--font-mono);font-size:.7rem;
+  color:var(--accent);top:.1rem;}
+.edu-card p{color:var(--text-dim);font-size:.9375rem;flex:1;}
+.edu-foot{
+  display:flex;align-items:center;gap:.5rem;border-top:1px solid var(--border-tech);
+  margin-top:1.5rem;padding-top:1rem;font-family:var(--font-mono);font-size:.6875rem;
+  text-transform:uppercase;color:var(--text-dim);
+}
+.edu-foot i{color:var(--mint-dark);}
+
+/* ═══ KONTAKT ═══ */
+.contact-wrap{max-width:820px;margin:0 auto;text-align:center;}
+.contact-card{background:var(--surface-card);border:1px solid var(--border-tech);
+  border-radius:var(--radius);box-shadow:var(--shadow-card);padding:clamp(2rem,5vw,3.5rem);}
+.contact-card .kicker-plain{display:inline-block;}
+.contact-card p{color:var(--text-dim);max-width:36rem;margin:1rem auto 2.5rem;font-size:1.0625rem;line-height:1.7;}
+.contact-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+
+/* ═══ FOOTER ═══ */
+footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
+  padding:clamp(2.5rem,5vw,4rem) 0 1.5rem;}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;margin-bottom:2.5rem;}
+.footer-brand strong{display:block;font-weight:700;font-size:1.25rem;letter-spacing:-.02em;}
+.footer-brand span{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);}
+.footer-links{display:flex;gap:1rem;flex-wrap:wrap;}
+.footer-links a{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);}
+.footer-links a:hover{color:var(--charcoal);}
+.footer-links a.hl{color:var(--charcoal);text-decoration:underline;}
+.footer-links a .ext-arrow{font-size:.6rem;margin-left:.35em;opacity:.65;
+  transition:opacity .15s var(--ease),transform .15s var(--ease);}
+.footer-links a:hover .ext-arrow{opacity:1;transform:translate(1px,-1px);}
+.footer-bottom{
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  border-top:1px solid var(--border-tech);padding-top:1.25rem;
+  font-family:var(--font-mono);font-size:.6875rem;color:var(--text-muted);
+}
+
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
+.js .reveal.visible{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none;}
+  html{scroll-behavior:auto;}
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width:1024px){
+  .proj-grid,.edu-grid{grid-template-columns:repeat(2,1fr);}
+  .skills-grid{grid-template-columns:repeat(2,1fr);}
+  .span-4,.span-6{grid-column:span 1;}
+  .tool-grid{grid-template-columns:repeat(2,1fr);}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+}
+@media (max-width:768px){
+  .hero-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .hero-portrait{justify-self:center;max-width:380px;}
+  .proj-grid,.edu-grid,.skills-grid{grid-template-columns:1fr;}
+  .tool-grid{grid-template-columns:repeat(2,1fr);}
+  summary.ac-head{flex-wrap:wrap;row-gap:.75rem;padding:1.25rem;}
+  .summary-copy{flex-basis:100%;order:2;}
+  .ac-meta{margin-left:auto;}
+  .ac-body{padding:1rem 1.25rem 1.25rem;}
+  .footer-inner{align-items:flex-start;flex-direction:column;}
+  .footer-bottom{flex-direction:column;}
+}
+@media (max-width:480px){
+  .hero-actions,.contact-actions{flex-direction:column;align-items:stretch;}
+  .btn{justify-content:center;}
+  .date-chip{font-size:.6875rem;padding:.2rem .5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#home" class="nav-logo">Isabel Bettinger</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="#home" class="active">Home</a>
+      <a href="#projects">Case Studies</a>
+      <a href="#experience">Werdegang</a>
+      <a href="#competencies">Kompetenzen</a>
+      <a href="#education">Ausbildung</a>
+      <a href="#personal">Persönliches</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Sprachauswahl">
+        <a href="index.html">EN</a>
+        <a href="index-de.html" class="active" aria-current="page">DE</a>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menü" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#home" onclick="closeMenu()">Home</a>
+  <a href="#projects" onclick="closeMenu()">Case Studies</a>
+  <a href="#experience" onclick="closeMenu()">Werdegang</a>
+  <a href="#competencies" onclick="closeMenu()">Kompetenzen</a>
+  <a href="#education" onclick="closeMenu()">Ausbildung</a>
+  <a href="#personal" onclick="closeMenu()">Persönliches</a>
+</div>
+
+<main>
+
+<!-- ═══ HERO ═══ -->
+<section id="home" class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-content">
+        <span class="kicker"><span class="dot"></span>Senior Product Manager</span>
+        <h1>Build what matters</h1>
+        <p class="hero-tagline">Ich baue das digitale Rückgrat von B2B-Unternehmen und verwandle komplexe Herausforderungen in intuitive, nutzerzentrierte Produkte mit messbarem wirtschaftlichen Mehrwert.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">Projekte ansehen <i class="fas fa-arrow-down" style="font-size:.7rem"></i></a>
+          <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" rel="noopener" class="btn btn-secondary"><i class="fab fa-linkedin" style="font-size:.8rem"></i> Auf LinkedIn vernetzen</a>
+        </div>
+      </div>
+      <div class="hero-portrait corner-ticks">
+        <div class="frame">
+          <img src="portrait-illustration.png" alt="Illustriertes Porträt von Isabel Bettinger" width="512" height="458">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ZITAT ═══ -->
+<section class="quote-band">
+  <div class="container">
+    <span class="chip">&#10022; Leitprinzip</span>
+    <blockquote>&ldquo;Ein Produkt ist nicht dann perfekt, wenn man nichts mehr hinzufügen kann, sondern wenn man nichts mehr weglassen kann.&rdquo;</blockquote>
+    <p class="caption">&#10022; Ein Prinzip, nach dem ich arbeite</p>
+  </div>
+</section>
+
+<!-- ═══ WHO I AM ═══ -->
+<section id="summary">
+  <div class="container reveal">
+    <div class="section-head wide">
+      <span class="kicker-plain">[ 00 // Summary Matrix ]</span>
+      <h2>Klarheit und messbarer Mehrwert über den gesamten Produktlebenszyklus</h2>
+    </div>
+    <div class="card">
+      <h3>Über mich</h3>
+      <p>Die digitale Welt besser zum Funktionieren zu bringen und echten Mehrwert zu schaffen, ist für mich mehr als eine Jobbezeichnung: Es ist mein Anspruch. Als Product Manager mit über fünf Jahren Erfahrung setze ich auf User-Centered Design, um vom ersten Tag an spürbaren wirtschaftlichen Mehrwert zu liefern. Ich bin hochmotiviert, neugierig und eine geborene Führungspersönlichkeit. Ob es darum geht, Strategien zu definieren, Prozesse zu verschlanken oder die User Experience zu perfektionieren: Mein Ziel ist simpel. Bauen, was wirklich zählt, und den Rest streichen.</p>
+      <p class="card-foot"><span>#CROSS-FUNCTIONAL LEADER //</span> <span>#STRATEGIC THINKER //</span> <span>#ANALYTICAL EMPATH //</span> <span>#CURIOUS PROBLEM SOLVER</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROJEKTE ═══ -->
+<section id="projects">
+  <div class="container reveal">
+    <div class="section-head">
+      <span class="kicker-plain">[ 01 // Case Studies ]</span>
+      <h2>Ausgewählte Projekte</h2>
+      <p class="section-sub">Eine Auswahl wirkungsvoller B2B-Enterprise-Produkte, die ich von der strategischen Discovery bis zum Go-to-Market begleitet habe.</p>
+    </div>
+
+    <div class="proj-grid">
+      <a class="proj-card corner-ticks" href="projekt-action-view.html" aria-label="Case Study: Action View 2.0">
+        <div class="badges"><span class="tag">UX Redesign</span><span class="tag tag-dark">Growth</span></div>
+        <div class="proj-image">
+          <img src="project-action-view.png" alt="Illustration: Diagramme und Charts" width="1955" height="1186">
+        </div>
+        <h3>Action View 2.0</h3>
+        <p>Umfassendes Redesign des zentralen Analyse-Features, das Live-Daten zur Sichtbarkeit in den Google-SERPs liefert. End-to-End-Produktverantwortung von der Discovery bis zum Go-to-Market.</p>
+        <div class="proj-foot">
+          <span>[ Core Platform Feature ]</span>
+          <span class="icon-btn" aria-hidden="true"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></span>
+        </div>
+      </a>
+
+      <a class="proj-card corner-ticks" href="projekt-time-control.html" aria-label="Case Study: Time Control">
+        <div class="badges"><span class="tag">Strategy</span><span class="tag tag-dark">Enterprise</span></div>
+        <div class="proj-image">
+          <img src="project-time-control.png" alt="Illustration: Person am Tisch mit Pie-Chart" width="1955" height="1186">
+        </div>
+        <h3>Time Control</h3>
+        <p>Strategische Führung eines geschäftskritischen Features, welches das Werteversprechen der Plattform grundlegend veränderte und zum zentralen Hebel für Enterprise-Abschlüsse und Retention wurde.</p>
+        <div class="proj-foot">
+          <span>[ Sales Enablement Driver ]</span>
+          <span class="icon-btn" aria-hidden="true"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></span>
+        </div>
+      </a>
+
+      <a class="proj-card corner-ticks" href="projekt-zero-to-demo.html" aria-label="Case Study: Zero to Demo">
+        <div class="badges"><span class="tag">Partner Project</span><span class="tag tag-dark">CMS Integration</span></div>
+        <div class="proj-image">
+          <img src="project-zero-to-demo.png" alt="Illustration: Laptop und Smartphone" width="1955" height="1186">
+        </div>
+        <h3>Zero to Demo</h3>
+        <p>Verantwortung für die schnelle Umsetzung zweier produktionsreifer Demo-Frontends für einen Tier-1-CMS-Partner auf Basis des XP Layers und live präsentiert auf den CUE Days 2025.</p>
+        <div class="proj-foot">
+          <span>[ CUE Days 2025 Showcase ]</span>
+          <span class="icon-btn" aria-hidden="true"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPERIENCE ═══ -->
+<section id="experience">
+  <div class="container reveal">
+    <div class="section-head">
+      <span class="kicker-plain">[ 02 // Werdegang ]</span>
+      <h2>Berufserfahrung</h2>
+      <p class="section-sub">Erfahrung in B2B-Produktstrategie, Roadmap-Umsetzung und der Führung crossfunktionaler Teams.</p>
+    </div>
+
+    <div class="ac-group">
+      <details class="ac-item">
+        <summary class="ac-head">
+          <span class="summary-copy">
+            <h3>Product Manager / Product Owner</h3>
+            <span class="sub">ethinking GmbH</span>
+          </span>
+          <span class="ac-meta">
+            <span class="date-chip">2025 – Heute</span>
+            <span class="chev"><i class="fas fa-chevron-down"></i></span>
+          </span>
+        </summary>
+        <div class="ac-body">
+          <ul>
+            <li>Abstimmung der Go-to-Market-Strategie mit den Engineering-Roadmaps und Priorisierung technischer Kapazitäten im Abgleich mit den Geschäftszielen</li>
+            <li>Entwicklung und Validierung des Product-Market-Fits über eine 4-monatige Launch-Strategie in zwei großen Iterationen</li>
+            <li>Aufbau eines Delivery-Frameworks, das strategische Planung von der täglichen Umsetzung entkoppelt</li>
+            <li>Etablierung einer &ldquo;Outcome over Output&rdquo;-Philosophie in multidisziplinären Teams</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="ac-item">
+        <summary class="ac-head">
+          <span class="summary-copy">
+            <h3>Product Manager</h3>
+            <span class="sub">Trisolute Software GmbH</span>
+          </span>
+          <span class="ac-meta">
+            <span class="date-chip">2023 – 2025</span>
+            <span class="chev"><i class="fas fa-chevron-down"></i></span>
+          </span>
+        </summary>
+        <div class="ac-body">
+          <ul>
+            <li>Ermittlung von Nutzerbedürfnissen durch quantitative und qualitative Research zur Identifikation zentraler Pain Points</li>
+            <li>Überführung von Insights in klare Ziele, Konzepte und Mockups zur Schärfung der Produktvision</li>
+            <li>Koordination crossfunktionaler Teams mit agilen Methoden (Sprint-Planung, Testing, schnelle Feedbackschleifen)</li>
+            <li>Entwicklung und Umsetzung von Go-to-Market- und Promotion-Strategien für starke Produkt-Adoption</li>
+            <li>Erfolgsmessung über Customer-Satisfaction-Surveys und kontinuierliches Nutzerfeedback</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="ac-item">
+        <summary class="ac-head">
+          <span class="summary-copy">
+            <h3>Junior Product Manager</h3>
+            <span class="sub">Trisolute Software GmbH</span>
+          </span>
+          <span class="ac-meta">
+            <span class="date-chip">2021 – 2023</span>
+            <span class="chev"><i class="fas fa-chevron-down"></i></span>
+          </span>
+        </summary>
+        <div class="ac-body">
+          <ul>
+            <li>Ausbau von Kundenbeziehungen durch regelmäßige Besuche und persönlichen Austausch</li>
+            <li>Durchführung von Wettbewerbs- und Marktanalysen zur Identifikation von Trends, Risiken und Chancen</li>
+            <li>Analyse von Nutzungsdaten und Implementierung von Churn-Prevention-Strategien zur Kundenbindung</li>
+            <li>UX/UI- und Interface-Design zur Verbesserung von User Experience und Zufriedenheit</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="ac-item">
+        <summary class="ac-head">
+          <span class="summary-copy">
+            <h3>Outreach Specialist</h3>
+            <span class="sub">Dept Agency</span>
+          </span>
+          <span class="ac-meta">
+            <span class="date-chip">2018 – 2021</span>
+            <span class="chev"><i class="fas fa-chevron-down"></i></span>
+          </span>
+        </summary>
+        <div class="ac-body">
+          <ul>
+            <li>Entwicklung datengestützter Strategien durch Wettbewerbs-Backlink-Analysen und Domain-Authority-Research</li>
+            <li>Durchführung von Link-Audits zur Identifikation toxischer Profile und ungenutzter Ranking-Potenziale</li>
+            <li>Verzahnung von Onpage- und Offpage-SEO zur Stärkung der Topical Authority über Kundenportfolios hinweg</li>
+            <li>Steuerung von kundenorientiertem Outreach, organischer Sichtbarkeit und Referral-Traffic</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SKILLS & TOOLING ═══ -->
+<section id="competencies">
+  <div class="container reveal">
+    <div class="section-head">
+      <span class="kicker-plain">[ 03 // Kompetenzen ]</span>
+      <h2>Skills &amp; Tooling</h2>
+      <p class="section-sub">Strategische Domänenkompetenz, moderne Toolchains und exzellente Kommunikation.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card span-4">
+        <div>
+          <div class="skill-top">
+            <div class="comp-icon"><i class="fas fa-arrow-trend-up"></i></div>
+          </div>
+          <h3>Strategic Business &amp; Growth</h3>
+          <ul>
+            <li>Product Strategy</li>
+            <li>KPI Architecture</li>
+            <li>Market &amp; Competitive Intelligence</li>
+            <li>Strategic Stakeholder Alignment</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skill-card span-4">
+        <div>
+          <div class="skill-top">
+            <div class="comp-icon"><i class="fas fa-pen-ruler"></i></div>
+          </div>
+          <h3>Product Discovery &amp; UX</h3>
+          <ul>
+            <li>Product Discovery</li>
+            <li>UX/UI Design</li>
+            <li>Experience Strategy &amp; Optimization</li>
+            <li>Requirement Synthesis &amp; Validation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skill-card span-4">
+        <div>
+          <div class="skill-top">
+            <div class="comp-icon"><i class="fas fa-gauge-high"></i></div>
+          </div>
+          <h3>Execution &amp; Agile Governance</h3>
+          <ul>
+            <li>Roadmap &amp; OKR Frameworks</li>
+            <li>Agile Governance &amp; Scalability</li>
+            <li>Lifecycle Ownership &amp; Value</li>
+            <li>Data-Informed Decision Making</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="skill-card span-6">
+        <div>
+          <div class="skill-top">
+            <div class="inline-icon">
+              <div class="comp-icon sm"><i class="fas fa-screwdriver-wrench"></i></div>
+              <h3 style="margin:0">Tools &amp; Stack</h3>
+            </div>
+          </div>
+          <div class="tool-grid">
+            <span class="tool"><span class="p"></span>Jira</span>
+            <span class="tool"><span class="p"></span>Miro</span>
+            <span class="tool"><span class="p"></span>Figma</span>
+            <span class="tool"><span class="p"></span>Adobe XD</span>
+            <span class="tool"><span class="p"></span>Asana</span>
+            <span class="tool"><span class="p"></span>Notion</span>
+            <span class="tool"><span class="p"></span>Microsoft Office</span>
+            <span class="tool"><span class="p"></span>Google Workspace</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card span-6">
+        <div>
+          <div class="skill-top">
+            <div class="inline-icon">
+              <div class="comp-icon sm"><i class="fas fa-language"></i></div>
+              <h3 style="margin:0">Sprachen &amp; Kommunikation</h3>
+            </div>
+          </div>
+          <div class="lang-row">
+            <span class="who">&#127465;&#127466; Deutsch</span>
+            <span class="level">Muttersprache</span>
+          </div>
+          <div class="lang-row">
+            <span class="who">&#127468;&#127463; Englisch</span>
+            <span class="level">Fließend (verhandlungssicher)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EDUCATION ═══ -->
+<section id="education">
+  <div class="container reveal">
+    <div class="section-head">
+      <span class="kicker-plain">[ 04 // Ausbildung ]</span>
+      <h2>Ausbildung &amp; Zertifikate</h2>
+      <p class="section-sub">Akademisches Fundament in den Sozialwissenschaften, kombiniert mit spezialisierten Zertifizierungen im Produktmanagement.</p>
+    </div>
+
+    <div class="edu-grid">
+      <article class="edu-card corner-ticks">
+        <div class="edu-top">
+          <div class="comp-icon" style="margin-bottom:0"><i class="fas fa-graduation-cap"></i></div>
+          <span class="date-chip">2013 – 2018</span>
+        </div>
+        <h3>Bachelor of Arts, Sozialwissenschaften</h3>
+        <p class="edu-org">Justus-Liebig-Universität Gießen</p>
+        <p>Interdisziplinärer Schwerpunkt auf Verhaltenswissenschaften, quantitativen Forschungsmethoden, gesellschaftlichen Strukturen und menschlichen Kommunikationsmodellen.</p>
+        <div class="edu-foot"><i class="fas fa-circle-check"></i> Akademisches Fundament</div>
+      </article>
+
+      <article class="edu-card corner-ticks">
+        <div class="edu-top">
+          <div class="comp-icon" style="margin-bottom:0"><i class="fas fa-certificate"></i></div>
+          <span class="date-chip">2023 – 2024</span>
+        </div>
+        <h3>Product Management Specialization</h3>
+        <p class="edu-org">University of Virginia, Remote</p>
+        <ul>
+          <li>Digital Product Management: Modern Fundamentals</li>
+          <li>Agile meets Design Thinking</li>
+          <li>Hypothesis Driven Development</li>
+          <li>Product Analytics and AI</li>
+        </ul>
+        <div class="edu-foot"><i class="fas fa-circle-check"></i> UVA zertifiziert</div>
+      </article>
+
+      <article class="edu-card corner-ticks">
+        <div class="edu-top">
+          <div class="comp-icon" style="margin-bottom:0"><i class="fas fa-list-check"></i></div>
+          <span class="date-chip">Feb – Apr 2025</span>
+        </div>
+        <h3>Workflow Specialist Certificate</h3>
+        <p class="edu-org">Asana Academy, Remote</p>
+        <ul>
+          <li>Effektive Workflows in crossfunktionalen Teams</li>
+          <li>Kollaboration, Kommunikation &amp; Teamwork</li>
+          <li>Projektmanagement &amp; Workflow-Analytics</li>
+        </ul>
+        <div class="edu-foot"><i class="fas fa-circle-check"></i> Operational Excellence</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PERSONAL ═══ -->
+<section id="personal">
+  <div class="container reveal">
+    <div class="section-head">
+      <span class="kicker-plain">[ 05 // Persönliches ]</span>
+      <h2>Persönliche Facetten</h2>
+      <p class="section-sub">Hinter jedem Beruf steht ein Mensch. Ein kleiner Einblick in mein Leben abseits des Schreibtischs.</p>
+    </div>
+
+    <div class="ac-group personal-list">
+      <details class="ac-item">
+        <summary class="ac-head">
+          <span class="personal-icon"><i class="fas fa-dumbbell"></i></span>
+          <span class="personal-copy"><strong>Active Lifestyle</strong><span class="sub">Alles eine Frage der Balance</span></span>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>Ich bin jemand, der Bewegung wirklich braucht. An den meisten Tagen findet man mich beim Krafttraining im Gym, wo ich meine Grenzen auslote. Danach gönne ich mir einen entspannten Saunagang. Ich mag den Kontrast zwischen energiegeladenen Tagen und der Ruhe eines herrlich unproduktiven Nachmittags. Am Ende zählt die Balance.</p></div>
+      </details>
+
+      <details class="ac-item">
+        <summary class="ac-head">
+          <span class="personal-icon"><i class="fas fa-water"></i></span>
+          <span class="personal-copy"><strong>Diving &amp; Snorkeling</strong><span class="sub">Unterwasserwelten entdecken</span></span>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>Ich liebe die Unterwasserwelt. Beim Tauchen und Schnorcheln geht es mir nicht nur um die Stille, sondern darum, eine völlig andere Welt zu entdecken. Ein Ökosystem zu erkunden, das den meisten Menschen verborgen bleibt, fasziniert mich jedes Mal aufs Neue. Für mich ist es der beste Weg, komplett abzuschalten und im Moment zu sein.</p></div>
+      </details>
+
+      <details class="ac-item">
+        <summary class="ac-head">
+          <span class="personal-icon"><i class="fas fa-film"></i></span>
+          <span class="personal-copy"><strong>Reading &amp; Cinema</strong><span class="sub">Kultur &amp; gute Geschichten</span></span>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>Meine freie Zeit teile ich meist zwischen Büchern und Filmen auf. Ich habe ein Faible für Arthouse-Kino und gut geschriebene Fiktion, aber auch Fachliteratur hat ihren festen Platz im Regal. Hauptsache, es lohnt sich wirklich, Zeit und Gedanken darin zu investieren.</p></div>
+      </details>
+
+      <details class="ac-item">
+        <summary class="ac-head">
+          <span class="personal-icon"><i class="fas fa-star"></i></span>
+          <span class="personal-copy"><strong>Fun Fact</strong><span class="sub">Darauf kommt niemand</span></span>
+          <span class="ac-meta"><span class="chev"><i class="fas fa-chevron-down"></i></span></span>
+        </summary>
+        <div class="ac-body"><p>Ich bin richtig gut im Hula-Hoop. Ich mache es nicht ständig, aber ich habe es mir vor Jahren über YouTube-Videos beigebracht, und seitdem kann ich es einfach.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KONTAKT ═══ -->
+<section id="contact">
+  <div class="container contact-wrap reveal">
+    <div class="contact-card corner-ticks">
+      <span class="kicker-plain">[ 06 // Kontakt ]</span>
+      <h2>Lass uns sprechen</h2>
+      <p>Ob neue berufliche Chance, ein spannendes Projekt oder einfach ein guter Austausch über modernes Produktmanagement: Ich freue mich über jede Nachricht.</p>
+      <div class="contact-actions">
+        <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" rel="noopener" class="btn btn-primary"><i class="fab fa-linkedin" style="font-size:.8rem"></i> Auf LinkedIn vernetzen</a>
+        <a href="mailto:isabel.bettinger@outlook.de" class="btn btn-secondary"><i class="fas fa-envelope" style="font-size:.75rem"></i> E-Mail schreiben</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <strong>Isabel Bettinger</strong>
+        <span>Senior Product Manager</span>
+      </div>
+      <nav class="footer-links">
+        <a href="#projects">Case Studies</a>
+        <a href="#experience">Werdegang</a>
+        <a href="#competencies">Kompetenzen</a>
+        <a href="#education">Ausbildung</a>
+        <a href="#personal">Persönliches</a>
+        <a href="https://www.linkedin.com/in/isabel-bettinger/" target="_blank" rel="noopener" class="hl" title="LinkedIn (öffnet in neuem Tab)">LinkedIn<i class="fas fa-arrow-up-right-from-square ext-arrow" aria-hidden="true"></i></a>
+        <a href="https://www.xing.com/profile/Isabel_Bettinger2" target="_blank" rel="noopener" class="hl" title="XING (öffnet in neuem Tab)">XING<i class="fas fa-arrow-up-right-from-square ext-arrow" aria-hidden="true"></i></a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Isabel Bettinger. Alle Rechte vorbehalten.</span>
+      <span>Self-made design. By Isabel Bettinger.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  const hb = document.getElementById('hamburger');
+  const mn = document.getElementById('mobile-nav');
+  hb.classList.toggle('open');
+  mn.classList.toggle('open');
+  hb.setAttribute('aria-expanded', mn.classList.contains('open') ? 'true' : 'false');
+}
+function closeMenu(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+  document.getElementById('hamburger').setAttribute('aria-expanded','false');
+}
+
+/* Accordions sind native <details>; kein JS nötig. */
+document.querySelectorAll('.ac-group').forEach(group => {
+  group.querySelectorAll('details.ac-item').forEach(item => {
+    item.addEventListener('toggle', () => {
+      if (!item.open || !group.classList.contains('exclusive')) return;
+      group.querySelectorAll('details[open]').forEach(o => { if (o !== item) o.open = false; });
+    });
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const navLinks = [...document.querySelectorAll('#nav-links a')];
+const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+sections.forEach(s => spy.observe(s));
+</script>
+</body>
+</html>
