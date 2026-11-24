@@ -234,6 +234,10 @@ section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech
   border-top:1px solid var(--border-tech);margin-top:1.5rem;padding-top:1rem;
 }
 .proj-foot span{font-family:var(--font-mono);font-size:.6875rem;color:var(--text-dim);}
+.project-teaser{border-style:dashed;background:var(--surface-paper);box-shadow:none;cursor:default;}
+.project-teaser:hover{border-color:var(--border-tech);box-shadow:none;}
+.teaser-art{min-height:182px;display:grid;place-items:center;background:var(--surface);border:1px dashed var(--border-tech);color:var(--text-muted);margin-bottom:1.25rem;}
+.teaser-art i{font-size:2rem;color:var(--accent);}
 
 /* ═══ ACCORDIONS (native <details>) ═══ */
 .ac-group{display:flex;flex-direction:column;gap:1rem;}
@@ -418,6 +422,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
     <nav class="nav-links" id="nav-links">
       <a href="#home" class="active">Home</a>
       <a href="#projects">Case Studies</a>
+      <a href="#ai-projects">AI Projects</a>
       <a href="#experience">Career Record</a>
       <a href="#competencies">Competencies</a>
       <a href="#education">Education</a>
@@ -437,6 +442,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <div class="mobile-nav" id="mobile-nav">
   <a href="#home" onclick="closeMenu()">Home</a>
   <a href="#projects" onclick="closeMenu()">Case Studies</a>
+  <a href="#ai-projects" onclick="closeMenu()">AI Projects</a>
   <a href="#experience" onclick="closeMenu()">Career Record</a>
   <a href="#competencies" onclick="closeMenu()">Competencies</a>
   <a href="#education" onclick="closeMenu()">Education</a>
@@ -542,11 +548,41 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
   </div>
 </section>
 
+<!-- ═══ AI PROJECTS ═══ -->
+<section id="ai-projects">
+  <div class="container reveal">
+    <div class="section-head">
+      <span class="kicker-plain">[ 02 // AI Projects ]</span>
+      <h2>AI Projects</h2>
+      <p class="section-sub">Applied AI across product features, learning, and independent projects.</p>
+    </div>
+    <div class="proj-grid">
+      <a class="proj-card corner-ticks" href="projekt-google-discover.html" aria-label="AI Project: Google Discover Insights">
+        <div class="badges"><span class="tag">AI Feature</span><span class="tag tag-dark">Google Discover</span></div>
+        <div class="proj-image">
+          <img src="project-google-discover.png" alt="Illustration: Analysis of Google Discover content" width="1955" height="1186">
+        </div>
+        <h3>Google Discover Insights</h3>
+        <p>AI-powered topic clusters turned Google Discover data into strategic insights for publishers. I led the new analysis area from discovery to launch, adding a continuous data history and anonymized competitor comparison.</p>
+        <div class="proj-foot"><span>[ AI-Powered Topic Analysis ]</span><span class="icon-btn" aria-hidden="true"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></span></div>
+      </a>
+
+      <article class="proj-card project-teaser" aria-label="More AI projects coming soon">
+        <div class="badges"><span class="tag">Coming Soon</span><span class="tag tag-dark">AI Projects</span></div>
+        <div class="teaser-art" aria-hidden="true"><i class="fas fa-person-digging"></i></div>
+        <h3>More AI projects are on the way</h3>
+        <p>New experiments and projects are in progress. Check back soon.</p>
+        <div class="proj-foot"><span>[ UNDER CONSTRUCTION ]</span><span aria-hidden="true">✦</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ EXPERIENCE ═══ -->
 <section id="experience">
   <div class="container reveal">
     <div class="section-head">
-      <span class="kicker-plain">[ 02 // Career Record ]</span>
+      <span class="kicker-plain">[ 03 // Career Record ]</span>
       <h2>Professional Experience</h2>
       <p class="section-sub">Comprehensive career history leading B2B product strategy, roadmap execution, and cross-functional teams.</p>
     </div>
@@ -644,7 +680,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <section id="competencies">
   <div class="container reveal">
     <div class="section-head">
-      <span class="kicker-plain">[ 03 // Competencies ]</span>
+      <span class="kicker-plain">[ 04 // Competencies ]</span>
       <h2>Skills &amp; Tooling</h2>
       <p class="section-sub">Strategic domain mastery, tooling, and communication excellence.</p>
     </div>
@@ -742,7 +778,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <section id="education">
   <div class="container reveal">
     <div class="section-head">
-      <span class="kicker-plain">[ 04 // Education ]</span>
+      <span class="kicker-plain">[ 05 // Education ]</span>
       <h2>Education &amp; Credentials</h2>
       <p class="section-sub">Academic grounding in social sciences paired with specialized product management certifications.</p>
     </div>
@@ -797,7 +833,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <section id="personal">
   <div class="container reveal">
     <div class="section-head">
-      <span class="kicker-plain">[ 05 // Personal ]</span>
+      <span class="kicker-plain">[ 06 // Personal ]</span>
       <h2>Personal Elements</h2>
       <p class="section-sub">Behind every professional is a person. Here's a glimpse into my life outside of work.</p>
     </div>
@@ -846,7 +882,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <section id="contact">
   <div class="container contact-wrap reveal">
     <div class="contact-card corner-ticks">
-      <span class="kicker-plain">[ 06 // Connect ]</span>
+      <span class="kicker-plain">[ 07 // Connect ]</span>
       <h2>Let's Talk</h2>
       <p>Whether it's a job opportunity, a project, or just a good conversation about product management, I'd love to hear from you. Feel free to send me a message.</p>
       <div class="contact-actions">
@@ -869,6 +905,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
       </div>
       <nav class="footer-links">
         <a href="#projects">Case Studies</a>
+        <a href="#ai-projects">AI Projects</a>
         <a href="#experience">Career Record</a>
         <a href="#competencies">Competencies</a>
         <a href="#education">Education</a>

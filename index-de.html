@@ -234,6 +234,10 @@ section{padding:clamp(3rem,6vw,5rem) 0;border-bottom:1px solid var(--border-tech
   border-top:1px solid var(--border-tech);margin-top:1.5rem;padding-top:1rem;
 }
 .proj-foot span{font-family:var(--font-mono);font-size:.6875rem;color:var(--text-dim);}
+.project-teaser{border-style:dashed;background:var(--surface-paper);box-shadow:none;cursor:default;}
+.project-teaser:hover{border-color:var(--border-tech);box-shadow:none;}
+.teaser-art{min-height:182px;display:grid;place-items:center;background:var(--surface);border:1px dashed var(--border-tech);color:var(--text-muted);margin-bottom:1.25rem;}
+.teaser-art i{font-size:2rem;color:var(--accent);}
 
 /* ═══ ACCORDIONS (native <details>) ═══ */
 .ac-group{display:flex;flex-direction:column;gap:1rem;}
@@ -418,6 +422,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
     <nav class="nav-links" id="nav-links">
       <a href="#home" class="active">Home</a>
       <a href="#projects">Case Studies</a>
+      <a href="#ai-projects">KI-Projekte</a>
       <a href="#experience">Werdegang</a>
       <a href="#competencies">Kompetenzen</a>
       <a href="#education">Ausbildung</a>
@@ -437,6 +442,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <div class="mobile-nav" id="mobile-nav">
   <a href="#home" onclick="closeMenu()">Home</a>
   <a href="#projects" onclick="closeMenu()">Case Studies</a>
+  <a href="#ai-projects" onclick="closeMenu()">KI-Projekte</a>
   <a href="#experience" onclick="closeMenu()">Werdegang</a>
   <a href="#competencies" onclick="closeMenu()">Kompetenzen</a>
   <a href="#education" onclick="closeMenu()">Ausbildung</a>
@@ -542,11 +548,41 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
   </div>
 </section>
 
+<!-- ═══ KI-PROJEKTE ═══ -->
+<section id="ai-projects">
+  <div class="container reveal">
+    <div class="section-head">
+      <span class="kicker-plain">[ 02 // KI-Projekte ]</span>
+      <h2>KI-Projekte</h2>
+      <p class="section-sub">KI in der Praxis: von Produkt-Features über Weiterbildung bis zu eigenen Projekten.</p>
+    </div>
+    <div class="proj-grid">
+      <a class="proj-card corner-ticks" href="projekt-google-discover-de.html" aria-label="KI-Projekt: Google Discover Insights">
+        <div class="badges"><span class="tag">KI-Feature</span><span class="tag tag-dark">Google Discover</span></div>
+        <div class="proj-image">
+          <img src="project-google-discover.png" alt="Illustration: Analyse von Google-Discover-Inhalten" width="1955" height="1186">
+        </div>
+        <h3>Google Discover Insights</h3>
+        <p>KI-gestützte Themencluster machten Google-Discover-Daten strategisch nutzbar. Ich verantwortete den neuen Analysebereich von der Discovery bis zum Launch und ergänzte eine fortlaufende Datenhistorie sowie einen anonymisierten Wettbewerbsvergleich.</p>
+        <div class="proj-foot"><span>[ KI-gestützte Themenanalyse ]</span><span class="icon-btn" aria-hidden="true"><i class="fas fa-arrow-right" style="font-size:.75rem"></i></span></div>
+      </a>
+
+      <article class="proj-card project-teaser" aria-label="Weitere KI-Projekte folgen bald">
+        <div class="badges"><span class="tag">Demnächst</span><span class="tag tag-dark">KI-Projekte</span></div>
+        <div class="teaser-art" aria-hidden="true"><i class="fas fa-person-digging"></i></div>
+        <h3>Weitere KI-Projekte entstehen</h3>
+        <p>Neue Experimente und Projekte sind in Arbeit. Schau bald wieder vorbei.</p>
+        <div class="proj-foot"><span>[ IM AUFBAU ]</span><span aria-hidden="true">✦</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ EXPERIENCE ═══ -->
 <section id="experience">
   <div class="container reveal">
     <div class="section-head">
-      <span class="kicker-plain">[ 02 // Werdegang ]</span>
+      <span class="kicker-plain">[ 03 // Werdegang ]</span>
       <h2>Berufserfahrung</h2>
       <p class="section-sub">Erfahrung in B2B-Produktstrategie, Roadmap-Umsetzung und der Führung crossfunktionaler Teams.</p>
     </div>
@@ -644,7 +680,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <section id="competencies">
   <div class="container reveal">
     <div class="section-head">
-      <span class="kicker-plain">[ 03 // Kompetenzen ]</span>
+      <span class="kicker-plain">[ 04 // Kompetenzen ]</span>
       <h2>Skills &amp; Tooling</h2>
       <p class="section-sub">Strategische Domänenkompetenz, moderne Toolchains und exzellente Kommunikation.</p>
     </div>
@@ -742,7 +778,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <section id="education">
   <div class="container reveal">
     <div class="section-head">
-      <span class="kicker-plain">[ 04 // Ausbildung ]</span>
+      <span class="kicker-plain">[ 05 // Ausbildung ]</span>
       <h2>Ausbildung &amp; Zertifikate</h2>
       <p class="section-sub">Akademisches Fundament in den Sozialwissenschaften, kombiniert mit spezialisierten Zertifizierungen im Produktmanagement.</p>
     </div>
@@ -797,7 +833,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <section id="personal">
   <div class="container reveal">
     <div class="section-head">
-      <span class="kicker-plain">[ 05 // Persönliches ]</span>
+      <span class="kicker-plain">[ 06 // Persönliches ]</span>
       <h2>Persönliche Facetten</h2>
       <p class="section-sub">Hinter jedem Beruf steht ein Mensch. Ein kleiner Einblick in mein Leben abseits des Schreibtischs.</p>
     </div>
@@ -846,7 +882,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
 <section id="contact">
   <div class="container contact-wrap reveal">
     <div class="contact-card corner-ticks">
-      <span class="kicker-plain">[ 06 // Kontakt ]</span>
+      <span class="kicker-plain">[ 07 // Kontakt ]</span>
       <h2>Lass uns sprechen</h2>
       <p>Ob neue berufliche Chance, ein spannendes Projekt oder einfach ein guter Austausch über modernes Produktmanagement: Ich freue mich über jede Nachricht.</p>
       <div class="contact-actions">
@@ -869,6 +905,7 @@ footer{background:var(--surface-paper);border-top:1px solid var(--border-tech);
       </div>
       <nav class="footer-links">
         <a href="#projects">Case Studies</a>
+        <a href="#ai-projects">KI-Projekte</a>
         <a href="#experience">Werdegang</a>
         <a href="#competencies">Kompetenzen</a>
         <a href="#education">Ausbildung</a>
